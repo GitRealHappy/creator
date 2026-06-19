@@ -46,15 +46,20 @@ the event's waitlist signups.)
 
 ---
 
-## Step 3 — Point the domain (when ready to go fully public)
-This is the cutover from Framer to GitHub Pages. When you say go, I'll add a `CNAME`
-file containing `thelivinginternet.com`, then you update DNS at your registrar:
+## Step 3 — Custom domain (www.thelivinginternet.com)
+A `CNAME` file containing `www.thelivinginternet.com` now lives in the repo root. This is
+what tells GitHub Pages the custom domain; **do not delete it**, and avoid force-pushing
+over history without it (that's what knocked the domain out before).
 
-- Apex `thelivinginternet.com` → A records:
-  `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
+Because this project repo carries that CNAME, Pages serves the site at the **root** of
+`www.thelivinginternet.com` (not under `/creator/`), so relative paths to `styles.css`
+and images resolve correctly.
+
+DNS (at your registrar) should have:
 - `www` → CNAME → `gitrealhappy.github.io`
 
-(I'll confirm exact values against GitHub's current docs at cutover time.)
+If the domain worked before the force push, this record already exists. Confirm the
+GitHub Pages setting still shows `www.thelivinginternet.com` after the next deploy.
 
 ---
 
