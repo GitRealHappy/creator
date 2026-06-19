@@ -128,7 +128,11 @@ Sections marked ✅ are built; the rest are stubbed as `.placeholder` blocks in 
 - ✅ Register buttons (`#register` panel + final CTA) → wired to the live Circle paywall:
   `https://living-internet-alliance.circle.so/checkout/90-day-creator-sprint`. Hero and nav
   Register buttons funnel to `#register` first (by design).
-- ⬜ "Join the 2027 waitlist" in `#summit-2027` → still `href="#"`; waitlist mechanism undecided.
+- ✅ "Join the 2027 waitlist" → wired to Ticket Tailor event series `es_2274135`
+  (`https://tickets.thelivinginternet.com/events/thelivinginternetalliance/2274135`),
+  waitlist enabled, pre-sale shown sold out, dates/venue TBA (placeholder occurrence
+  Jun 4–6 2027). **Needs publishing in the TT dashboard** (attach Stripe payment method,
+  then Publish) before the link is public; this can't be done via the API.
 - Footer Privacy/Terms point to `/privacy-policy` and `/terms-of-service` (carried over from the summit site; confirm they still exist).
 
 ### Responsive behavior

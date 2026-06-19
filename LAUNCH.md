@@ -32,6 +32,20 @@ landing page):
 
 ---
 
+## Step 2b — Publish the 2027 waitlist (~30 sec, only you can do this)
+The 2027 waitlist event is built in Ticket Tailor and the page button is wired to it,
+but Ticket Tailor won't make any event live until a payment method is attached (even a
+waitlist-only one). In the TT dashboard:
+1. Open **Future-Proof Creator Summit 2027**.
+2. Attach your existing Stripe payment method to the event.
+3. **Publish** it.
+That's it. The "Join the 2027 waitlist" button then works:
+`https://tickets.thelivinginternet.com/events/thelivinginternetalliance/2274135`
+(Placeholder dates Jun 4–6 2027 are tentative; change them anytime. Emails collect under
+the event's waitlist signups.)
+
+---
+
 ## Step 3 — Point the domain (when ready to go fully public)
 This is the cutover from Framer to GitHub Pages. When you say go, I'll add a `CNAME`
 file containing `thelivinginternet.com`, then you update DNS at your registrar:
