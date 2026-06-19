@@ -1,112 +1,533 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creator Convention - The Living Internet</title>
-    
-    <!-- Primary Meta Tags -->
-    <meta name="title" content="Creator Convention - The Living Internet">
-    <meta name="description" content="Join us at the Creator Convention, a gathering of digital creators exploring the future of online communities and content creation.">
-    <meta name="keywords" content="creator convention, digital creators, online communities, content creation, the living internet">
-    <meta name="author" content="The Living Internet">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://thelivinginternet.com/">
-    <meta property="og:title" content="Creator Convention - The Living Internet">
-    <meta property="og:description" content="Join us at the Creator Convention, a gathering of digital creators exploring the future of online communities and content creation.">
-    <meta property="og:image" content="https://thelivinginternet.com/images/convention-og.svg">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:site_name" content="The Living Internet">
-    
-    <!-- Twitter / X -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://thelivinginternet.com/">
-    <meta property="twitter:title" content="Creator Convention - The Living Internet">
-    <meta property="twitter:description" content="Join us at the Creator Convention, a gathering of digital creators exploring the future of online communities and content creation.">
-    <meta property="twitter:image" content="https://thelivinginternet.com/images/convention-og.png">
-    <meta property="twitter:image:alt" content="Creator Convention - The Living Internet">
-    
-    <!-- LinkedIn -->
-    <meta property="og:image:type" content="image/svg+xml">
-    
-    <!-- Additional Meta Tags -->
-    <meta name="robots" content="index, follow">
-    <meta name="language" content="English">
-    <meta name="revisit-after" content="7 days">
-    <meta name="distribution" content="global">
-    
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://www.oakmoss.ca/convention">
-    
-    <!-- Redirect Meta Tag -->
-    <meta http-equiv="refresh" content="0; url=https://www.oakmoss.ca/convention">
-    
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px;
-            background-color: #f5f5f5;
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .redirect-message {
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        .logo {
-            max-width: 200px;
-            height: auto;
-            margin-bottom: 20px;
-        }
-        h1 {
-            color: #333;
-            margin-bottom: 20px;
-            font-size: 2em;
-        }
-        p {
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 15px;
-        }
-        .link {
-            color: #007bff;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.1em;
-        }
-        .link:hover {
-            text-decoration: underline;
-        }
-        .loading {
-            margin-top: 20px;
-            color: #999;
-            font-style: italic;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>90-Day Creator Sprint · The Living Internet Alliance</title>
+  <meta name="description" content="A 90-day guided integration for creators: three writing challenges, eight speaker workshops, a real accountability pod, and a community that keeps you building. Registration closes June 30." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="The 90-Day Creator Sprint" />
+  <meta property="og:description" content="The summit ended. The change is just beginning. Join the 90-Day Creator Sprint. Registration closes June 30." />
+  <meta property="og:type" content="website" />
+
+  <!-- Fonts: Fraunces (warm editorial display) + Inter (clean body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Montserrat:wght@600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <div class="redirect-message">
-        <img src="images/convention-og.svg" alt="Creator Convention" class="logo">
-        <h1>Creator Convention</h1>
-        <p>You are being redirected to the Creator Convention at <a href="https://www.oakmoss.ca/convention" class="link">www.oakmoss.ca/convention</a></p>
-        <p>If you are not redirected automatically, please click the link above.</p>
-        <p class="loading">Redirecting...</p>
+
+  <!-- ===================== NAV ===================== -->
+  <header class="nav" id="top">
+    <div class="nav__inner">
+      <a class="nav__brand" href="#top" aria-label="The Living Internet Alliance, home">
+        <img src="assets/images/graphics/logo-white.png" alt="The Living Internet Alliance" class="nav__logo" />
+        <span class="nav__wordmark">The Living Internet Alliance</span>
+      </a>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="#what">The Sprint</a>
+        <a href="#journey">90 Days</a>
+        <a href="#proof">Stories</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <a href="#register" class="btn btn--ghost nav__cta">Register</a>
     </div>
-    
-    <script>
-        // Immediate redirect
-        window.location.replace("https://www.oakmoss.ca/convention");
-    </script>
+  </header>
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero__media" role="img" aria-label="Jesse holding the mic in front of the speaker panel at the 2026 Future-Proof Creator Summit"></div>
+    <div class="hero__scrim"></div>
+
+    <div class="hero__content">
+      <p class="eyebrow">90-Day Creator Sprint &nbsp;·&nbsp; July 1 – September 30</p>
+
+      <h1 class="hero__title" id="hero-title">
+        The summit ended.<br />
+        <em>The change is just beginning.</em>
+      </h1>
+
+      <p class="hero__sub">
+        A 90-day guided integration for creators: three writing challenges, eight
+        speaker workshops, and a small accountability pod that keeps you building
+        when your motivation runs dry. Turn your peak experience into a
+        high-altitude plateau state.
+      </p>
+
+      <div class="hero__actions">
+        <a href="#register" class="btn btn--solid btn--lg">Register for the Sprint · $177</a>
+        <p class="hero__deadline">
+          Registration closes <strong>2:00&nbsp;PM PDT, June&nbsp;30</strong>. Begins July&nbsp;1. No late entries.
+        </p>
+      </div>
+
+    </div>
+
+    <a href="#what" class="hero__scroll" aria-label="Scroll to learn more">
+      <span></span>
+    </a>
+  </section>
+
+  <!-- ===================== (sections below to be built) ===================== -->
+  <main>
+    <!-- ===================== ATTENDEE STRIP ===================== -->
+    <section id="attendees" class="attendee-strip" aria-label="For 2026 summit attendees">
+      <div class="attendee-strip__inner">
+        <div class="attendee-strip__text">
+          <p class="eyebrow">For 2026 summit attendees</p>
+          <p class="attendee-strip__line">
+            You already have everything. The Sprint is included with your membership,
+            with no second payment and no new sign-up to complete.
+          </p>
+        </div>
+        <button type="button" class="btn btn--ghost" data-modal-open="attendee">Find your access</button>
+      </div>
+    </section>
+
+    <!-- ===================== WHAT THE SPRINT IS ===================== -->
+    <section id="what" class="section">
+      <div class="section__inner">
+        <header class="section-head">
+          <p class="eyebrow">What the Sprint is</p>
+          <h2 class="section-title">Six things that keep you building.</h2>
+          <p class="section-intro">
+            The Sprint isn't a course you watch. It's a practice you keep, with people
+            who keep it alongside you.
+          </p>
+        </header>
+
+        <ul class="pillars">
+          <li class="pillar">
+            <span class="pillar__num">01</span>
+            <h3 class="pillar__title">A daily practice that finally sticks</h3>
+            <p class="pillar__desc">
+              Three one-month writing challenges: fifteen minutes a day of undistracted
+              writing, with a group that's counting on you to show up. It's optional, but
+              it's the simplest way to turn good intentions into a habit you keep.
+            </p>
+          </li>
+
+          <li class="pillar">
+            <span class="pillar__num">02</span>
+            <h3 class="pillar__title">Learn from people who've done it</h3>
+            <p class="pillar__desc">
+              Eight live workshops across the Sprint with speakers from the 2026 summit.
+              Every session is recorded, so a missed evening is never a missed lesson.
+            </p>
+          </li>
+
+          <li class="pillar">
+            <span class="pillar__num">03</span>
+            <h3 class="pillar__title">A room that stays warm</h3>
+            <p class="pillar__desc">
+              A two-hour community call each month, where you bring the grievances, goals,
+              and small wins that creators usually carry alone.
+            </p>
+          </li>
+
+          <li class="pillar">
+            <span class="pillar__num">04</span>
+            <h3 class="pillar__title">Support for the lonely parts</h3>
+            <p class="pillar__desc">
+              A growing pool of mental well-being resources for the isolation of digital
+              entrepreneurship, because you shouldn't have to face the hard days by yourself.
+            </p>
+          </li>
+
+          <li class="pillar">
+            <span class="pillar__num">05</span>
+            <h3 class="pillar__title">A small group that notices you</h3>
+            <p class="pillar__desc">
+              Your accountability pod: four to six creators who meet weekly and hold each
+              other to their goals. You'll be placed alongside people from the 100-person
+              2026 summit and other new registrants, grouped by time zone, creative focus,
+              and who you ask to be with.
+            </p>
+          </li>
+
+          <li class="pillar">
+            <span class="pillar__num">06</span>
+            <h3 class="pillar__title">A home base that never closes</h3>
+            <p class="pillar__desc">
+              An online community with spaces to chat, share work in progress, and trade
+              feedback between calls. It's also where the full recordings of the 2026
+              Future-Proof Creator Summit live, yours to watch from the very start. The
+              free spaces, like the maker space chat, stay open to you even after your
+              three months of Premium membership lapse.
+            </p>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <!-- ===================== THE 90-DAY JOURNEY ===================== -->
+    <section id="journey" class="section section--journey">
+      <div class="section__inner">
+        <header class="section-head">
+          <p class="eyebrow">The 90-day journey</p>
+          <h2 class="section-title">Three months. Three arcs.</h2>
+          <p class="section-intro">
+            The summit was a peak. The Sprint is the climb that keeps it from fading.
+            Here's how the ninety days move.
+          </p>
+        </header>
+
+        <ol class="arcs">
+          <li class="arc">
+            <span class="arc__node" aria-hidden="true"></span>
+            <p class="arc__month">Month One</p>
+            <h3 class="arc__name">Foundations</h3>
+            <p class="arc__theme">Show up.</p>
+            <p class="arc__body">
+              You build the daily practice and meet the people who'll be with you all
+              the way to the end.
+            </p>
+            <ul class="arc__list">
+              <li>Writing Challenge #1 begins</li>
+              <li>Your accountability pod forms and meets</li>
+              <li>The first monthly networking call</li>
+              <li>Three speaker workshops</li>
+            </ul>
+          </li>
+
+          <li class="arc">
+            <span class="arc__node" aria-hidden="true"></span>
+            <p class="arc__month">Month Two</p>
+            <h3 class="arc__name">Momentum</h3>
+            <p class="arc__theme">Go deeper.</p>
+            <p class="arc__body">
+              The messy middle, where motivation dips and the pod is what carries you
+              through it.
+            </p>
+            <ul class="arc__list">
+              <li>Writing Challenge #2</li>
+              <li>The second networking call</li>
+              <li>Three more workshops</li>
+              <li>Your pod finds its rhythm</li>
+            </ul>
+          </li>
+
+          <li class="arc">
+            <span class="arc__node" aria-hidden="true"></span>
+            <p class="arc__month">Month Three</p>
+            <h3 class="arc__name">Integration</h3>
+            <p class="arc__theme">Make it yours.</p>
+            <p class="arc__body">
+              The practice stops being something you do and starts being who you are.
+            </p>
+            <ul class="arc__list">
+              <li>Writing Challenge #3</li>
+              <li>A celebration networking call</li>
+              <li>The final two workshops</li>
+              <li>A plan for what comes after day 90</li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </section>
+    <!-- ===================== TESTIMONIAL WALL ===================== -->
+    <section id="proof" class="section section--proof">
+      <div class="section__inner">
+        <div class="photo-strip">
+          <figure class="photo-strip__item">
+            <img src="assets/images/summit-photos/img6.jpg" alt="A speaker presenting a workshop at the 2026 summit" loading="lazy" />
+          </figure>
+          <figure class="photo-strip__item">
+            <img src="assets/images/summit-photos/img5.jpg" alt="The audience listening during a session at the 2026 summit" loading="lazy" />
+          </figure>
+          <figure class="photo-strip__item">
+            <img src="assets/images/summit-photos/img14.jpg" alt="Attendees connecting between sessions at the 2026 summit" loading="lazy" />
+          </figure>
+        </div>
+
+        <header class="section-head">
+          <p class="eyebrow">From the 2026 summit</p>
+          <h2 class="section-title">Nobody asked them to post these.</h2>
+          <p class="section-intro">
+            When people left Abbotsford, they went home and wrote about it on their own.
+            This is what the room felt like, in their words.
+          </p>
+        </header>
+
+        <div class="wall">
+          <figure class="post"><img src="assets/images/testimonials/test11.png" alt="A 2026 summit attendee's social post" loading="lazy" /></figure>
+          <figure class="post"><img src="assets/images/testimonials/test1.png" alt="A 2026 summit attendee's social post" loading="lazy" /></figure>
+          <figure class="post"><img src="assets/images/testimonials/test14.png" alt="A 2026 summit attendee's social post" loading="lazy" /></figure>
+          <figure class="post"><img src="assets/images/testimonials/test3.png" alt="A 2026 summit attendee's social post" loading="lazy" /></figure>
+          <figure class="post"><img src="assets/images/testimonials/test12.png" alt="A 2026 summit attendee's social post" loading="lazy" /></figure>
+          <figure class="post"><img src="assets/images/testimonials/test10.png" alt="A 2026 summit attendee's social post" loading="lazy" /></figure>
+          <figure class="post"><img src="assets/images/testimonials/test4.png" alt="A 2026 summit attendee's social post" loading="lazy" /></figure>
+          <figure class="post"><img src="assets/images/testimonials/test2.png" alt="A 2026 summit attendee's social post" loading="lazy" /></figure>
+          <figure class="post"><img src="assets/images/testimonials/test16.png" alt="A 2026 summit attendee's social post" loading="lazy" /></figure>
+          <figure class="post"><img src="assets/images/testimonials/test6.png" alt="A 2026 summit attendee's social post" loading="lazy" /></figure>
+          <figure class="post"><img src="assets/images/testimonials/test5.png" alt="A 2026 summit attendee's social post" loading="lazy" /></figure>
+          <figure class="post"><img src="assets/images/testimonials/test8.png" alt="A 2026 summit attendee's social post" loading="lazy" /></figure>
+          <figure class="post"><img src="assets/images/testimonials/test17.png" alt="A 2026 summit attendee's social post" loading="lazy" /></figure>
+          <figure class="post"><img src="assets/images/testimonials/test7.png" alt="A 2026 summit attendee's social post" loading="lazy" /></figure>
+          <figure class="post"><img src="assets/images/testimonials/test13.png" alt="A 2026 summit attendee's social post" loading="lazy" /></figure>
+          <figure class="post"><img src="assets/images/testimonials/test15.png" alt="A 2026 summit attendee's social post" loading="lazy" /></figure>
+        </div>
+      </div>
+    </section>
+    <!-- ===================== WHO IT'S FOR ===================== -->
+    <section id="who" class="section">
+      <div class="section__inner">
+        <header class="section-head">
+          <p class="eyebrow">An honest fit</p>
+          <h2 class="section-title">Who this is for.</h2>
+          <p class="section-intro">
+            The Sprint asks something of you. It's worth being honest about whether
+            that's what you're looking for right now.
+          </p>
+        </header>
+
+        <div class="who__cols">
+          <div class="who__col">
+            <h3 class="who__head">This is for you if</h3>
+            <ul class="who__list who__list--yes">
+              <li>You make things, and you want a daily practice that outlasts your motivation.</li>
+              <li>You're tired of building alone and want a small group that notices when you go quiet.</li>
+              <li>You'd rather do the work with people than watch another course by yourself.</li>
+              <li>You felt something at the summit, or you wish you'd been there, and you want to keep that momentum.</li>
+            </ul>
+          </div>
+          <div class="who__col">
+            <h3 class="who__head">This isn't for you if</h3>
+            <ul class="who__list who__list--no">
+              <li>You want a course to binge alone and never speak to anyone.</li>
+              <li>You're after overnight growth hacks or a get-rich-quick promise.</li>
+              <li>You have no capacity to show up for a group over the next ninety days.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== PRICE & REGISTRATION ===================== -->
+    <section id="register" class="section section--register">
+      <div class="section__inner">
+        <header class="section-head section-head--center">
+          <p class="eyebrow">Register</p>
+          <h2 class="section-title">Three months that change how you work.</h2>
+          <p class="section-intro">
+            One payment. Three months of Premium membership, and every part of the Sprint.
+          </p>
+        </header>
+
+        <div class="register__panel">
+          <div class="register__price">
+            <span class="register__amount">$177</span>
+            <span class="register__unit">USD, one time</span>
+          </div>
+
+          <ul class="register__includes">
+            <li>Full access to the 90-Day Creator Sprint</li>
+            <li>Three months of Premium Living Internet University membership</li>
+            <li>All eight speaker workshops, live and recorded</li>
+            <li>Your accountability pod and the monthly networking calls</li>
+            <li>The complete recordings of the 2026 Future-Proof Creator Summit</li>
+          </ul>
+
+          <div class="countdown" id="countdown" data-deadline="2026-06-30T21:00:00Z" aria-label="Time left to register">
+            <div class="countdown__unit"><span class="countdown__num" data-days>00</span><span class="countdown__label">days</span></div>
+            <div class="countdown__unit"><span class="countdown__num" data-hours>00</span><span class="countdown__label">hours</span></div>
+            <div class="countdown__unit"><span class="countdown__num" data-minutes>00</span><span class="countdown__label">minutes</span></div>
+            <div class="countdown__unit"><span class="countdown__num" data-seconds>00</span><span class="countdown__label">seconds</span></div>
+          </div>
+
+          <a href="https://living-internet-alliance.circle.so/checkout/90-day-creator-sprint" class="btn btn--solid btn--lg register__cta">Register for the Sprint</a>
+
+          <p class="register__fine">
+            Registration closes 2:00&nbsp;PM PDT, June&nbsp;30. The Sprint begins July&nbsp;1.
+            Pods form together that day, so there are no late entries.
+          </p>
+          <p class="register__refund">
+            Not sure? If you're not feeling it in the first month, we'll refund you in full.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 2027 SUMMIT WHISPER ===================== -->
+    <section id="summit-2027" class="whisper">
+      <div class="whisper__inner">
+        <div class="whisper__text">
+          <p class="eyebrow">Looking ahead</p>
+          <h2 class="whisper__title">There will be a 2027 summit.</h2>
+          <p class="whisper__body">
+            Tickets aren't public yet, and the first twenty sold out in pre-sale. The Sprint
+            is the surest way back into the room. Join the waitlist to be first to know when
+            dates and tickets are announced.
+          </p>
+        </div>
+        <!-- TODO: replace href with the 2027 waitlist signup URL -->
+        <a href="#" class="btn btn--ghost">Join the 2027 waitlist</a>
+      </div>
+    </section>
+
+    <!-- ===================== FAQ ===================== -->
+    <section id="faq" class="section">
+      <div class="section__inner">
+        <header class="section-head">
+          <p class="eyebrow">Questions</p>
+          <h2 class="section-title">Good to know.</h2>
+        </header>
+
+        <div class="faq__list">
+          <details class="faq__item">
+            <summary class="faq__q">Do I need to have attended the 2026 summit?</summary>
+            <div class="faq__a">No. The Sprint is open to any creator, whether or not you were in the room in 2026.</div>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__q">What if I can't make a workshop live?</summary>
+            <div class="faq__a">Everything is recorded. All eight workshops and the monthly calls are available to watch later, on your own time.</div>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__q">When do the live sessions happen?</summary>
+            <div class="faq__a">Workshops are usually Thursday evenings and Saturday mornings, Pacific time. The community-wide networking calls, open to every Premium member, happen once a month and run two hours or more. All times are PDT.</div>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__q">Is the writing challenge mandatory?</summary>
+            <div class="faq__a">No, it's optional. It's fifteen minutes of undistracted writing a day, done at whatever time suits you, with a shared checklist so everyone can see each other's streaks and keep each other going.</div>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__q">What happens after the 90 days?</summary>
+            <div class="faq__a">At the end of September your Premium membership lapses. You can renew at new pricing for a lighter, stay-connected set of offerings. The free community spaces, like the maker space chat, stay open to you either way.</div>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__q">What's your refund policy?</summary>
+            <div class="faq__a">If you're unhappy in the first month, just let us know and we'll refund you in full.</div>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__q">How are the accountability pods grouped?</summary>
+            <div class="faq__a">By time zone, creative focus area, and any requests to be grouped with specific people. You'll fill out a short intake survey after you register, which arrives by email.</div>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== FINAL CTA ===================== -->
+  <section class="final">
+    <div class="final__inner">
+      <h2 class="final__title">The room is still warm.</h2>
+      <p class="final__sub">
+        The summit was the spark. The Sprint is how you keep it lit, with people walking
+        the same ninety days beside you.
+      </p>
+      <a href="https://living-internet-alliance.circle.so/checkout/90-day-creator-sprint" class="btn btn--solid btn--lg">Register for the Sprint · $177</a>
+      <p class="final__deadline">Registration closes 2:00&nbsp;PM PDT, June&nbsp;30. No late entries.</p>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div>
+        <p class="footer__brand">The Living Internet Alliance</p>
+        <p class="footer__meta">Questions about access? <a href="mailto:jesse@thelivinginternet.com">jesse@thelivinginternet.com</a></p>
+      </div>
+      <div class="footer__links">
+        <p class="footer__meta">© 2026 The Living Internet Alliance</p>
+        <a href="/privacy-policy">Privacy</a>
+        <a href="/terms-of-service">Terms</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===================== ATTENDEE MODAL ===================== -->
+  <div class="modal" id="modal-attendee" role="dialog" aria-modal="true" aria-labelledby="modal-attendee-title" hidden>
+    <div class="modal__backdrop" data-modal-close></div>
+    <div class="modal__panel" role="document">
+      <button type="button" class="modal__close" data-modal-close aria-label="Close">&times;</button>
+      <p class="eyebrow">2026 Summit Attendees</p>
+      <h2 class="modal__title" id="modal-attendee-title">You're already in.</h2>
+      <p class="modal__body">
+        Your summit ticket includes a full year of Premium membership, plus the entire
+        90-Day Creator Sprint at no extra cost. There's nothing to buy.
+      </p>
+      <p class="modal__body">
+        Already have access to the premium community? Just log in and head to the Sprint
+        space. Haven't received access yet? Email
+        <a href="mailto:jesse@thelivinginternet.com">jesse@thelivinginternet.com</a>
+        and we'll get you set up.
+      </p>
+      <a href="mailto:jesse@thelivinginternet.com" class="btn btn--solid modal__cta">Email to request access</a>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const openers = document.querySelectorAll('[data-modal-open]');
+      let lastFocused = null;
+
+      function openModal(id) {
+        const modal = document.getElementById('modal-' + id);
+        if (!modal) return;
+        lastFocused = document.activeElement;
+        modal.hidden = false;
+        document.body.style.overflow = 'hidden';
+        const focusable = modal.querySelector('.modal__close');
+        if (focusable) focusable.focus();
+        document.addEventListener('keydown', onKey);
+      }
+      function closeModal(modal) {
+        modal.hidden = true;
+        document.body.style.overflow = '';
+        document.removeEventListener('keydown', onKey);
+        if (lastFocused) lastFocused.focus();
+      }
+      function onKey(e) {
+        if (e.key === 'Escape') {
+          const open = document.querySelector('.modal:not([hidden])');
+          if (open) closeModal(open);
+        }
+      }
+      openers.forEach(function (btn) {
+        btn.addEventListener('click', function () { openModal(btn.dataset.modalOpen); });
+      });
+      document.querySelectorAll('[data-modal-close]').forEach(function (el) {
+        el.addEventListener('click', function () {
+          closeModal(el.closest('.modal'));
+        });
+      });
+    })();
+
+    /* ---------- Countdown to registration close ---------- */
+    (function () {
+      const el = document.getElementById('countdown');
+      if (!el) return;
+      const deadline = new Date(el.dataset.deadline).getTime();
+      const out = {
+        days: el.querySelector('[data-days]'),
+        hours: el.querySelector('[data-hours]'),
+        minutes: el.querySelector('[data-minutes]'),
+        seconds: el.querySelector('[data-seconds]')
+      };
+      const pad = function (n) { return String(n).padStart(2, '0'); };
+
+      function tick() {
+        let diff = Math.floor((deadline - Date.now()) / 1000);
+        if (diff <= 0) {
+          el.classList.add('countdown--closed');
+          el.innerHTML = '<p class="countdown__closed">Registration has closed. The Sprint has begun.</p>';
+          clearInterval(timer);
+          return;
+        }
+        const d = Math.floor(diff / 86400); diff -= d * 86400;
+        const h = Math.floor(diff / 3600);  diff -= h * 3600;
+        const m = Math.floor(diff / 60);    diff -= m * 60;
+        out.days.textContent = pad(d);
+        out.hours.textContent = pad(h);
+        out.minutes.textContent = pad(m);
+        out.seconds.textContent = pad(diff);
+      }
+      tick();
+      const timer = setInterval(tick, 1000);
+    })();
+  </script>
+
 </body>
-</html> 
+</html>
