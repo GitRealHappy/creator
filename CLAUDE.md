@@ -70,7 +70,7 @@ The Sprint consists of six pillars:
 - `--ink` `#0a0a0a` page base, `--ink-2` `#121212` raised surfaces, `--black` `#000`.
 - `--text` `#f2f0ec` warm white, `--text-dim` muted, `--text-faint` faintest.
 - `--paper` `#f4f1ec` warm off-white for large display text.
-- `--accent` `#e8c89a` — a reserved warm accent, **currently unused.** CTAs are pure white-on-black to honor the black-and-white direction. Only introduce the accent if the user explicitly asks.
+- `--accent` `#e8c89a` — warm gold accent. CTAs stay pure white-on-black to honor the black-and-white direction; the accent is reserved for hairline borders/glow only, used (via `--accent-soft` / `--accent-glow` / `--accent-faint` derived tokens) on the pillars grid, register panel, who-it's-for columns, photo strip, and the 2027 whisper section's smoke background. Only extend its use further if the user explicitly asks.
 
 **Motion:** subtle and tasteful only. Slow hero zoom drift, scroll cue pulse, modal/fade entrances. All disabled under `prefers-reduced-motion`.
 

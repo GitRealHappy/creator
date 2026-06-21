@@ -22,6 +22,9 @@
 
   /* Optional reserved warm accent (used sparingly; CTA stays white by default) */
   --accent:       #e8c89a;
+  --accent-soft:  rgba(232, 200, 154, 0.35);  /* hairline borders */
+  --accent-glow:  rgba(232, 200, 154, 0.18);  /* soft box-shadow glow */
+  --accent-faint: rgba(232, 200, 154, 0.10);  /* gradient fill stops */
 
   /* Type */
   --display:  "Fraunces", Georgia, "Times New Roman", serif;
@@ -161,6 +164,14 @@ a { color: inherit; text-decoration: none; }
 }
 .nav__links a:hover { color: var(--white); }
 .nav__cta { padding: 0.6em 1.2em; font-size: 0.85rem; }
+.nav__fpcs {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-dim);
+  transition: color .18s ease;
+  white-space: nowrap;
+}
+.nav__fpcs:hover { color: var(--white); }
 
 /* ============================================================
    HERO
@@ -353,9 +364,10 @@ a { color: inherit; text-decoration: none; }
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr));
   gap: 1px;
   background: var(--line-soft);   /* shows through as hairline dividers */
-  border: 1px solid var(--line-soft);
+  border: 1px solid var(--accent-soft);
   border-radius: 16px;
   overflow: hidden;
+  box-shadow: 0 0 50px -20px var(--accent-glow);
 }
 .pillar {
   background: var(--ink);
@@ -371,7 +383,7 @@ a { color: inherit; text-decoration: none; }
   font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.18em;
-  color: var(--text-faint);
+  color: var(--accent);
 }
 .pillar__title {
   font-family: var(--display);
@@ -520,7 +532,7 @@ a { color: inherit; text-decoration: none; }
   margin: 0;
   border-radius: 14px;
   overflow: hidden;
-  border: 1px solid var(--line-soft);
+  border: 1px solid var(--accent-soft);
 }
 .photo-strip__item img {
   width: 100%;
@@ -586,7 +598,7 @@ a { color: inherit; text-decoration: none; }
 .who__col {
   padding: clamp(1.6rem, 3vw, 2.4rem);
   background: var(--ink-2);
-  border: 1px solid var(--line-soft);
+  border: 1px solid var(--accent-soft);
   border-radius: 16px;
 }
 .who__head {
@@ -630,10 +642,11 @@ a { color: inherit; text-decoration: none; }
   max-width: 620px;
   margin: 0 auto;
   background: var(--ink-2);
-  border: 1px solid var(--line);
+  border: 1px solid var(--accent-soft);
   border-radius: 22px;
   padding: clamp(2rem, 5vw, 3rem);
   text-align: center;
+  box-shadow: 0 0 50px -22px var(--accent-glow);
 }
 .register__price {
   display: flex;
@@ -727,11 +740,31 @@ a { color: inherit; text-decoration: none; }
    2027 SUMMIT WHISPER
    ============================================================ */
 .whisper {
+  position: relative;
+  overflow: hidden;
   background: var(--ink-2);
-  border-top: 1px solid var(--line-soft);
-  border-bottom: 1px solid var(--line-soft);
+  border-top: 1px solid var(--accent-soft);
+  border-bottom: 1px solid var(--accent-soft);
+}
+.whisper::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background:
+    radial-gradient(circle at 25% 30%, var(--accent-glow), transparent 55%),
+    radial-gradient(circle at 75% 70%, var(--accent-faint), transparent 60%);
+  filter: blur(60px);
+  z-index: 0;
+  pointer-events: none;
+  animation: whisperDrift 18s ease-in-out infinite alternate;
+}
+@keyframes whisperDrift {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(-3%, 2%) scale(1.08); }
 }
 .whisper__inner {
+  position: relative;
+  z-index: 1;
   max-width: var(--maxw);
   margin: 0 auto;
   padding: clamp(2.75rem, 7vh, 4.5rem) var(--gutter);
@@ -1017,5 +1050,6 @@ a { color: inherit; text-decoration: none; }
 @media (prefers-reduced-motion: reduce) {
   .hero__media { animation: none; transform: scale(1.04); }
   .hero__scroll span { animation: none; }
+  .whisper::before { animation: none; }
   html { scroll-behavior: auto; }
 }
