@@ -34,7 +34,7 @@
         <a href="#faq">FAQ</a>
       </nav>
       <a href="#get-access" class="btn btn--ghost nav__cta">Register</a>
-      <a href="#summit-2027" class="nav__fpcs">FPCS2027</a>
+      <a href="#footer" class="nav__fpcs">FPCS2027</a>
     </div>
   </header>
 
@@ -435,7 +435,7 @@
   </section>
 
   <!-- ===================== FOOTER ===================== -->
-  <footer class="footer">
+  <footer class="footer" id="footer">
     <div class="footer__inner">
       <div>
         <p class="footer__brand">The Living Internet Alliance</p>
@@ -471,6 +471,37 @@
   </div>
 
   <script>
+    /* ---------- In-page nav scrolling ---------- */
+    (function () {
+      const header = document.querySelector('.nav');
+
+      function getOffset() {
+        return (header ? header.offsetHeight : 0) + 4;
+      }
+
+      function scrollToHash(hash) {
+        if (hash === '#top') {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          return;
+        }
+        const target = document.querySelector(hash);
+        if (!target) return;
+        const top = target.getBoundingClientRect().top + window.pageYOffset - getOffset();
+        window.scrollTo({ top: Math.max(top, 0), behavior: 'smooth' });
+      }
+
+      document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+        const hash = link.getAttribute('href');
+        if (!hash || hash.length < 2) return;
+        if (hash !== '#top' && !document.querySelector(hash)) return;
+        link.addEventListener('click', function (e) {
+          e.preventDefault();
+          scrollToHash(hash);
+          if (history.pushState) history.pushState(null, '', hash);
+        });
+      });
+    })();
+
     (function () {
       const openers = document.querySelectorAll('[data-modal-open]');
       let lastFocused = null;
