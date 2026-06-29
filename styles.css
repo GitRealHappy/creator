@@ -397,6 +397,14 @@ a { color: inherit; text-decoration: none; }
   line-height: 1.6;
   color: var(--text-dim);
 }
+.pillar__link {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 2px;
+  transition: color .18s ease;
+}
+.pillar__link:hover { color: var(--accent); }
 
 /* ============================================================
    THE 90-DAY JOURNEY (timeline)
@@ -565,7 +573,7 @@ a { color: inherit; text-decoration: none; }
   -webkit-column-break-inside: avoid;
   margin: 0 0 clamp(0.85rem, 1.5vw, 1.25rem);
   background: var(--ink-2);
-  border: 1px solid var(--line-soft);
+  border: 1px solid var(--accent);
   border-radius: 12px;
   overflow: hidden;
   transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
@@ -577,7 +585,7 @@ a { color: inherit; text-decoration: none; }
 }
 .post:hover {
   transform: translateY(-3px);
-  border-color: var(--line);
+  border-color: var(--accent-soft);
   box-shadow: 0 18px 44px -20px rgba(0,0,0,0.85);
 }
 
@@ -697,11 +705,6 @@ a { color: inherit; text-decoration: none; }
   max-width: 48ch;
   margin: 1.25rem auto 0;
 }
-.register__refund {
-  color: var(--text);
-  font-size: 0.95rem;
-  margin-top: 0.85rem;
-}
 
 /* Countdown */
 .countdown {
@@ -743,7 +746,7 @@ a { color: inherit; text-decoration: none; }
 .whisper {
   position: relative;
   overflow: hidden;
-  background: var(--ink-2);
+  background: #0e0818;
   border-top: 1px solid var(--accent-soft);
   border-bottom: 1px solid var(--accent-soft);
 }
@@ -771,8 +774,8 @@ a { color: inherit; text-decoration: none; }
   padding: clamp(2.75rem, 7vh, 4.5rem) var(--gutter);
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
+  justify-content: flex-start;
+  gap: 3rem;
   flex-wrap: wrap;
 }
 .whisper__text { max-width: 60ch; }
@@ -786,7 +789,15 @@ a { color: inherit; text-decoration: none; }
   margin-bottom: 0.65rem;
 }
 .whisper__body { color: var(--text-dim); line-height: 1.6; }
-.whisper .btn { flex-shrink: 0; }
+.whisper .btn {
+  flex-shrink: 0;
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.whisper .btn:hover {
+  background: var(--accent);
+  color: var(--black);
+}
 
 /* ============================================================
    FAQ
