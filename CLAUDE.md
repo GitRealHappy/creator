@@ -173,8 +173,8 @@ The Sprint consists of six pillars:
 - **When are live sessions?** Workshops usually Thursday evenings + Saturday mornings PDT; community-wide networking calls (open to all Premium members) once a month, 2+ hours. All Pacific.
 - **Writing challenge mandatory?** No, optional. 15 min/day, any time, shared streak checklist.
 - **After 90 days (end of Sept)?** Premium lapses; option to renew at new pricing with lighter offerings. Free spaces (Maker Space chat) stay open; only premium spaces close.
-- **Refunds?** Unhappy in the first month → full refund. (Open: does "first month" run from July 1 or from purchase date?)
-- **Pod grouping?** Time zone, creative focus area, grouping requests, via an intake survey emailed after registration.
+- **Refunds?** No refunds. All sales are final. The summit recordings alone are worth the price of entry; this is a community of people who invest in themselves without a safety net.
+- **Pod grouping?** Time zone, creative focus area, grouping requests, via an intake survey posted in the community (accessible immediately upon registering, not sent by email).
 
 ---
 
