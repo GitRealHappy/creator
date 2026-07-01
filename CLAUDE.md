@@ -1,4 +1,4 @@
-# CLAUDE.md — 90-Day Creator Sprint Landing Page
+# CLAUDE.md — Living Internet Alliance Landing Page
 
 Project context for any Claude session working in this repository. Read this first.
 
@@ -8,13 +8,20 @@ Project context for any Claude session working in this repository. Read this fir
 > upload) and the companion planning doc `creator-sprint-landing-plan.md` (lived in the session
 > scratchpad, not in this repo).
 
+> **⚠️ Registration is now CLOSED (as of 2026-06-30).** `index.html` was rewritten as a
+> post-registration page: thank-you hero, testimonial wall, a "join the free community" CTA,
+> and the 2027 waitlist. The old sales page (pillars, journey, who-it's-for, FAQ, $177 register
+> panel, countdown) is archived at `index-sprint-open-archive.html` for reference, not linked
+> from anywhere live. Most of §8, §9, and §10 below describe that archived version; see the
+> note at the top of §8 for what's actually live now.
+
 ---
 
 ## 1. What this is
 
-This repo holds the **landing page for the 90-Day Creator Sprint**, a program run by **The Living Internet Alliance**. The page is the homepage of **`www.thelivinginternet.com`** and **replaces** the now-finished Future-Proof Creator Summit 2026 landing page (which was a Framer site).
+This repo holds the **landing page for The Living Internet Alliance**, currently a post-registration page for the **90-Day Creator Sprint**. The page is the homepage of **`www.thelivinginternet.com`** and originally replaced the now-finished Future-Proof Creator Summit 2026 landing page (which was a Framer site).
 
-The page has one job: **convert visitors into Sprint registrants** before registration closes at **2:00 PM PDT on June 30, 2026**. The Sprint runs **July 1 – September 30, 2026**. There are no late entries.
+Registration for the Sprint closed at **2:00 PM PDT on June 30, 2026**; the Sprint itself runs **July 1 – September 30, 2026** with no late entries. The live page no longer sells the Sprint. Its job now is to thank 2026 summit attendees, keep the testimonial wall up, funnel people into the **free community tier**, and build the **2027 summit waitlist**.
 
 ### The product being sold
 The **90-Day Creator Sprint** is a guided integration program for digital creators. For people who did not attend the 2026 summit, it costs **$177 USD** and includes **3 months of Premium Living Internet University membership** plus full Sprint access. Summit attendees already hold a year of membership and get the Sprint at no extra cost.
@@ -95,8 +102,16 @@ The Sprint consists of six pillars:
 
 ```
 /
-├── index.html              Single-page landing page (+ inline JS: modal & countdown)
-├── styles.css              All styles (dark theme, design tokens in :root)
+├── index.html                       Live page: post-registration (thank-you, proof, free
+│                                    community CTA, 2027 waitlist). Inline JS: in-page nav
+│                                    smooth-scroll only.
+├── index-sprint-open-archive.html   Archived pre-close version (full sales page: pillars,
+│                                    journey, who-it's-for, FAQ, $177 register + countdown,
+│                                    attendee modal). Not linked from any live page.
+├── styles.css              All styles (dark theme, design tokens in :root). Shared by both
+│                          index.html and the archive; classes for the archived-only sections
+│                          (pillars, journey, who, register, FAQ, attendee modal) stay in the
+│                          stylesheet even though index.html no longer uses them.
 ├── CNAME                   Custom domain for GitHub Pages: www.thelivinginternet.com
 ├── CLAUDE.md               This file
 ├── LAUNCH.md               Step-by-step go-live checklist (deploy, paywall, waitlist, DNS)
@@ -113,11 +128,11 @@ The Sprint consists of six pillars:
     │   │                          (audience / workshop-in-action / connection moment).
     │   └── img2,3,4,7,9..15.jpg   Other summit photography (img8 removed).
     └── testimonials/
-        └── test1..test17.png      Voluntary social-post screenshots.
-                                    NOTE: test9.png is absent → 16 images, not 17.
+        └── test1..test18.png      Voluntary social-post screenshots.
+                                    NOTE: test9.png is absent → 17 images, not 18.
 ```
 
-**Tech:** plain static HTML + CSS, no build step, no framework. Two small vanilla-JS blocks in `index.html`: the attendee modal (open/close, Esc, focus handling) and the registration countdown. Fonts load from Google Fonts (Fraunces, Inter, Montserrat). Keep it dependency-free unless there's a strong reason not to.
+**Tech:** plain static HTML + CSS, no build step, no framework. `index.html` keeps one small vanilla-JS block for in-page nav smooth-scrolling; the archived sales page additionally has the attendee modal and registration countdown scripts. Fonts load from Google Fonts (Fraunces, Inter, Montserrat). Keep it dependency-free unless there's a strong reason not to.
 
 ---
 
@@ -134,35 +149,31 @@ The Sprint consists of six pillars:
 
 ---
 
-## 8. Page structure (all sections built ✅)
+## 8. Page structure
 
-- ✅ **Nav** — white logo + Montserrat-bold wordmark, ghost Register button (→ `#get-access`), anchor links. **Solid black bar** with hairline bottom border on both desktop (fixed) and mobile (sticky). `scroll-padding-top: 84px` keeps anchored sections clear of the fixed header.
-- ✅ **Hero** — `img1.jpg` background with a legibility scrim, eyebrow, Fraunces headline ("The summit ended. The change is just beginning."), one-line Sprint definition ("…keeps you building when your motivation runs dry. Turn your peak experience into a high-altitude plateau state."), primary CTA (→ `#get-access`), deadline microcopy. (The hero's own attendee line was removed as redundant with the attendee strip.)
-- ✅ **Attendee modal** — attendees already have access; if they lack it they email jesse@thelivinginternet.com. Opened from the attendee strip's "Find your access" button (`data-modal-open="attendee"`).
-- ✅ **Attendee strip** (`#attendees`) — slim raised band "For 2026 summit attendees"; access included, button opens the modal.
-- ✅ **What the Sprint is** (`#what`) — six pillars, editorial hairline-divider grid (01–06, Fraunces titles), benefit-framed.
-- ✅ **The 90-day journey** (`#journey`) — Month 1→2→3 timeline on pure black. Node dots on a connector that fades past day 90; stacks to a left-rail vertical timeline ≤820px. Signature section.
-- ✅ **Photo strip** (top of `#proof`) — img6 / img5 / img14 as uniform 3:2 cards, "the room," leading into the wall. On ≤760px the first photo spans full width.
-- ✅ **Testimonial wall** (`#proof`) — CSS multi-column masonry of 16 screenshots (`test9.png` absent). Aspect ratios ~4:1 to ~0.7:1; no cropping. Native-post chrome, hover lift. Lead-in: "Nobody asked them to post these." 3 → 2 (≤1024px) → 1 (≤600px) cols.
-- ✅ **Who it's for / not for** (`#who`) — two-column honest qualifier (✓ / ✕), stacks ≤760px.
-- ✅ **Price & registration** (`#register`) — black band; centered $177 panel (`id="get-access"`) with includes list, **live countdown**, CTA → Circle checkout, deadline mechanics, first-month full-refund line.
-- ✅ **2027 Summit whisper** (`#summit-2027`) — slim raised band; "first twenty sold out in pre-sale," ghost "Join the 2027 waitlist" button → Ticket Tailor.
-- ✅ **FAQ** (`#faq`) — `<details>` accordion, no JS, +/− markers. Seven locked answers (§10).
-- ✅ **Final CTA** — "The room is still warm." Pure-black close, register button → Circle checkout, deadline microcopy. Footer follows (wordmark, jesse@ contact, © + Privacy/Terms links to `/privacy-policy` and `/terms-of-service` — confirm those pages still exist).
+### What's live now in `index.html` (post-registration page)
+- ✅ **Nav** — white logo + Montserrat-bold wordmark, ghost "Join free" button (→ Circle free-join link, external), anchor links to `#proof` / `#community` / `#summit-2027`. Same solid black bar treatment as before.
+- ✅ **Hero** — `img1.jpg` background with a legibility scrim, eyebrow, Fraunces thank-you headline ("Thank you for showing up... the room is still warm."), warm paragraph thanking attendees, CTA → `#community`, and smaller microcopy stating Sprint/Premium registration is closed for now.
+- ✅ **Photo strip + testimonial wall** (`#proof`) — unchanged from the original: img6/img5/img14 strip, then the masonry wall of 17 screenshots (`test9.png` still absent). Lead-in copy unchanged: "Nobody asked them to post these."
+- ✅ **Join the free community** (`#community`) — reuses the old attendee-strip band styling; one line of copy + a ghost button to the Circle free-tier join link (invitation-token URL, §11).
+- ✅ **2027 Summit whisper** (`#summit-2027`) — slim raised band, copy updated to say the location isn't announced and dates aren't confirmed, but the summit is likely southwest USA; ghost "Join the 2027 waitlist" button → Ticket Tailor.
+- ✅ **Footer** — wordmark, jesse@ contact, © line. (Privacy/Terms links were removed along with the rest of the sales-page footer; re-add if those pages are needed again.)
 
-### CTA wiring (live)
-- **Hero + nav Register buttons** → `#get-access` (scroll to the price panel so the actual Register button + countdown are in view). By design, not direct to checkout.
-- **Price-panel CTA + final-CTA button** → `https://living-internet-alliance.circle.so/checkout/90-day-creator-sprint` (live Circle paywall).
-- **Join the 2027 waitlist** → `https://tickets.thelivinginternet.com/events/thelivinginternetalliance/2274135` (Ticket Tailor; **needs publishing**, see §12).
+No countdown, no attendee modal, no pillars/journey/who-it's-for/FAQ/register panel/final CTA on the live page. Those all still exist, unchanged, in `index-sprint-open-archive.html` if the Sprint reopens or a similar page is needed for the next cohort — see that file for the full original section list (nav Register CTA, attendee modal + strip, six pillars, 90-day journey timeline, who-it's-for columns, $177 register panel with live countdown, FAQ accordion, final CTA).
+
+### CTA wiring (live, in `index.html`)
+- **Nav "Join free" + hero CTA** → Circle free-tier join link (invitation-token URL, §11).
+- **Join the 2027 waitlist** → `https://tickets.thelivinginternet.com/events/thelivinginternetalliance/2274135` (Ticket Tailor; **still needs publishing**, see §12).
 - No `href="#"` placeholders remain.
+- The archived page's CTA wiring (Register → `#get-access`, checkout → Circle paywall) is documented at the top of that file's history; unchanged there.
 
 ---
 
-## 9. Deadline & countdown mechanics
+## 9. Deadline & countdown mechanics (archived page only)
 
-- **Registration closes:** 2:00 PM PDT, June 30, 2026. Always state the exact time, not just the date.
-- **Sprint starts:** July 1, 2026. No late entries (pods form together).
-- **Countdown:** built. In the `#register` panel, counts down to the fixed instant **`2026-06-30T21:00:00Z`** (14:00 PDT / UTC-7), correct in every time zone. Vanilla JS in `index.html`; on expiry swaps to "Registration has closed. The Sprint has begun."
+- **Registration closed:** 2:00 PM PDT, June 30, 2026. This has now passed; the live `index.html` reflects the closed state directly in hero copy rather than a countdown.
+- **Sprint ran/runs:** July 1 – September 30, 2026. No late entries (pods form together).
+- **Countdown:** still present in `index-sprint-open-archive.html`'s `#register` panel, counting down to the fixed instant **`2026-06-30T21:00:00Z`** (14:00 PDT / UTC-7). Vanilla JS in that file; on expiry swaps to "Registration has closed. The Sprint has begun." Not used on the live page.
 
 ---
 
@@ -213,18 +224,17 @@ Commerce historically runs on **Ticket Tailor** (`tickets.thelivinginternet.com`
 
 ## 13. Current status & next steps
 
-**Done:** full page built (hero → footer), em-dash-free, mobile-tuned, solid black header, hero CTA lands on the price panel, live countdown, Circle paywall wired into both Register CTAs, 2027 waitlist created + wired, `CNAME` added, `LAUNCH.md` written.
+**Done:** original full sales page built and launched, then **retired on 2026-06-30** when Sprint registration closed. Live `index.html` rewritten as the post-registration page (§8); old page preserved at `index-sprint-open-archive.html`. `CNAME` added, `LAUNCH.md` written, domain live.
 
 **Pending (rough priority):**
-1. **Push + confirm the domain is live** at `https://www.thelivinginternet.com/` (commit the `CNAME`; check DNS `www` → `gitrealhappy.github.io` and the Pages custom-domain setting).
-2. **Publish the 2027 waitlist** in Ticket Tailor (attach Stripe → Publish) — only Jesse can; §12.
-3. **Fix the Circle checkout page copy** (the missing "90", "not all perks," speaker naming) — §11.
-4. **Attendee access sync** from the spreadsheet → `90-day-sprinters` (re-provide the xlsx) — §11.
-5. **Clean up the 249** stray space-group members so Sprint spaces are access-gated — §11.
-6. **Schedule the Sept 30 lapse** (Premium → Free) — §11.
-7. **Build out the Sprint spaces** in Circle — §11.
+1. **Publish the 2027 waitlist** in Ticket Tailor (attach Stripe → Publish) — only Jesse can; §12. Still the top open item; the live page's waitlist button 404s until this happens.
+2. **Fix the Circle checkout page copy** (the missing "90," "not all perks," speaker naming) — §11. Lower urgency now that the checkout isn't linked from the live page, but worth fixing before any future reopen.
+3. **Attendee access sync** from the spreadsheet → `90-day-sprinters` (re-provide the xlsx) — §11.
+4. **Clean up the 249** stray space-group members so Sprint spaces are access-gated — §11.
+5. **Schedule the Sept 30 lapse** (Premium → Free) — §11.
+6. **Build out the Sprint spaces** in Circle — §11.
 
-**Open decisions:** renewal pricing/offerings after September; refund window wording ("first month" from July 1 or purchase date); whether 2026 speakers can be named (currently generic); final hero headline/voice lock.
+**Open decisions:** whether/when to reopen registration for a future cohort (would mean reviving `index-sprint-open-archive.html` rather than rebuilding); renewal pricing/offerings after September for anyone already enrolled; whether 2026 speakers can be named (currently generic); 2027 summit actual location/dates once confirmed (page currently says "likely southwest USA," TBA).
 
 ---
 
