@@ -152,9 +152,10 @@ The Sprint consists of six pillars:
 ## 8. Page structure
 
 ### What's live now in `index.html` (post-registration page)
-- ✅ **Nav** — white logo + Montserrat-bold wordmark, ghost "Join free" button (→ Circle free-join link, external), anchor links to `#proof` / `#community` / `#summit-2027`. Same solid black bar treatment as before.
+- ✅ **Nav** — white logo + Montserrat-bold wordmark, ghost "Join free" button (→ Circle free-join link, external), anchor links to `#proof` / `#recordings` / `#community` / `#summit-2027`. Same solid black bar treatment as before.
 - ✅ **Hero** — `img1.jpg` background with a legibility scrim, eyebrow, Fraunces thank-you headline ("Thank you for showing up... the room is still warm."), warm paragraph thanking attendees, CTA → `#community`, and smaller microcopy stating Sprint/Premium registration is closed for now.
 - ✅ **Photo strip + testimonial wall** (`#proof`) — unchanged from the original: img6/img5/img14 strip, then the masonry wall of 17 screenshots (`test9.png` still absent). Lead-in copy unchanged: "Nobody asked them to post these."
+- ✅ **2026 summit recordings offer** (`#recordings`) — new paid section, added 2026-07-02, between the testimonial wall and the free-community CTA. Sells standalone access to the 2026 summit recordings for **$147 USD, one time**, reusing the archived page's `register__panel` price-panel styling (no countdown). **Names all 13 2026 speakers** (Dan Koe, Dan Goldfield, Taylin Simmonds, Kieran Drew, Kimia Nora, Jack Moses, David Morin, Ish Hasan, Logan Quinn, Olivia Peers, Michael Oliver, Jesse James Carver, Brian Maierhofer): this is an explicit exception to the "speakers kept generic" rule elsewhere in this doc, scoped to this section only, per Jesse's direct request. CTA → `https://living-internet-alliance.circle.so/checkout/2026-fpcs-recordings` (live as of 2026-07-02). ⚠️ Still need to confirm this paywall grants the right access (2026 Summit recordings spaces, not full Premium) — see §11 to-do.
 - ✅ **Join the free community** (`#community`) — reuses the old attendee-strip band styling; one line of copy + a ghost button to the Circle free-tier join link (invitation-token URL, §11).
 - ✅ **2027 Summit whisper** (`#summit-2027`) — slim raised band, copy updated to say the location isn't announced and dates aren't confirmed, but the summit is likely southwest USA; ghost "Join the 2027 waitlist" button → Ticket Tailor.
 - ✅ **Footer** — wordmark, jesse@ contact, © line. (Privacy/Terms links were removed along with the rest of the sales-page footer; re-add if those pages are needed again.)
@@ -203,6 +204,8 @@ Community: **The Living Internet Alliance** (Circle community `id 392287`, priva
 
 **The paywall (live):** `https://living-internet-alliance.circle.so/checkout/90-day-creator-sprint`. It should grant **Premium Membership + 90-day-sprinters** on purchase. ⚠️ The Circle checkout page's own copy needs a fix: it reads "this **-Day** Sprint" / "the **day** writing challenges" (the number 90 dropped out of a field), and says "not all perks will apply" while naming Laura Hanna + speakers — reconcile with the landing page (which sells the full Sprint and keeps speakers generic). Paywall creation/editing is done in Circle's UI; not exposed via the MCP tools.
 
+**The $147 recordings paywall (live, added 2026-07-02):** `https://living-internet-alliance.circle.so/checkout/2026-fpcs-recordings`, sold on the live page's `#recordings` section (§8). Should grant access to **The 2026 Summit** space group (`842601`, 7 spaces) only, not Premium Membership or Sprint access. ⚠️ Not yet verified in Circle's UI which access group(s) this paywall actually grants; check before driving real traffic to it.
+
 **The 249-member mystery (needs cleanup):** the Sprint *space group* has 249 members but the *access group* `90-day-sprinters` has 0, and Premium has 118. So 249 people are stray space-group members (likely a bulk-add), not properly gated. Reconcile before opening paid spaces so the Sprint content is correctly gated by the access group.
 
 **Attendee free-access sync (to do):** match the attendee spreadsheet (`Summit_Registrants_2026-2.xlsx`, 177 rows: FIRST NAME / LAST NAME / EMAIL; some email cells blank) against Circle members by email (name fallback) and add matches to `90-day-sprinters` (+ confirm Premium). Then attendees just log in. Claude can do this via the Circle MCP tools once the spreadsheet is re-provided.
@@ -228,6 +231,7 @@ Commerce historically runs on **Ticket Tailor** (`tickets.thelivinginternet.com`
 
 **Pending (rough priority):**
 1. **Publish the 2027 waitlist** in Ticket Tailor (attach Stripe → Publish) — only Jesse can; §12. Still the top open item; the live page's waitlist button 404s until this happens.
+1a. **Confirm the $147 summit-recordings paywall's access grant** (`https://living-internet-alliance.circle.so/checkout/2026-fpcs-recordings`, wired into `index.html` §8 as of 2026-07-02): it should unlock the 2026 Summit space group (`842601`, 7 spaces holding recordings) without granting full Premium Membership (`46857`) or Sprint access (`131604`) — verify in Circle's UI, not yet checked.
 2. **Fix the Circle checkout page copy** (the missing "90," "not all perks," speaker naming) — §11. Lower urgency now that the checkout isn't linked from the live page, but worth fixing before any future reopen.
 3. **Attendee access sync** from the spreadsheet → `90-day-sprinters` (re-provide the xlsx) — §11.
 4. **Clean up the 249** stray space-group members so Sprint spaces are access-gated — §11.
