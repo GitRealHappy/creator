@@ -3,7 +3,7 @@
   var total = pages.length;
   var current = 0;
   var animating = false;
-  var DURATION = 550;
+  var DURATION = 320;
 
   var btnPrev = document.getElementById('btnPrev');
   var btnNext = document.getElementById('btnNext');
