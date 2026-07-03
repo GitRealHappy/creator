@@ -115,6 +115,15 @@ The Sprint consists of six pillars:
 ├── CNAME                   Custom domain for GitHub Pages: www.thelivinginternet.com
 ├── CLAUDE.md               This file
 ├── LAUNCH.md               Step-by-step go-live checklist (deploy, paywall, waitlist, DNS)
+├── accountability.md       Source content outline for /group-guide (not itself published)
+├── group-guide/            Standalone page-turning guide for Sprint accountability-group
+│   ├── index.html          members, at www.thelivinginternet.com/group-guide. Not linked
+│   ├── styles.css          from index.html or any nav. Own light "e-ink" theme (paper bg,
+│   └── script.js           warm ink text) distinct from the rest of the dark site; still
+│                          uses the shared Fraunces/Inter/Montserrat fonts. One page visible
+│                          at a time with a book-style page-turn transition (arrows, edge tap
+│                          zones, swipe, arrow keys), dot + "Page X of N" indicator at bottom.
+│                          Header reuses the black nav bar look but brand-only, no nav links.
 ├── .github/workflows/
 │   └── deploy.yml          GitHub Pages auto-deploy on push to main
 └── assets/images/
