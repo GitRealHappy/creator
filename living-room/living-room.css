@@ -148,13 +148,62 @@ body {
   color: var(--color-text);
 }
 
-/* VENUE PHOTO */
+/* VENUE GALLERY */
 
-.isi-venue-photo {
+.isi-gallery {
+  margin-top: 1.5rem;
+}
+
+.isi-gallery__main {
   width: 100%;
   aspect-ratio: 3 / 2;
   object-fit: cover;
-  margin-top: 1.5rem;
+  background: var(--color-bg-alt);
+}
+
+.isi-gallery__thumbs {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.6rem;
+  margin-top: 0.6rem;
+}
+
+.isi-gallery__thumb {
+  padding: 0;
+  border: 2px solid transparent;
+  background: none;
+  cursor: pointer;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  opacity: 0.6;
+  transition: opacity 0.2s, border-color 0.2s;
+}
+
+.isi-gallery__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.isi-gallery__thumb:hover {
+  opacity: 0.9;
+}
+
+.isi-gallery__thumb.is-active {
+  opacity: 1;
+  border-color: var(--color-accent);
+}
+
+.isi-gallery__thumb:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+@media (max-width: 560px) {
+  .isi-gallery__thumbs {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 /* PRACTICAL INFO */

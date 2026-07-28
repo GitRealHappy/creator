@@ -114,7 +114,30 @@
         <p class="eyebrow">The Venue</p>
         <h3>Soiul Wellness</h3>
         <p>Soiul Wellness is a lavender farm and wellness space between the mountains in Chilliwack, BC, about a 90 minute drive from Vancouver. The property has a lavender field, a cedar sauna, a cold plunge, and a covered patio with a fire table.</p>
-        <img class="isi-venue-photo" src="images/sauna.jpg" alt="Cedar sauna at Soiul Wellness" loading="lazy">
+
+        <div class="isi-gallery" id="venueGallery">
+          <img class="isi-gallery__main" id="venueGalleryMain" src="images/sauna.jpg" alt="Cedar sauna at Soiul Wellness">
+          <div class="isi-gallery__thumbs" role="tablist" aria-label="Venue photos">
+            <button type="button" class="isi-gallery__thumb is-active" role="tab" aria-selected="true" data-src="images/sauna.jpg" data-alt="Cedar sauna at Soiul Wellness">
+              <img src="images/sauna.jpg" alt="" loading="lazy">
+            </button>
+            <button type="button" class="isi-gallery__thumb" role="tab" aria-selected="false" data-src="images/saunainside2.jpg" data-alt="Inside the cedar sauna at Soiul Wellness">
+              <img src="images/saunainside2.jpg" alt="" loading="lazy">
+            </button>
+            <button type="button" class="isi-gallery__thumb" role="tab" aria-selected="false" data-src="images/saunaoutside.jpg" data-alt="Sauna and patio exterior at Soiul Wellness">
+              <img src="images/saunaoutside.jpg" alt="" loading="lazy">
+            </button>
+            <button type="button" class="isi-gallery__thumb" role="tab" aria-selected="false" data-src="images/cold.jpg" data-alt="Cold plunge at Soiul Wellness">
+              <img src="images/cold.jpg" alt="" loading="lazy">
+            </button>
+            <button type="button" class="isi-gallery__thumb" role="tab" aria-selected="false" data-src="images/fire.jpg" data-alt="Fire table on the covered patio at Soiul Wellness">
+              <img src="images/fire.jpg" alt="" loading="lazy">
+            </button>
+            <button type="button" class="isi-gallery__thumb" role="tab" aria-selected="false" data-src="images/field.jpg" data-alt="Lavender field at Soiul Wellness">
+              <img src="images/field.jpg" alt="" loading="lazy">
+            </button>
+          </div>
+        </div>
       </div>
 
       <!-- HOSTS -->
@@ -170,6 +193,27 @@
       <a href="/">thelivinginternet.com</a>
     </div>
   </footer>
+
+  <script>
+    (function () {
+      var gallery = document.getElementById('venueGallery');
+      if (!gallery) return;
+      var main = document.getElementById('venueGalleryMain');
+      var thumbs = gallery.querySelectorAll('.isi-gallery__thumb');
+      thumbs.forEach(function (thumb) {
+        thumb.addEventListener('click', function () {
+          main.src = thumb.dataset.src;
+          main.alt = thumb.dataset.alt;
+          thumbs.forEach(function (t) {
+            t.classList.remove('is-active');
+            t.setAttribute('aria-selected', 'false');
+          });
+          thumb.classList.add('is-active');
+          thumb.setAttribute('aria-selected', 'true');
+        });
+      });
+    })();
+  </script>
 
 </body>
 </html>
