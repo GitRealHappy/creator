@@ -124,6 +124,15 @@ The Sprint consists of six pillars:
 │                          at a time with a book-style page-turn transition (arrows, edge tap
 │                          zones, swipe, arrow keys), dot + "Page X of N" indicator at bottom.
 │                          Header reuses the black nav bar look but brand-only, no nav links.
+├── living-room/            "The Living Room" event page, hosted by Jesse James Carver &
+│   ├── index.html          Matthew Manning, at www.thelivinginternet.com/living-room. Not
+│   ├── main.css             linked from index.html or any nav — hidden page, noindex/
+│   ├── living-room.css      nofollow. Relocated from the jjcarver site; self-contained
+│   └── images/              with its own copy of jjcarver's main.css. Header/footer
+│       ├── soiul-hero.jpg   rebranded to The Living Internet Alliance (brand-only header,
+│       └── sauna.jpg        no nav links, matching group-guide/'s pattern). living-room.css
+│                            (page-specific overrides) still has "isi-" prefixed classes,
+│                            legacy from the page's former "Iron Sharpens Iron" name.
 ├── .github/workflows/
 │   └── deploy.yml          GitHub Pages auto-deploy on push to main
 └── assets/images/
