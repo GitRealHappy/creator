@@ -9,8 +9,9 @@ Project context for any Claude session working in this repository. Read this fir
 > scratchpad, not in this repo).
 
 > **⚠️ Registration is now CLOSED (as of 2026-06-30).** `index.html` was rewritten as a
-> post-registration page: thank-you hero, testimonial wall, a "join the free community" CTA,
-> and the 2027 waitlist. The old sales page (pillars, journey, who-it's-for, FAQ, $177 register
+> post-registration page: thank-you hero, testimonial wall, a membership CTA, and the 2027
+> waitlist. As of **2026-08-05** it funnels to **paid** premium membership via `/membership`,
+> not the free tier. The old sales page (pillars, journey, who-it's-for, FAQ, $177 register
 > panel, countdown) is archived at `index-sprint-open-archive.html` for reference, not linked
 > from anywhere live. Most of §8, §9, and §10 below describe that archived version; see the
 > note at the top of §8 for what's actually live now.
@@ -21,7 +22,7 @@ Project context for any Claude session working in this repository. Read this fir
 
 This repo holds the **landing page for The Living Internet Alliance**, currently a post-registration page for the **90-Day Creator Sprint**. The page is the homepage of **`www.thelivinginternet.com`** and originally replaced the now-finished Future-Proof Creator Summit 2026 landing page (which was a Framer site).
 
-Registration for the Sprint closed at **2:00 PM PDT on June 30, 2026**; the Sprint itself runs **July 1 – September 30, 2026** with no late entries. The live page no longer sells the Sprint. Its job now is to thank 2026 summit attendees, keep the testimonial wall up, funnel people into the **free community tier**, and build the **2027 summit waitlist**.
+Registration for the Sprint closed at **2:00 PM PDT on June 30, 2026**; the Sprint itself runs **July 1 – September 30, 2026** with no late entries. The live page no longer sells the Sprint. Its job now is to thank 2026 summit attendees, keep the testimonial wall up, funnel people into **paid premium membership** (via `/membership`, since 2026-08-05; it pointed at the free tier before that), and build the **2027 summit waitlist**.
 
 ### The product being sold
 The **90-Day Creator Sprint** is a guided integration program for digital creators. For people who did not attend the 2026 summit, it costs **$177 USD** and includes **3 months of Premium Living Internet University membership** plus full Sprint access. Summit attendees already hold a year of membership and get the Sprint at no extra cost.
@@ -124,6 +125,17 @@ The Sprint consists of six pillars:
 │                          at a time with a book-style page-turn transition (arrows, edge tap
 │                          zones, swipe, arrow keys), dot + "Page X of N" indicator at bottom.
 │                          Header reuses the black nav bar look but brand-only, no nav links.
+├── membership/             Sales page for the always-open **premium community membership**
+│   ├── index.html          ($27/mo or $260/yr), at www.thelivinginternet.com/membership.
+│   └── membership.css      Added 2026-08-05. A separate product from the annual summit;
+│                          keeps event promotion out of it entirely. Loads the shared
+│                          ../styles.css for tokens/nav/hero/pillars/footer, plus its own
+│                          membership.css for page-only components (.room manifesto list,
+│                          .proof-trio, .plans pricing cards, .takeaway). Inline JS is the
+│                          same nav smooth-scroll block as index.html. Sections: hero
+│                          (img13-web.jpg) → who's in the room → what's included (2x2
+│                          pillars) → 3 testimonials → pricing (annual featured) → quiet
+│                          Field Notes free-tier takeaway. Not yet linked from index.html.
 ├── living-room/            "The Living Room" event page, hosted by Jesse James Carver &
 │   ├── index.html          Matthew Manning, at www.thelivinginternet.com/living-room. Not
 │   ├── main.css             linked from index.html or any nav — hidden page, noindex/
@@ -144,7 +156,14 @@ The Sprint consists of six pillars:
     │   ├── img1-a.jpg             Original/backup of the hero shot.
     │   ├── img5.jpg img6.jpg img14.jpg   Used in the proof-section photo strip
     │   │                          (audience / workshop-in-action / connection moment).
-    │   └── img2,3,4,7,9..15.jpg   Other summit photography (img8 removed).
+    │   ├── img13-web.jpg          Web-optimized derivatives (sips-resized + recompressed
+    │   ├── img2-web.jpg           to ~230-420 KB) built for /membership. The originals
+    │   ├── img11-web.jpg          they came from are 1-2 MB, too heavy to ship. img13-web
+    │   ├── img15-web.jpg          is the membership hero; the other three are its photo
+    │   │                          strip. Regenerate with:
+    │   │                          sips -Z <px> -s format jpeg -s formatOptions <q> in --out out
+    │   └── img2,3,4,7,9..15.jpg   Other summit photography (img8 removed). Mostly raw
+    │                              1-2 MB originals: optimize before putting any on a page.
     └── testimonials/
         └── test1..test18.png      Voluntary social-post screenshots.
                                     NOTE: test9.png is absent → 17 images, not 18.
@@ -170,18 +189,18 @@ The Sprint consists of six pillars:
 ## 8. Page structure
 
 ### What's live now in `index.html` (post-registration page)
-- ✅ **Nav** — white logo + Montserrat-bold wordmark, ghost "Join free" button (→ Circle free-join link, external), anchor links to `#proof` / `#recordings` / `#community` / `#summit-2027`. Same solid black bar treatment as before.
-- ✅ **Hero** — `img1.jpg` background with a legibility scrim, eyebrow, Fraunces thank-you headline ("Thank you for showing up... the room is still warm."), warm paragraph thanking attendees, CTA → `#community`, and smaller microcopy stating Sprint/Premium registration is closed for now.
+- ✅ **Nav** — white logo + Montserrat-bold wordmark, solid white **"Become a member"** button (→ `/membership`), anchor links to `#proof` / `#community` / `#summit-2027`. Same solid black bar treatment as before. (Was a ghost "Join free" button + a `#recordings` link until 2026-08-05.)
+- ✅ **Hero** — `img1.jpg` background with a legibility scrim, eyebrow, Fraunces thank-you headline ("Thank you for showing up... the room is still warm."), warm paragraph thanking attendees, CTA "Become a member" → `#community`, and smaller microcopy: "Premium membership is open year round, and the 90-Day Creator Sprint comes with it." (Until 2026-08-05 this said registration was closed and pointed at the free tier; that was true of the *Sprint sign-up window*, never of Premium, and it contradicted the new funnel.)
 - ✅ **Photo strip + testimonial wall** (`#proof`) — unchanged from the original: img6/img5/img14 strip, then the masonry wall of 17 screenshots (`test9.png` still absent). Lead-in copy unchanged: "Nobody asked them to post these."
-- ✅ **2026 summit recordings offer** (`#recordings`) — new paid section, added 2026-07-02, between the testimonial wall and the free-community CTA. Sells standalone access to the 2026 summit recordings for **$147 USD, one time**, reusing the archived page's `register__panel` price-panel styling (no countdown). **Names all 13 2026 speakers** (Dan Koe, Dan Goldfield, Taylin Simmonds, Kieran Drew, Kimia Nora, Jack Moses, David Morin, Ish Hasan, Logan Quinn, Olivia Peers, Michael Oliver, Jesse James Carver, Brian Maierhofer): this is an explicit exception to the "speakers kept generic" rule elsewhere in this doc, scoped to this section only, per Jesse's direct request. CTA → `https://living-internet-alliance.circle.so/checkout/2026-fpcs-recordings` (live as of 2026-07-02). ⚠️ Still need to confirm this paywall grants the right access (2026 Summit recordings spaces, not full Premium) — see §11 to-do.
-- ✅ **Join the free community** (`#community`) — reuses the old attendee-strip band styling; one line of copy + a ghost button to the Circle free-tier join link (invitation-token URL, §11).
+- ❌ **2026 summit recordings offer** (`#recordings`) — **REMOVED 2026-08-05.** Sold standalone access to the summit recordings for $147 one time, and named all 13 2026 speakers (Dan Koe, Dan Goldfield, Taylin Simmonds, Kieran Drew, Kimia Nora, Jack Moses, David Morin, Ish Hasan, Logan Quinn, Olivia Peers, Michael Oliver, Jesse James Carver, Brian Maierhofer). Cut because premium membership already unlocks those recordings, so the $147 product competed with the $27/mo funnel. The speaker-lineup copy is now **unused anywhere on the site** and is preserved only here and in git history: it is the one sanctioned exception to the "speakers kept generic" rule, so reuse it deliberately if a page ever needs it. The Circle paywall itself still exists (§11).
+- ✅ **Become a member** (`#community`) — **rewritten 2026-08-05** from a free-tier CTA into the paid funnel. New `.member-band` component in `styles.css`: `--ink-2` base, animated warm-accent radial smoke (like `.whisper`), accent hairline borders, gold `.eyebrow`, a Fraunces headline in **gold gradient text** (`background-clip: text`, falls back to flat `--accent`), and a solid gold `.btn--gold` CTA → `/membership`. This is the **only place the accent is used as text and as a button fill**; it is a deliberate, Jesse-approved extension of the "accent is for hairlines and glow" rule, because this band is the conversion path on an otherwise black-and-white page. Copy leads with the $497 in-person value of the summit recordings. Says nothing about the free tier: free is reachable from `/membership`'s Field Notes takeaway.
 - ✅ **2027 Summit whisper** (`#summit-2027`) — slim raised band, copy updated to say the location isn't announced and dates aren't confirmed, but the summit is likely southwest USA; ghost "Join the 2027 waitlist" button → Ticket Tailor.
 - ✅ **Footer** — wordmark, jesse@ contact, © line. (Privacy/Terms links were removed along with the rest of the sales-page footer; re-add if those pages are needed again.)
 
 No countdown, no attendee modal, no pillars/journey/who-it's-for/FAQ/register panel/final CTA on the live page. Those all still exist, unchanged, in `index-sprint-open-archive.html` if the Sprint reopens or a similar page is needed for the next cohort — see that file for the full original section list (nav Register CTA, attendee modal + strip, six pillars, 90-day journey timeline, who-it's-for columns, $177 register panel with live countdown, FAQ accordion, final CTA).
 
 ### CTA wiring (live, in `index.html`)
-- **Nav "Join free" + hero CTA** → Circle free-tier join link (invitation-token URL, §11).
+- **Nav "Become a member"** → `/membership`. **Hero CTA "Become a member"** → `#community` (the gold band), which then goes to `/membership`. The Circle free-tier invitation-token join link is **no longer used on `index.html`**; it survives in git history and in the archive page.
 - **Join the 2027 waitlist** → `https://tickets.thelivinginternet.com/events/thelivinginternetalliance/2274135` (Ticket Tailor; **still needs publishing**, see §12).
 - No `href="#"` placeholders remain.
 - The archived page's CTA wiring (Register → `#get-access`, checkout → Circle paywall) is documented at the top of that file's history; unchanged there.
@@ -222,7 +241,9 @@ Community: **The Living Internet Alliance** (Circle community `id 392287`, priva
 
 **The paywall (live):** `https://living-internet-alliance.circle.so/checkout/90-day-creator-sprint`. It should grant **Premium Membership + 90-day-sprinters** on purchase. ⚠️ The Circle checkout page's own copy needs a fix: it reads "this **-Day** Sprint" / "the **day** writing challenges" (the number 90 dropped out of a field), and says "not all perks will apply" while naming Laura Hanna + speakers — reconcile with the landing page (which sells the full Sprint and keeps speakers generic). Paywall creation/editing is done in Circle's UI; not exposed via the MCP tools.
 
-**The $147 recordings paywall (live, added 2026-07-02):** `https://living-internet-alliance.circle.so/checkout/2026-fpcs-recordings`, sold on the live page's `#recordings` section (§8). Should grant access to **The 2026 Summit** space group (`842601`, 7 spaces) only, not Premium Membership or Sprint access. ⚠️ Not yet verified in Circle's UI which access group(s) this paywall actually grants; check before driving real traffic to it.
+**The $147 recordings paywall (orphaned as of 2026-08-05):** `https://living-internet-alliance.circle.so/checkout/2026-fpcs-recordings`. **No longer linked from any live page** — the `#recordings` section was removed because premium membership already includes the summit recordings and the one-time product undercut the subscription. The paywall still exists in Circle and is still reachable by direct URL. ⚠️ Decide whether to disable it, redirect it to the membership checkout, or leave it as a side door for people who only want the recordings.
+
+**The membership paywall (live, verified 2026-08-05):** `https://living-internet-alliance.circle.so/checkout/membership`. Offers **both** $27/month and $260/year and grants **Premium Membership** (`46857`). This is the product sold by `/membership` and by `index.html`'s gold `#community` band.
 
 **The 249-member mystery (needs cleanup):** the Sprint *space group* has 249 members but the *access group* `90-day-sprinters` has 0, and Premium has 118. So 249 people are stray space-group members (likely a bulk-add), not properly gated. Reconcile before opening paid spaces so the Sprint content is correctly gated by the access group.
 
@@ -245,11 +266,19 @@ Commerce historically runs on **Ticket Tailor** (`tickets.thelivinginternet.com`
 
 ## 13. Current status & next steps
 
-**Done:** original full sales page built and launched, then **retired on 2026-06-30** when Sprint registration closed. Live `index.html` rewritten as the post-registration page (§8); old page preserved at `index-sprint-open-archive.html`. `CNAME` added, `LAUNCH.md` written, domain live.
+**Done:** original full sales page built and launched, then **retired on 2026-06-30** when Sprint registration closed. Live `index.html` rewritten as the post-registration page (§8); old page preserved at `index-sprint-open-archive.html`. `CNAME` added, `LAUNCH.md` written, domain live. **2026-08-05:** built `/membership`, the standalone sales page for the always-open premium community membership ($27/mo, $260/yr → `circle.so/checkout/membership`), with the free Field Notes space as its secondary takeaway (§6).
+
+**Membership page open items:**
+- ✅ Paywall verified: `/checkout/membership` offers both $27/mo and $260/yr and grants Premium (`46857`).
+- ✅ Linked from `index.html` (nav CTA, hero CTA, and the gold `#community` band).
+- ✅ Sprint copy corrected. The page no longer implies a fresh cohort. Pillar 03 plus a `.note` block under the pillars now say plainly: the Sprint runs July–September and is already underway; workshops are recorded so you can work backward; pods formed July 1 so **you are not placed in one automatically** and the accountability channel is where groups post openings; most sprinters came from the in-person summit, which makes it the shortest path to knowing the 2027 room.
+- ⚠️ **Re-date this page after September 30, 2026.** The `.note` block and pillar 03 are written for a Sprint that is *currently running*. Once it ends, that copy is wrong.
+- The 3 testimonials are 2026 *summit* posts, not membership testimonials. The section copy says so plainly. Swap in member testimonials once there are some.
+- Still unverified: the "bi-weekly live calls" cadence in pillar 01.
 
 **Pending (rough priority):**
 1. **Publish the 2027 waitlist** in Ticket Tailor (attach Stripe → Publish) — only Jesse can; §12. Still the top open item; the live page's waitlist button 404s until this happens.
-1a. **Confirm the $147 summit-recordings paywall's access grant** (`https://living-internet-alliance.circle.so/checkout/2026-fpcs-recordings`, wired into `index.html` §8 as of 2026-07-02): it should unlock the 2026 Summit space group (`842601`, 7 spaces holding recordings) without granting full Premium Membership (`46857`) or Sprint access (`131604`) — verify in Circle's UI, not yet checked.
+1a. **Decide the fate of the orphaned $147 recordings paywall** (`/checkout/2026-fpcs-recordings`). Its landing-page section was removed 2026-08-05, but the checkout is still live at its direct URL: disable it, redirect it to the membership checkout, or keep it as a deliberate side door. §11.
 2. **Fix the Circle checkout page copy** (the missing "90," "not all perks," speaker naming) — §11. Lower urgency now that the checkout isn't linked from the live page, but worth fixing before any future reopen.
 3. **Attendee access sync** from the spreadsheet → `90-day-sprinters` (re-provide the xlsx) — §11.
 4. **Clean up the 249** stray space-group members so Sprint spaces are access-gated — §11.

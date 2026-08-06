@@ -1,0 +1,275 @@
+/* ============================================================
+   The Living Internet Alliance — Membership page
+   Page-specific components. Loads on top of ../styles.css and
+   uses its tokens only. No new colors, fonts, or libraries.
+   ============================================================ */
+
+/* ---------- Hero: same treatment, different room ---------- */
+.hero--membership .hero__media {
+  background-image: url("../assets/images/summit-photos/img13-web.jpg");
+  background-position: 50% 45%;
+}
+.hero--membership .hero__title { max-width: 18ch; }
+.hero--membership .hero__content > .eyebrow { display: block; }
+
+/* ============================================================
+   WHO'S IN THE ROOM
+   An editorial numbered list, not a feature grid. Each identity
+   gets a full line of display type so it reads as a manifesto.
+   ============================================================ */
+.room {
+  list-style: none;
+  border-top: 1px solid var(--line-soft);
+}
+.room__item {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(1rem, 3vw, 2.5rem);
+  padding: clamp(1.4rem, 3.5vw, 2.2rem) 0;
+  border-bottom: 1px solid var(--line-soft);
+}
+.room__num {
+  flex-shrink: 0;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  min-width: 2.5ch;
+}
+.room__line {
+  font-family: var(--display);
+  font-weight: 400;
+  font-style: italic;
+  font-size: clamp(1.25rem, 2.6vw, 1.9rem);
+  line-height: 1.25;
+  color: var(--paper);
+  max-width: 34ch;
+  text-wrap: balance;
+}
+
+.room__photos { margin: clamp(2.5rem, 6vh, 4rem) 0 0; }
+
+/* ============================================================
+   WHAT'S INCLUDED
+   Four items want a 2x2 block, not the auto-fit 3+1 orphan the
+   shared .pillars grid falls into at this width.
+   ============================================================ */
+.section--dark { background: var(--black); }
+
+#included .pillars { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+@media (max-width: 700px) {
+  #included .pillars { grid-template-columns: 1fr; }
+}
+
+/* Marginal note under the pillars: sets expectations about
+   joining the Sprint after it has already started. */
+.note {
+  display: flex;
+  gap: clamp(1rem, 3vw, 2.5rem);
+  margin-top: clamp(1.75rem, 4vh, 2.5rem);
+  padding-top: clamp(1.5rem, 3vh, 2rem);
+  border-top: 1px solid var(--line-soft);
+}
+.note__label {
+  flex: 0 0 auto;
+  width: 14ch;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1.5;
+  color: var(--accent);
+}
+.note__body {
+  max-width: 62ch;
+  font-size: 0.96rem;
+  line-height: 1.65;
+  color: var(--text-dim);
+}
+.note__body > * + * { margin-top: 0.85rem; }
+
+@media (max-width: 760px) {
+  .note { flex-direction: column; gap: 0.85rem; }
+  .note__label { width: auto; }
+}
+
+/* ============================================================
+   SOCIAL PROOF — three posts, native chrome, no masonry needed
+   ============================================================ */
+/* Two columns, not three: the long post gets its own full-height
+   column so the screenshots stay large enough to actually read. */
+.proof-trio {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: clamp(0.85rem, 1.5vw, 1.25rem);
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.proof-trio .post { margin: 0; }
+.proof-trio__stack {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.85rem, 1.5vw, 1.25rem);
+}
+
+@media (max-width: 820px) {
+  .proof-trio {
+    grid-template-columns: 1fr;
+    max-width: 520px;
+  }
+}
+
+/* ============================================================
+   PRICING
+   Two cards. Annual carries the accent border, the glow, the
+   badge, and the solid CTA so the eye lands there first.
+   ============================================================ */
+.plans {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: center;
+  gap: clamp(1rem, 2.5vw, 1.75rem);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.plan {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: var(--ink-2);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: clamp(1.75rem, 4vw, 2.4rem) clamp(1.25rem, 3vw, 2rem);
+}
+.plan--featured {
+  border-color: var(--accent-soft);
+  box-shadow: 0 0 50px -22px var(--accent-glow);
+  padding-top: clamp(2.4rem, 5vw, 3.2rem);
+  padding-bottom: clamp(2.4rem, 5vw, 3.2rem);
+}
+
+.plan__badge {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 0.45em 1em;
+  border-radius: 999px;
+  background: var(--ink);
+  border: 1px solid var(--accent-soft);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.plan__name {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.plan__price {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.3rem;
+  margin-top: 0.9rem;
+}
+.plan__amount {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(2.6rem, 7vw, 3.8rem);
+  line-height: 1;
+  color: var(--white);
+}
+.plan__unit { color: var(--text-dim); font-size: 0.95rem; }
+
+.plan__note {
+  margin-top: 0.9rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--text-dim);
+  max-width: 26ch;
+}
+.plan__note strong { color: var(--text); font-weight: 600; }
+
+.plan__cta {
+  width: 100%;
+  max-width: 260px;
+  margin-top: 1.6rem;
+}
+
+.plans__trust {
+  text-align: center;
+  color: var(--text-faint);
+  font-size: 0.88rem;
+  margin-top: 1.75rem;
+}
+
+@media (max-width: 700px) {
+  .plans { grid-template-columns: 1fr; max-width: 420px; }
+  /* Annual leads on small screens, where scroll order is the hierarchy */
+  .plan--featured { order: -1; margin-bottom: 0.75rem; }
+  .plan__cta { max-width: none; }
+}
+
+/* ============================================================
+   TAKEAWAY (free tier) — deliberately quiet, no button
+   ============================================================ */
+.takeaway {
+  border-top: 1px solid var(--line-soft);
+  background: var(--ink);
+}
+.takeaway__inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: clamp(2.5rem, 6vh, 3.5rem) var(--gutter);
+}
+.takeaway__line {
+  max-width: 62ch;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: var(--text-dim);
+}
+.takeaway__line a {
+  color: var(--text);
+  font-weight: 600;
+  border-bottom: 1px solid var(--line);
+  transition: border-color .18s ease, color .18s ease;
+}
+.takeaway__line a:hover { color: var(--white); border-color: var(--white); }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 860px) {
+  .hero--membership .hero__media { background-position: 50% 42%; }
+  .hero--membership .hero__title { max-width: 20ch; }
+}
+
+@media (max-width: 760px) {
+  .room__item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  .room__line { max-width: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero--membership .hero__media { animation: none; transform: scale(1.04); }
+}
