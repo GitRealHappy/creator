@@ -32,17 +32,14 @@ landing page):
 
 ---
 
-## Step 2b — Publish the 2027 waitlist (~30 sec, only you can do this)
-The 2027 waitlist event is built in Ticket Tailor and the page button is wired to it,
-but Ticket Tailor won't make any event live until a payment method is attached (even a
-waitlist-only one). In the TT dashboard:
-1. Open **Future-Proof Creator Summit 2027**.
-2. Attach your existing Stripe payment method to the event.
-3. **Publish** it.
-That's it. The "Join the 2027 waitlist" button then works:
-`https://tickets.thelivinginternet.com/events/thelivinginternetalliance/2274135`
-(Placeholder dates Jun 4–6 2027 are tentative; change them anytime. Emails collect under
-the event's waitlist signups.)
+## Step 2b — Publish the 2027 waitlist ✅ DONE
+The 2027 waitlist event (`es_2274135`, Future-Proof Creator Summit 2027) is published in
+Ticket Tailor with a Stripe payment method attached. The "Join the 2027 waitlist" button
+now points at the direct checkout link:
+`https://tickets.thelivinginternet.com/checkout/view-event/id/8531085/chk/ede5cd54da2d77b5125283f28206d958/?modal_widget=true&widget=true`
+(swapped in 2026-09-02, replacing the public event-series page URL). Placeholder dates
+Jun 4–6 2027 are still tentative; change them anytime in the TT dashboard. Emails collect
+under the event's waitlist signups.
 
 ---
 

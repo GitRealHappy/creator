@@ -356,10 +356,230 @@ a { color: inherit; text-decoration: none; }
 .attendee-strip .btn { flex-shrink: 0; }
 
 /* ============================================================
-   MEMBER BAND (index.html #community → /membership)
-   The one place the warm accent is used as *text* rather than
-   hairlines and glow. Deliberate: this band is the paid funnel
-   and is meant to catch the eye on an otherwise b&w page.
+   STORY (index.html #story — compact narrative + 2026 speaker row)
+   ============================================================ */
+/* Tighter padding for #story and the gallery section right after it, so the
+   two read as one dense "here's the event" block rather than two full-height
+   sections stacked up. Scoped narrowly: .section elsewhere (proof, community,
+   membership page) keeps its normal padding. */
+.section--compact { padding: clamp(2rem, 5vh, 3.5rem) 0; }
+.section--compact .section-head { margin-bottom: clamp(1rem, 2.5vh, 1.5rem); }
+
+.story__body {
+  max-width: 62ch;
+  margin-bottom: clamp(1.25rem, 3vh, 1.75rem);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-dim);
+}
+
+.speakers__label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 0.75rem;
+}
+.speakers {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(0.75rem, 1.8vw, 1.1rem) clamp(1rem, 2.2vw, 1.4rem);
+}
+.speaker {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+.speaker__avatar {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--ink-2);
+  border: 1px solid var(--accent-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.speaker__initials {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 0.78rem;
+  color: var(--accent);
+}
+.speaker__avatar-img { width: 100%; height: 100%; object-fit: cover; }
+.speaker__name {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+
+/* ============================================================
+   PHOTO GALLERY (index.html #gallery — conveyor + lightbox)
+   ============================================================ */
+.gallery-section {
+  background: var(--ink-2);
+  border-top: 1px solid var(--line-soft);
+  border-bottom: 1px solid var(--line-soft);
+}
+.gallery {
+  display: flex;
+  gap: clamp(0.85rem, 1.5vw, 1.25rem);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: var(--gutter);
+  padding-bottom: 0.5rem;
+  margin: 0 calc(var(--gutter) * -1);
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.gallery::-webkit-scrollbar { display: none; }
+.gallery__dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: 1.25rem;
+}
+.gallery__dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid var(--accent-soft);
+  background: transparent;
+  cursor: pointer;
+  transition: background .2s ease, border-color .2s ease, transform .2s ease;
+}
+.gallery__dot:hover { border-color: var(--accent); }
+.gallery__dot.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  transform: scale(1.25);
+}
+.gallery__item {
+  flex: 0 0 auto;
+  width: clamp(220px, 32vw, 320px);
+  scroll-snap-align: start;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--accent-soft);
+  background: var(--ink);
+  padding: 0;
+  cursor: pointer;
+  transition: border-color .2s ease, transform .2s ease;
+}
+.gallery__item:hover { border-color: var(--accent); transform: translateY(-2px); }
+.gallery__item img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  display: block;
+}
+
+.modal--lightbox .modal__panel--lightbox {
+  position: relative;
+  width: min(1100px, 100%);
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+.lightbox__figure { min-width: 0; max-width: 100%; }
+.lightbox__img {
+  max-width: 100%;
+  max-height: 78vh;
+  width: auto;
+  margin: 0 auto;
+  border-radius: 10px;
+  display: block;
+}
+.lightbox__caption {
+  margin-top: 0.85rem;
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 0.85rem;
+}
+.lightbox__nav {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: rgba(0,0,0,0.5);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color .18s ease, color .18s ease;
+}
+.lightbox__nav:hover { border-color: var(--white); color: var(--white); }
+.modal--lightbox .modal__close {
+  top: -2.5rem;
+  right: 0;
+  color: var(--text);
+}
+
+/* Mobile: image goes full viewport width; nav arrows overlay on top of it
+   instead of sharing a flex row, so they never eat into the image width. */
+@media (max-width: 760px) {
+  .modal.modal--lightbox { padding: 0; }
+  .modal--lightbox .modal__panel--lightbox {
+    width: 100%;
+    gap: 0;
+  }
+  .lightbox__figure { width: 100%; max-width: none; }
+  .lightbox__img { max-width: 100%; max-height: 72vh; width: 100%; border-radius: 0; }
+  .lightbox__caption { padding: 0 var(--gutter); }
+  .lightbox__nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+  }
+  .lightbox__nav--prev { left: 0.75rem; }
+  .lightbox__nav--next { right: 0.75rem; }
+  .modal--lightbox .modal__close {
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.5);
+    color: var(--white);
+    font-size: 1.4rem;
+  }
+}
+
+/* ============================================================
+   MEMBER BAND component (strong gold treatment: the one place the
+   warm accent is used as *text* rather than hairlines and glow).
+   As of 2026-09-02 this styles index.html's #summit-2027 section
+   (the 2027 waitlist, now the page's primary bottom CTA, embedded
+   Ticket Tailor widget in place of the button); #community
+   (membership) was demoted to the quieter .whisper treatment
+   below it. Class name kept as "member-band" since it's the
+   component, not the section, that's reused.
    ============================================================ */
 .member-band {
   position: relative;
@@ -421,6 +641,36 @@ a { color: inherit; text-decoration: none; }
 }
 .member-band__body strong { color: var(--text); font-weight: 600; }
 .member-band .btn { flex-shrink: 0; }
+
+/* Embedded Ticket Tailor waitlist widget (2027 band). Wrapped in a light
+   card because the widget renders in Ticket Tailor's own light theme,
+   which the iframe boundary keeps us from restyling to match the page. */
+.waitlist-embed {
+  flex: 1 1 380px;
+  width: 100%;
+  max-width: 420px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--paper);
+  box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.55);
+}
+.waitlist-embed iframe {
+  display: block;
+  width: 100%;
+  height: 480px;
+  border: 0;
+}
+.waitlist-embed__fallback {
+  position: relative;
+  z-index: 1;
+  max-width: var(--maxw);
+  margin: -0.5rem auto 0;
+  padding: 0 var(--gutter) clamp(2.5rem, 7vh, 4rem);
+  text-align: right;
+  font-size: 0.82rem;
+  color: var(--text-faint);
+}
+.waitlist-embed__fallback a { color: var(--accent); }
 
 /* Gold CTA: only used by the member band */
 .btn--gold {
@@ -819,7 +1069,12 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* ============================================================
-   2027 SUMMIT WHISPER
+   WHISPER component (quiet treatment: purple-tinted smoke bg,
+   ghost button). As of 2026-09-02 this styles index.html's
+   #community section (membership, demoted to a secondary mention
+   under the 2027 waitlist); it previously styled #summit-2027.
+   Class name kept as "whisper" since it's the component, not the
+   section, that's reused.
    ============================================================ */
 .whisper {
   position: relative;
@@ -1125,6 +1380,9 @@ a { color: inherit; text-decoration: none; }
   .who__cols { grid-template-columns: 1fr; }
   .whisper__inner { flex-direction: column; align-items: flex-start; }
   .whisper .btn { width: 100%; }
+  .member-band__inner { flex-direction: column; align-items: stretch; }
+  .waitlist-embed { max-width: none; }
+  .waitlist-embed__fallback { text-align: center; }
   .footer__inner { flex-direction: column; align-items: flex-start; }
   .footer__links { text-align: left; }
   .footer__links a { margin: 0 1.25rem 0 0; }
@@ -1156,5 +1414,6 @@ a { color: inherit; text-decoration: none; }
   .hero__media { animation: none; transform: scale(1.04); }
   .hero__scroll span { animation: none; }
   .whisper::before { animation: none; }
+  .modal__backdrop, .modal__panel { animation: none; }
   html { scroll-behavior: auto; }
 }
