@@ -335,7 +335,9 @@ Commerce historically runs on **Ticket Tailor** (`tickets.thelivinginternet.com`
 5. **Schedule the Sept 30 lapse** (Premium → Free) — §11.
 6. **Build out the Sprint spaces** in Circle — §11.
 
-**Open decisions:** whether/when to reopen registration for a future cohort (would mean reviving `index-sprint-open-archive.html` rather than rebuilding); renewal pricing/offerings after September for anyone already enrolled; whether 2026 speakers can be named (currently generic); 2027 summit actual location/dates once confirmed (page currently says "likely southwest USA," TBA).
+**Open decisions:** whether/when to reopen registration for a future cohort (would mean reviving `index-sprint-open-archive.html` rather than rebuilding); renewal pricing/offerings after September for anyone already enrolled; whether 2026 speakers can be named (currently generic); 2027 summit exact dates and venue (region is now decided, see below).
+
+**2027 location confirmed 2026-09-02:** British Columbia, Canada. `#summit-2027`'s copy was trimmed from a hedged "likely somewhere in the southwest United States" to a plain statement that the region is confirmed; exact dates/venue are still TBA. ⚠️ **Not yet reflected in Ticket Tailor.** The `es_2274135` event series' `venue` still reads `{ name: "To be announced", country: "US", postal_code: "85281" }` (Tempe, AZ area code, evidently a stale placeholder) and its description text doesn't mention a region at all. Update `venue.country` to `CA` (and the description, if Jesse wants the region named there too) next time Ticket Tailor is touched, so the waitlist page's own copy doesn't contradict the site.
 
 ---
 
