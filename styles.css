@@ -34,12 +34,14 @@
   /* Layout */
   --maxw: 1200px;
   --gutter: clamp(1.25rem, 4vw, 4rem);
+  --nav-h: 84px; /* fixed nav's rendered height (desktop); hero padding
+                    and anchor scroll offset both key off this */
 }
 
 /* ---------- Reset ---------- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; scroll-padding-top: 84px; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; scroll-padding-top: var(--nav-h); }
 
 body {
   font-family: var(--sans);
@@ -178,16 +180,29 @@ a { color: inherit; text-decoration: none; }
    ============================================================ */
 .hero {
   position: relative;
-  min-height: 100svh;
-  display: flex;
-  align-items: flex-end;
   overflow: hidden;
-  isolation: isolate;
+  background: var(--black);
+  /* The nav is fixed and floats over the top of the page, so give the
+     photo the same amount of clear black space up top instead of
+     letting the bar sit over its top edge. */
+  padding-top: var(--nav-h);
 }
+/* Bounded to the photo's own aspect ratio so the full frame fits the
+   viewport's width instead of a viewport-height box forcing a crop of
+   its left/right edges. max-height is just a safety net for very wide,
+   short windows. */
 .hero__media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1661 / 947;
+  max-height: 82vh;
+  overflow: hidden;
+  z-index: 0;
+}
+.hero__media::before {
+  content: "";
   position: absolute;
   inset: 0;
-  z-index: -2;
   background-image: url("assets/images/summit-photos/img1.jpg");
   background-size: cover;
   background-position: 50% 38%;
@@ -198,23 +213,48 @@ a { color: inherit; text-decoration: none; }
   from { transform: scale(1.04) translateY(0); }
   to   { transform: scale(1.08) translateY(-1.5%); }
 }
-/* Legibility scrim: heavier at bottom + left where the copy lives */
+/* Legibility scrim: heavier at bottom + left where the copy lives.
+   Sized to match .hero__media exactly (same aspect ratio, same cap)
+   rather than the old inset:0, since the hero no longer fills the
+   viewport. */
 .hero__scrim {
   position: absolute;
-  inset: 0;
-  z-index: -1;
+  /* .hero__media starts below the nav-clearance padding on .hero, not
+     at .hero's own top edge (an absolutely positioned child is
+     anchored to the padding box, which still includes that padding) */
+  top: var(--nav-h);
+  left: 0;
+  width: 100%;
+  aspect-ratio: 1661 / 947;
+  max-height: 82vh;
+  z-index: 1;
   background:
-    linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 38%, rgba(0,0,0,0.15) 70%, rgba(0,0,0,0.35) 100%),
-    linear-gradient(to right, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.15) 45%, rgba(0,0,0,0) 80%);
+    linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.38) 38%, rgba(0,0,0,0.08) 70%, rgba(0,0,0,0.2) 100%),
+    linear-gradient(to right, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.1) 45%, rgba(0,0,0,0) 80%);
 }
 
 .hero__content {
+  position: relative;
+  z-index: 2;
   max-width: var(--maxw);
   width: 100%;
   margin: 0 auto;
   padding: 0 var(--gutter) clamp(3.5rem, 8vh, 7rem);
 }
 .hero__content > * + * { margin-top: 1.4rem; }
+
+/* Title + eyebrow ride up over the tail end of the photo (anchored to
+   its bottom edge); the rest of the hero copy (below) sits in normal
+   flow on the page's solid ground, same idea as the mobile treatment
+   further down but keeping a little of the copy on the image. */
+.hero__overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 100%;
+  padding-bottom: clamp(1.75rem, 4vh, 3rem);
+}
+.hero__overlay > * + * { margin-top: 1.4rem; }
 
 .hero__title {
   font-family: var(--display);
@@ -1332,27 +1372,23 @@ a { color: inherit; text-decoration: none; }
     border-bottom: 1px solid var(--line-soft);
   }
   .hero {
-    min-height: auto;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: flex-start;
+    /* Sticky nav already occupies its own flow space here, so the
+       extra top padding desktop needs (to clear the fixed bar) would
+       just be a redundant gap. */
+    padding-top: 0;
   }
-  .hero__media {
-    position: relative;
-    inset: auto;
-    z-index: 0;
-    height: 42vh;
-    min-height: 240px;
+  /* No height/aspect-ratio override here: same reasoning as desktop
+     applies, the photo's own aspect ratio (set at the base rule) keeps
+     its full width in frame instead of a fixed vh height forcing a
+     crop of its left/right edges. */
+  .hero__media::before {
     transform: none;
     animation: none;
     background-position: 50% 30%;
   }
   /* Fade the bottom of the photo into the dark content area */
   .hero__scrim {
-    position: absolute;
-    inset: 0;
-    height: 42vh;
-    z-index: 1;
+    top: 0;   /* .hero has no top padding at this breakpoint (sticky nav) */
     background: linear-gradient(to bottom,
       rgba(0,0,0,0.15) 0%,
       rgba(0,0,0,0.05) 45%,
@@ -1360,14 +1396,18 @@ a { color: inherit; text-decoration: none; }
       var(--ink) 100%);
   }
   .hero__content {
-    position: relative;
-    z-index: 2;
-    flex: 1;
     margin-top: -2.5rem;       /* pull copy up into the fade */
     padding: 0 var(--gutter) 2.5rem;
     background: var(--ink);
   }
   .hero__content > * + * { margin-top: 1.1rem; }
+  /* Desktop rides the title/eyebrow up over the photo; mobile keeps
+     them in normal flow with everything else below the image. */
+  .hero__overlay {
+    position: static;
+    padding-bottom: 0;
+  }
+  .hero__overlay > * + * { margin-top: 1.1rem; }
   .hero__title { font-size: clamp(2.1rem, 8vw, 3rem); max-width: 18ch; }
   .hero__sub { font-size: 1.05rem; max-width: none; }
   .hero__scroll { display: none; }
@@ -1417,7 +1457,7 @@ a { color: inherit; text-decoration: none; }
 
 /* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .hero__media { animation: none; transform: scale(1.04); }
+  .hero__media::before { animation: none; transform: scale(1.04); }
   .hero__scroll span { animation: none; }
   .whisper::before { animation: none; }
   .modal__backdrop, .modal__panel { animation: none; }
