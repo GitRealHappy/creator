@@ -642,13 +642,19 @@ a { color: inherit; text-decoration: none; }
 .member-band__body strong { color: var(--text); font-weight: 600; }
 .member-band .btn { flex-shrink: 0; }
 
+/* #summit-2027 stacks instead of the default text-beside-CTA row, so the
+   embedded waitlist form (below) gets the section's full width to grow
+   into rather than sharing a row with the text block. */
+.member-band--waitlist .member-band__inner { flex-direction: column; align-items: flex-start; }
+
 /* Embedded Ticket Tailor waitlist widget (2027 band). Wrapped in a light
    card because the widget renders in Ticket Tailor's own light theme,
-   which the iframe boundary keeps us from restyling to match the page. */
+   which the iframe boundary keeps us from restyling to match the page.
+   Sized generously (both axes) so the form itself is unlikely to need
+   an inner scroll to reach its submit button. */
 .waitlist-embed {
-  flex: 1 1 380px;
   width: 100%;
-  max-width: 420px;
+  max-width: 640px;
   border-radius: 14px;
   overflow: hidden;
   background: var(--paper);
@@ -657,7 +663,7 @@ a { color: inherit; text-decoration: none; }
 .waitlist-embed iframe {
   display: block;
   width: 100%;
-  height: 480px;
+  height: 700px;
   border: 0;
 }
 .waitlist-embed__fallback {
