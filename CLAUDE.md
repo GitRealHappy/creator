@@ -136,6 +136,10 @@ The Sprint consists of six pillars:
 │                          (img13-web.jpg) → who's in the room → what's included (2x2
 │                          pillars) → 3 testimonials → pricing (annual featured) → quiet
 │                          Field Notes free-tier takeaway. Not yet linked from index.html.
+├── last-call/              Redirect-only page (added 2026-09-14): /last-call sends visitors
+│   └── index.html          to Ticket Tailor event 2398103 via JS location.replace + meta
+│                          refresh (GitHub Pages has no server-side redirects). noindex.
+│                          Query strings/hashes (e.g. UTM params) are passed through.
 ├── living-room/            "The Living Room" event page, hosted by Jesse James Carver &
 │   ├── index.html          Matthew Manning, at www.thelivinginternet.com/living-room. Not
 │   ├── main.css             linked from index.html or any nav — hidden page, noindex/
