@@ -288,8 +288,8 @@ a { color: inherit; text-decoration: none; }
 .hero__deadline {
   font-size: 0.88rem;
   color: var(--text-dim);
-  max-width: 22ch;
-  line-height: 1.4;
+  max-width: 40ch;
+  line-height: 1.5;
 }
 .hero__deadline strong { color: var(--text); font-weight: 600; }
 
@@ -412,6 +412,29 @@ a { color: inherit; text-decoration: none; }
   line-height: 1.6;
   color: var(--text-dim);
 }
+
+/* ============================================================
+   SCHEDULE (#about — 2027 day-by-day breakdown, added 2026-10-01)
+   ============================================================ */
+.schedule {
+  list-style: none;
+  margin-top: 1.75rem;
+  display: grid;
+  gap: 0.85rem;
+  max-width: 62ch;
+}
+.schedule__day { display: flex; gap: 1.25rem; align-items: baseline; }
+.schedule__date {
+  flex-shrink: 0;
+  width: 9ch;
+  font-family: var(--display);
+  font-weight: 500;
+  color: var(--accent);
+  font-size: 0.95rem;
+}
+.schedule__desc { color: var(--text-dim); line-height: 1.55; }
+.schedule__desc strong { color: var(--text); font-weight: 600; }
+.about__note { margin-top: 1.75rem; }
 
 .speakers__label {
   font-size: 0.75rem;
@@ -698,12 +721,11 @@ a { color: inherit; text-decoration: none; }
 /* ============================================================
    MEMBER BAND component (strong gold treatment: the one place the
    warm accent is used as *text* rather than hairlines and glow).
-   As of 2026-09-02 this styles index.html's #summit-2027 section
-   (the 2027 waitlist, now the page's primary bottom CTA, embedded
-   Ticket Tailor widget in place of the button); #community
-   (membership) was demoted to the quieter .whisper treatment
-   below it. Class name kept as "member-band" since it's the
-   component, not the section, that's reused.
+   As of 2026-10-01 this styles index.html's #tickets section (the
+   2027 ticket sale, the page's primary bottom CTA, with an
+   embedded Ticket Tailor checkout widget). Class name kept as
+   "member-band" since it's the component, not the section, that's
+   reused.
    ============================================================ */
 .member-band {
   position: relative;
@@ -766,17 +788,17 @@ a { color: inherit; text-decoration: none; }
 .member-band__body strong { color: var(--text); font-weight: 600; }
 .member-band .btn { flex-shrink: 0; }
 
-/* #summit-2027 stacks instead of the default text-beside-CTA row, so the
-   embedded waitlist form (below) gets the section's full width to grow
+/* #tickets stacks instead of the default text-beside-CTA row, so the
+   embedded checkout form (below) gets the section's full width to grow
    into rather than sharing a row with the text block. */
-.member-band--waitlist .member-band__inner { flex-direction: column; align-items: flex-start; }
+.member-band--tickets .member-band__inner { flex-direction: column; align-items: flex-start; }
 
-/* Embedded Ticket Tailor waitlist widget (2027 band). Wrapped in a light
-   card because the widget renders in Ticket Tailor's own light theme,
-   which the iframe boundary keeps us from restyling to match the page.
-   Sized generously (both axes) so the form itself is unlikely to need
-   an inner scroll to reach its submit button. */
-.waitlist-embed {
+/* Embedded Ticket Tailor checkout widget (2027 ticket band). Wrapped in a
+   light card because the widget renders in Ticket Tailor's own light
+   theme, which the iframe boundary keeps us from restyling to match the
+   page. Height increased 700px -> 875px (2026-10-01, +25% per Jesse) so
+   the form is even less likely to need an inner scroll to reach submit. */
+.ticket-embed {
   width: 100%;
   max-width: 640px;
   border-radius: 14px;
@@ -784,13 +806,13 @@ a { color: inherit; text-decoration: none; }
   background: var(--paper);
   box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.55);
 }
-.waitlist-embed iframe {
+.ticket-embed iframe {
   display: block;
   width: 100%;
-  height: 700px;
+  height: 875px;
   border: 0;
 }
-.waitlist-embed__fallback {
+.ticket-embed__fallback {
   position: relative;
   z-index: 1;
   max-width: var(--maxw);
@@ -800,7 +822,54 @@ a { color: inherit; text-decoration: none; }
   font-size: 0.82rem;
   color: var(--text-faint);
 }
-.waitlist-embed__fallback a { color: var(--accent); }
+.ticket-embed__fallback a { color: var(--accent); }
+
+/* Ticket tiers (GA / VIP / Virtual breakdown inside #tickets) */
+.ticket-tiers {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: clamp(1rem, 2.5vw, 1.5rem);
+  width: 100%;
+}
+.ticket-tier {
+  background: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: clamp(1.4rem, 3vw, 1.85rem);
+}
+.ticket-tier--featured { border-color: var(--accent-soft); box-shadow: 0 0 40px -22px var(--accent-glow); }
+.ticket-tier__name {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.ticket-tier__price {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(1.7rem, 3.5vw, 2.2rem);
+  color: var(--white);
+  margin-top: 0.4rem;
+}
+.ticket-tier__desc {
+  margin-top: 0.65rem;
+  color: var(--text-dim);
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+/* Inline promo-code chip (hero deadline note, #tickets) */
+.code-chip {
+  display: inline-block;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  background: var(--accent-faint);
+  color: var(--accent);
+  border: 1px solid var(--accent-soft);
+  border-radius: 6px;
+  padding: 0.08em 0.45em;
+}
 
 /* Gold CTA: only used by the member band */
 .btn--gold {
@@ -1208,11 +1277,12 @@ a { color: inherit; text-decoration: none; }
 
 /* ============================================================
    WHISPER component (quiet treatment: purple-tinted smoke bg,
-   ghost button). As of 2026-09-02 this styles index.html's
-   #community section (membership, demoted to a secondary mention
-   under the 2027 waitlist); it previously styled #summit-2027.
-   Class name kept as "whisper" since it's the component, not the
-   section, that's reused.
+   ghost button). Not currently used by index.html: as of
+   2026-10-01 the page dropped the #community membership section
+   (and membership entirely) in favor of selling 2027 tickets, so
+   nothing on the live page uses this class right now. Kept here,
+   same convention as other shared-but-currently-unused classes in
+   this file, in case a quiet secondary-CTA band is needed again.
    ============================================================ */
 .whisper {
   position: relative;
@@ -1332,6 +1402,42 @@ a { color: inherit; text-decoration: none; }
   max-width: 50ch;
 }
 .final__deadline { color: var(--text-dim); font-size: 0.9rem; margin-top: 1.1rem; }
+
+/* ============================================================
+   FOUNDER NOTE (added 2026-10-01, replaces the membership
+   mention: a short personal note from Jesse linking to his own
+   site, instead of a paid-membership CTA)
+   ============================================================ */
+.founder { background: var(--ink); border-top: 1px solid var(--line-soft); }
+.founder__inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: clamp(3rem, 7vh, 4.5rem) var(--gutter);
+  display: flex;
+  align-items: center;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  flex-wrap: wrap;
+}
+.founder__avatar {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 1px solid var(--accent-soft);
+}
+.founder__avatar img { width: 100%; height: 100%; object-fit: cover; }
+.founder__text { max-width: 62ch; }
+.founder__text > * + * { margin-top: 0.6rem; }
+.founder__name {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 1.1rem;
+  color: var(--white);
+}
+.founder__body { color: var(--text-dim); line-height: 1.6; }
+.founder__body a { color: var(--white); font-weight: 600; border-bottom: 1px solid var(--line); }
+.founder__body a:hover { border-color: var(--white); }
 
 /* ============================================================
    FOOTER
@@ -1519,8 +1625,10 @@ a { color: inherit; text-decoration: none; }
   .whisper__inner { flex-direction: column; align-items: flex-start; }
   .whisper .btn { width: 100%; }
   .member-band__inner { flex-direction: column; align-items: stretch; }
-  .waitlist-embed { max-width: none; }
-  .waitlist-embed__fallback { text-align: center; }
+  .ticket-embed { max-width: none; }
+  .ticket-embed__fallback { text-align: center; }
+  .ticket-tiers { grid-template-columns: 1fr; }
+  .founder__inner { flex-direction: column; align-items: flex-start; text-align: left; }
   .footer__inner { flex-direction: column; align-items: flex-start; }
   .footer__links { text-align: left; }
   .footer__links a { margin: 0 1.25rem 0 0; }

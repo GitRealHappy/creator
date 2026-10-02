@@ -3,18 +3,25 @@
 Project context for any Claude session working in this repository. Read this first.
 
 > **Picking this up in a fresh chat?** Jump to **§13 Current status & next steps** for exactly
-> where things stand and what's left. Two things from the previous session do NOT carry over and
-> may need re-providing: the **attendee spreadsheet** (`Summit_Registrants_2026-2.xlsx`, was an
-> upload) and the companion planning doc `creator-sprint-landing-plan.md` (lived in the session
-> scratchpad, not in this repo).
+> where things stand and what's left. Two things from a much earlier session do NOT carry over
+> and may need re-providing if the Sprint/attendee-sync work resumes: the **attendee spreadsheet**
+> (`Summit_Registrants_2026-2.xlsx`, was an upload) and the companion planning doc
+> `creator-sprint-landing-plan.md` (lived in the session scratchpad, not in this repo).
 
-> **⚠️ Registration is now CLOSED (as of 2026-06-30).** `index.html` was rewritten as a
-> post-registration page: thank-you hero, testimonial wall, a membership CTA, and the 2027
-> waitlist. As of **2026-08-05** it funnels to **paid** premium membership via `/membership`,
-> not the free tier. The old sales page (pillars, journey, who-it's-for, FAQ, $177 register
-> panel, countdown) is archived at `index-sprint-open-archive.html` for reference, not linked
-> from anywhere live. Most of §8, §9, and §10 below describe that archived version; see the
-> note at the top of §8 for what's actually live now.
+> **⚠️ As of 2026-10-01, `index.html` is a ticket-sale page for the 2027 summit, not a
+> post-registration/membership page.** The 90-Day Creator Sprint has ended; the Future-Proof
+> Creator Summit 2027 (Abbotsford, BC, June 4–6, 2027) is live on Ticket Tailor with real tickets
+> on sale (GA $497, VIP $1,497 / 30 seats, Virtual $197, plus a $77 After-Party add-on), not just
+> a waitlist. The page was rewritten to sell that ticket directly: hero + "what you're walking
+> into" + the 2026 story/speakers/gallery/testimonials as proof + a `#tickets` section with the
+> ticket breakdown and an embedded Ticket Tailor checkout widget + a short founder's note. **Paid
+> membership has been dropped from this page entirely** (per Jesse: the Alliance is moving toward
+> a free community model, to be figured out later); `/membership` still exists as its own page but
+> is no longer linked from `index.html`. Most of §2, §8, §9, §10, and §11 below describe the
+> 90-Day Sprint / membership-funnel era and are historical, not current; see the note at the top
+> of §8 for what's actually live now. The old pre-close sales page (pillars, journey,
+> who-it's-for, FAQ, $177 register panel, countdown) is still archived at
+> `index-sprint-open-archive.html`, not linked from anywhere live.
 
 ---
 
@@ -226,37 +233,119 @@ The Sprint consists of six pillars:
 
 ## 8. Page structure
 
-### What's live now in `index.html` (post-registration page)
-- ✅ **Nav** — white logo + Montserrat-bold wordmark, solid white **"Explore membership"** button (→ `/membership`), anchor links to `#story` / `#proof` / `#community`, plus a **2027 Waitlist** anchor link (→ `#summit-2027`, in-page since 2026-09-02; was an external Ticket Tailor link before that). Same solid black bar treatment as before. (Was a ghost "Join free" button + a `#recordings` link until 2026-08-05.)
-- ✅ **Hero** — `img1.jpg` background with a legibility scrim, eyebrow, Fraunces thank-you headline ("Thank you for showing up... the room is still warm."), warm paragraph thanking attendees, CTA "Explore membership" → `#community`, and smaller microcopy: "Premium membership is open year round, and the 90-Day Creator Sprint comes with it." (Until 2026-08-05 this said registration was closed and pointed at the free tier; that was true of the *Sprint sign-up window*, never of Premium, and it contradicted the new funnel.)
-- ✅ **The story** (`#story`) — **added 2026-09-02, compacted and extended same day.** Replaces the old bare `.attendee-strip` waitlist banner in this slot. Tight narrative copy on the 2026 summit itself (three days, Abbotsford BC, ~100 in-person, workshops/panels/fireside conversations, everything recorded), a labeled `.speakers__label` ("The 2026 lineup") over a `.speakers` row of all 17 2026 speakers with names: Dan Koe, Dan Goldfield, Taylin Simmonds, Kieran Drew, Kimia Nora, Jack Moses, David Morin, Ish Hasan, Logan Quinn, Olivia Peers, Michael Oliver, Jesse James Carver, Brian Maierhofer, Nathalie Agnes, Zach Scannapieco, Fia Houston-Hamilton, Paul Musso. **This is now the sanctioned place speakers are named with real identity** (an explicit, Jesse-approved break from the site-wide "keep speakers generic" default). **All 17 have real photos** (`assets/images/speakers/<name>-web.jpg`, cropped square + optimized via `sips` from originals Jesse dropped loose into `assets/images/`, identified by filename): Dan Goldfield's and Nathalie Agnes's identities were each confirmed from a visible stage name tag in their source photo (Dan Goldfield's also confirmed Dan Koe by elimination); Brian Maierhofer's source photo is a 3-person group shot, but Jesse confirmed he's the middle person, so his crop is centered on that face specifically rather than the whole group. **No exact speaker count in body copy** (deliberately, since the roster keeps growing): the section calls it "the 2026 lineup," not "N speakers," so adding more later needs no copy edit. The section previously ended in a `.story__cta` block with its own 2027 waitlist button; **removed 2026-09-02** when the 2027 ask was consolidated into one stronger dedicated section further down the page (see the `#summit-2027` bullet below) instead of being repeated in three places.
-- ✅ **Section compaction (2026-09-02).** `#story` and `#gallery` both carry a new `.section--compact` class (`styles.css`), roughly halving their vertical padding and tightening `.section-head`/`.story__body`/`.speakers` internal spacing (avatar size dropped 44px → 34px) versus the rest of the page's `.section` rhythm. Scoped narrowly to these two sections only; nothing else on this page or `/membership` uses `.section--compact`, so their spacing is untouched.
-- ✅ **Photo gallery** (`#gallery`) — **added 2026-09-02, extended same day to 10 photos, extended again same day to 39.** A horizontal scroll-snap `.gallery` conveyor: 7 seed photos (`img10-web`, `img7-web`, `img3-web`, `group-photo-web`, `img4-web`, `img9-web`, `img12-web`, generated via the documented `sips` pipeline from previously-unused raw summit photos) plus the 3 photos that used to be `#proof`'s standalone `.photo-strip` (`img6.jpg`, `img5.jpg`, `img14.jpg`, moved here and removed from there so every standalone summit photo lives in one lightbox-enabled place), plus **29 more Jesse dropped into `assets/images/summit-photos/` as `futureproof-creator-summit-2026_<flickr-id>_o.jpg`** (6192x4128 originals, renamed sequentially to `img16.jpg`…`img44.jpg` to match the existing convention, then run through the same `sips -Z 1400 -s format jpeg -s formatOptions 70` pipeline as `img16-web.jpg`…`img44-web.jpg`, 190-350 KB each). Alt text for the 29 was written by looking at each photo directly; none are named except `img33-web.jpg` (Kimia Nora, confirmed by her visible speaker badge in the shot) to stay consistent with the "only name when confidently identified" approach already used elsewhere in the gallery. Clicking a thumbnail opens `#modal-gallery`, a full-screen `.modal--lightbox` variant with prev/next arrows, arrow-key nav, and touch swipe (JS pattern adapted from `group-guide/script.js`). On mobile the image fills the viewport width edge to edge with the nav arrows overlaid on top of it. **Jesse plans to add more photos**; the gallery is a flat list of `<button class="gallery__item">` blocks, so new photos are a copy-paste addition, no JS changes needed (raw originals should be renamed into the `imgN.jpg` sequence and run through the same `sips` pipeline first, then the raw original deleted per the cleanup note below).
-  - **Conveyor side arrows (added 2026-09-02).** `.gallery-track` wraps the `.gallery` scroller with two round `.gallery__nav` prev/next buttons (`#galleryPrev`/`#galleryNext`), styled like the lightbox's own nav arrows. They step by the same `step`-sized page the dots use, pause/resume autoplay like a dot click, and hide under 640px where touch swipe + dots already cover navigation.
-  - **Grid view toggle (added 2026-09-02),** for scanning all 39 photos at once instead of scrolling the conveyor. A `.btn.btn--ghost` control (`#galleryViewToggle`, "View all photos") above the conveyor swaps `.gallery` from the flex conveyor to a `.gallery--grid` CSS grid (`repeat(auto-fill, minmax(180px,1fr))`, 2 fixed columns under 640px so it doesn't collapse to one long mobile column) and hides the now-irrelevant arrows/dots. While grid view is open the toggle (now reading "Collapse grid") goes `position: sticky` just below the nav bar via `.gallery-controls.is-grid`, with its own translucent backdrop-blur styling so it stays legible over photos as the visitor scrolls through all of them. Collapsing back scrolls the page to the top of `#gallery` so the visitor isn't left stranded mid-page once the section shrinks back down. The same `items` array (and lightbox click handlers) covers both views, so clicking any photo in grid mode opens the normal lightbox at that index.
-- ✅ **Testimonial wall** (`#proof`) — masonry wall of 17 screenshots (`test9.png` still absent), lead-in copy "Nobody asked them to post these." No longer has its own photo strip above it (moved into `#gallery`, see above); now sits after the story/gallery rather than being the first proof a visitor sees.
-  - **Hover/scroll zoom (added 2026-09-02),** for readability: hovering any `.post` scales it to 115% (`transform: scale(1.15)`, `z-index` raised so it overlaps neighbors rather than being clipped by them), deliberately allowed to spill past its masonry column or the viewport edge since the goal is legible testimonial text, not a tidy grid. `.post` lives in shared `styles.css`, so this applies everywhere the class is used, including `/membership`'s 3-card `.proof-trio`. Mobile has no hover, so a small IntersectionObserver (in both `index.html` and `membership/index.html`'s inline scripts, gated behind `matchMedia('(hover: none)')` so desktop never runs it) toggles an `.is-inview` class as each post scrolls into view, giving touch visitors the same zoom automatically instead of requiring a tap-and-hold.
-- ❌ **2026 summit recordings offer** (`#recordings`) — **REMOVED 2026-08-05.** Sold standalone access to the summit recordings for $147 one time. Cut because premium membership already unlocks those recordings, so the $147 product competed with the $27/mo funnel. The Circle paywall itself still exists (§11). (The speaker list this section used to carry now lives on, named, in the `#story` section above instead of sitting unused.)
-- ✅ **2027 Summit waitlist** (`#summit-2027`) — **the page's primary bottom CTA as of 2026-09-02 (later same day)**, swapped ahead of membership per Jesse: the goal shifted from "sell membership, mention 2027" to "get people on the 2027 waitlist, mention membership." Now uses the strong `.member-band` component (animated warm-accent radial smoke, accent hairline borders, gold `.eyebrow`, Fraunces headline in **gold gradient text**) that `#community` used to own. In place of a button, an **embedded Ticket Tailor waitlist widget**: an `<iframe src="https://tickets.thelivinginternet.com/checkout/view-event/id/8531085/chk/ede5cd54da2d77b5125283f28206d958/?modal_widget=true&amp;widget=true">` inside a `.waitlist-embed` card. That's the same direct-checkout URL used elsewhere on the page (§12); Jesse asked to embed this exact URL rather than the event-series page originally used (which also worked, via `widget=true&minimal=true`, but this one is the URL Ticket Tailor itself built the `modal_widget`/`widget` params for). Since the event's only ticket type is hidden and `waitlist_active` is true, that URL's own page content **is** the waitlist form, no separate waitlist-specific endpoint needed. The card is wrapped in `var(--paper)` (not the page's dark tokens) because Ticket Tailor's own light-themed widget renders inside the iframe boundary, which page CSS can't reach into to restyle (per Ticket Tailor's help docs, iframe styling is only controllable from their Box Office Design Studio, not the embedding page). A small `.waitlist-embed__fallback` link below the card ("Form not loading? Join the waitlist directly") points at that same URL in a new tab as a safety net, in case only the iframe-embedding fails and a direct visit still works. **Not yet manually verified rendering correctly** (Cloudflare's bot protection on `tickets.thelivinginternet.com` blocks automated checks, same limitation noted below); check after next deploy.
-  - **Sized up 2026-09-02** (same day, later still) per Jesse: the section carries a `.member-band--waitlist` modifier that stacks `.member-band__inner` (text above the form, `flex-direction: column`, `align-items: flex-start` to keep the page's usual left-aligned convention) instead of sharing a row with it, and `.waitlist-embed` grew from 420px to a 640px max-width with its iframe from 480px to 700px tall, all so the embedded form is less likely to need an inner scroll to reach its submit button. `.member-band` (the base component, still used for its original row layout wherever `--waitlist` isn't added) is unaffected.
-- ✅ **Become a member** (`#community`) — **demoted to a secondary mention 2026-09-02** (same change as above) now that `#summit-2027` is the primary ask. Uses the quieter `.whisper` component (purple-tinted `#0e0818` smoke background, ghost button) that `#summit-2027` used to own, tightened copy ("Prefer not to wait for 2027?"), single `.btn--ghost` CTA → `/membership`. No longer uses `--ink-2`/gold-gradient-text/`.btn--gold`; those now belong to the 2027 section. Says nothing about the free tier: free is reachable from `/membership`'s Field Notes takeaway.
-  - **Component/section naming note:** `.member-band` and `.whisper` are reused CSS *components* (strong-band vs. quiet-band treatments), not tied to a specific section anymore. `.member-band` currently styles `#summit-2027`; `.whisper` currently styles `#community`. Don't assume the class name tells you which section it's on; check the HTML.
-- ❌ **2027 waitlist popup** (`#modal-waitlist`) — **added 2026-09-02, removed the same day** per Jesse: a `.modal` auto-opened via `IntersectionObserver` when scrolling to `#story`. Replaced with the on-page `#summit-2027` section above: a visitor now gets the pitch by scrolling, not by an interruption. All of the popup's markup, its JS trigger IIFE, and the `data-waitlist-cta`/`liaWaitlistPromptSeen` localStorage-flagging code are gone from `index.html`, not just hidden.
-- ✅ **Footer** — wordmark, jesse@ contact, © line. (Privacy/Terms links were removed along with the rest of the sales-page footer; re-add if those pages are needed again.)
+### What's live now in `index.html` (2027 ticket-sale page, as of 2026-10-01)
+History note: everything below this point in §8 that isn't dated 2026-10-01 describes the
+**90-Day Sprint / post-registration / membership-funnel eras** of this page, now superseded.
+Kept for archaeology (`git log` has the rest); don't trust old bullets' CTA wiring or copy.
 
-No countdown, no attendee modal, no pillars/journey/who-it's-for/FAQ/register panel/final CTA on the live page. Those all still exist, unchanged, in `index-sprint-open-archive.html` if the Sprint reopens or a similar page is needed for the next cohort — see that file for the full original section list (nav Register CTA, attendee modal + strip, six pillars, 90-day journey timeline, who-it's-for columns, $177 register panel with live countdown, FAQ accordion, final CTA).
+- ✅ **Nav** — same white logo + Montserrat-bold wordmark + solid black bar. Links: **The
+  Summit** (`#about`), **Stories** (`#proof`). The nav previously also had a **Tickets**
+  (`#tickets`) anchor link; removed 2026-10-01 (same day, later) per Jesse as redundant with the
+  **"Get your ticket"** CTA button right next to it. The "Membership" nav link and `/membership`
+  CTA are gone; membership is not mentioned anywhere on this page anymore.
+- ✅ **Hero** — same `img1.jpg` 2026 photo background. Headline **"The admin work is getting
+  automated. Your voice isn't."** Eyebrow states the 2027 event (Abbotsford, BC, June 4–6).
+  CTA **"Get your ticket"** → `#tickets`. The microcopy below the CTA is the early-access promo
+  message Jesse dictated verbatim: congratulations on finding the page before public
+  announcement, **`SUPEREARLY`** for $200 off GA/VIP, **`EARLYVIRTUAL`** for $50 off Virtual
+  (both codes rendered via a new `.code-chip` pill style in `styles.css`). Both discount codes
+  already existed in Ticket Tailor when this was built (see §12) — no new discounts were created
+  for this rewrite.
+  - **AI framing, corrected 2026-10-01 (same day, twice).** First pass used "can't be automated" /
+    "what AI can't replace" language throughout the hero and `#about`. Jesse flagged this as
+    reading anti-AI, which contradicts the fact that Dan Koe's company **Eden** (an AI product) is
+    becoming a major 2027 sponsor and many past attendees use it enthusiastically. Reframed once
+    to "AI handles the admin work; that frees humans up to double down on what's uniquely theirs,"
+    then reframed again (same day) because the hero still didn't quickly imply *who* the event is
+    for, and because sentences shaped like "That's not competition, it's room to breathe" read as
+    an AI-written tell (Jesse's words: any "it's not X, it's Y" contrast structure is a dead
+    giveaway and should be avoided generally, not just here). Current hero sub-copy: **"Research,
+    scheduling, organizing data increasingly run themselves. The people building one-person
+    businesses and personal brands right now are using every modern tool for that, and spending
+    the time it buys them going deeper on the parts nobody else can do."** This implies the
+    audience (ahead-of-the-curve personal-brand / one-person-business builders who embrace modern
+    tools while deepening their humanity) without stating it outright, and avoids the contrastive
+    sentence pattern. This same AI-framing tension exists in the **§3 brand through-line** ("Build
+    a creative business AI can't replace") — that tagline itself wasn't touched (out of scope for
+    this page edit), but it's worth revisiting given the Eden sponsorship if it comes up again. No
+    sponsor mention/credit was added to the page; Jesse said tone-fix only, revisit a sponsor
+    placement once sponsorship details (logo, placement, credit wording) are finalized.
+- ✅ **"What you're walking into"** (`#about`, new 2026-10-01, revised later same day) — a
+  plain-language "what is this event" section that never existed on the page before (the
+  pre-close archive sold the Sprint, not a summit). Title and framing went through two passes:
+  the first called it "a working retreat, not a conference"; Jesse pushed back on two things
+  (said 2026-10-01, second session): (1) it's fine to just call it a conference, no need to coin
+  a term like "unconvention," just make clear what differentiates it from old-school business
+  conferences, and (2) describe the 2026 crowd as **wisdom seekers building the new meaning
+  economy**, people finding out how to earn a living without sacrificing their sense of deeper
+  purpose. Current copy: title **"Three days built for wisdom seekers,"** section-intro names the
+  meaning-economy framing, then a separate paragraph carries the AI-as-ally point (same framing as
+  the hero) and the differentiators (live talks from people who've done the work, workshops you
+  work in, long unstructured stretches with the room) without calling it "not a conference."
+  States the day-by-day schedule (Fri 1pm start + welcome dinner / Sat 9am–4pm + VIP dinner /
+  Sun 10am–3pm + after-party, pulled from the live Ticket Tailor event description, §12), and that
+  a virtual ticket exists for anyone who can't travel (that closing paragraph was also rewritten
+  to drop an "isn't just for X, it's for Y" construction — see the AI-slop note above). New
+  `.schedule`/`.schedule__day` CSS in `styles.css`.
+- ✅ **The story** (`#story`) — same 2026 narrative and all 17 named speakers with real photos
+  (unchanged markup/images; see the historical bullets below for how those photos were sourced).
+  One line added before the speaker grid, worded twice: first *"A few of 2027's speakers will be
+  posted here as they're confirmed over the next 30 days. The full 2027 lineup will be announced
+  publicly in early 2027"* (Jesse's framing from the first session); revised 2026-10-01 (second
+  session) to a dated version instead, since visitors can't tell when an unstated "30 days" clock
+  started: current copy is *"Some of the 2027 speaker lineup will be released in
+  November/December, with the full lineup announcement coming in early 2027."* Also pushed into
+  the live Ticket Tailor event description, §12, so the two don't contradict each other.
+- ✅ **Photo gallery** (`#gallery`) — unchanged, all 39 photos, grid toggle, lightbox.
+- ✅ **Testimonial wall** (`#proof`) — unchanged, same 17 screenshots (`test9.png` still absent).
+  Intro copy gained one closing sentence: *"This is the room 2027 is inviting you into."*
+- ✅ **Tickets** (`#tickets`, replaces the old `#summit-2027` waitlist section, 2026-10-01) — the
+  page's primary CTA, still the `.member-band` component (renamed modifier
+  `.member-band--tickets`, was `--waitlist`) with the gold-gradient headline treatment. Content is
+  now an actual ticket sale, not a waitlist signup: a `.ticket-tiers` grid (new CSS,
+  `grid-template-columns: repeat(auto-fit, minmax(200px, 1fr))` so it reflows cleanly whether
+  it's 3 or 4 cards) showing **General Admission $497**, **VIP $1,497 (30 seats, featured)**,
+  **Virtual $197**, and (added 2026-10-01, later session, as its own card rather than a line
+  under GA) **After-Party $77** with Jesse's exact copy ("Get groovy on the dance floor and
+  unwind after three packed days of taking notes and thinking deep"), noted as a GA add-on /
+  included free with VIP; the SUPEREARLY/EARLYVIRTUAL promo repeated here too; and the same
+  embedded Ticket Tailor checkout iframe as before, just renamed `.waitlist-embed` →
+  `.ticket-embed` and **made 25% taller (700px → 875px)** per Jesse so the form is less likely to
+  need an inner scroll. Fallback link text changed from "Join the waitlist directly" to "Buy your
+  ticket directly." **Still not manually spot-checked rendering correctly** (Cloudflare's bot
+  protection on `tickets.thelivinginternet.com` blocks automated checks) — check after next
+  deploy, especially the new taller iframe height.
+- ❌ **Become a member** (`#community`) — **removed entirely 2026-10-01.** Per Jesse, paid
+  membership is being dropped from this page while the Alliance figures out a free-community
+  model; `/membership` still exists as a page but has zero inbound links from `index.html` now.
+  The `.whisper` CSS component this section used is kept in `styles.css` (unused on this page,
+  same "keep shared classes even if currently unused" convention as elsewhere in this file) in
+  case a quiet secondary-CTA band is needed again later.
+- ✅ **A note from the founder** (`#founder`, new 2026-10-01) — small section just above the
+  footer, new `.founder`/`.founder__*` CSS. Jesse's photo (reuses
+  `assets/images/speakers/jesse-james-carver-web.jpg`) + a short first-person bio paragraph
+  linking out to **jesse.eden.so** for the longer origin story and his personal work. This is the
+  replacement for the membership mention: the page's only "something else from Jesse" pointer now.
+- ✅ **Footer** — unchanged.
 
-### CTA wiring (live, in `index.html`)
-- **Page order (set 2026-09-02, adjusted twice same day): hero → story (2026, no CTA) → gallery → testimonials → 2027 waitlist (primary, embedded widget) → membership (secondary mention) → footer.** The page leads with the summit's story, speakers, and photos to build the emotional case, *then* proves it with testimonials, *then* makes the 2027 waitlist ask (now the page's main conversion goal, with the signup embedded inline so no one has to leave the site), and only *then* mentions paid membership as a quieter "don't want to wait?" option. (Earlier same-day versions of this restructure: first put the 2027 ask right after the story section and repeated it in a popup, both removed in favor of a single later on-page ask; that version led with membership and closed with 2027, which a later same-day request flipped to lead with 2027 and close with membership instead, once the actual goal was "grow the waitlist," not "sell membership.")
-- **Three-step funnel to Circle checkout (set 2026-08-06), unchanged.** Nothing jumps a visitor straight to a payment form:
-  1. `index.html` buttons say **"Explore membership"** and go to `/membership`.
-  2. `/membership`'s nav and hero CTAs **scroll to `#pricing`**. They do not link out.
-  3. Only the two `.plan__cta` buttons inside the pricing cards reach the Circle checkout.
-  Keep it that way. A visitor should always see both prices before they land on a payment page.
-- **Nav "Explore membership"** → `/membership`. **Hero CTA "Explore membership"** → `#community` (now the quiet whisper-styled secondary mention, since 2026-09-02; see §8), whose CTA "Explore membership · from $27/month" then goes to `/membership`. The Circle free-tier invitation-token join link is **no longer used on `index.html`**; it survives in git history and in the archive page.
-- **2027 waitlist signup is now embedded inline** in `#summit-2027` (added 2026-09-02, later same day; iframe source swapped once more that day per Jesse's request, from the event-series page to the direct checkout URL below; see the `#summit-2027` bullet above) rather than linking out. **Nav "2027 Waitlist"** now scrolls in-page to `#summit-2027` (`href="#summit-2027"`, same smooth-scroll handler as the other nav anchors) instead of opening Ticket Tailor in a new tab. The direct checkout URL, `https://tickets.thelivinginternet.com/checkout/view-event/id/8531085/chk/ede5cd54da2d77b5125283f28206d958/?modal_widget=true&amp;widget=true`, is now **both** the iframe's `src` and the `.waitlist-embed__fallback` link's `target="_blank"` href beneath the embedded card ("Form not loading? Join the waitlist directly") — deliberately the same URL, so the fallback still helps if only *framing* fails but a direct visit works. The event series (`es_2274135`) is **published** with Stripe attached, so this points at a live target, not a 404. **Still not manually spot-checked** that either the iframe embed or the fallback link render correctly (Cloudflare's bot protection on that domain blocks automated verification of this) — check both after the next deploy.
+No countdown, no attendee modal, no pillars/journey/who-it's-for/FAQ/register panel/final CTA on
+the live page. Those all still exist, unchanged, in `index-sprint-open-archive.html`.
+
+### CTA wiring (live, in `index.html`, as of 2026-10-01)
+- **Page order: hero → about (what the event is) → story (2026 proof) → gallery → testimonials →
+  tickets (primary CTA, embedded checkout) → founder's note → footer.** Sell the event, prove it
+  with 2026, close with the actual purchase.
+- **Nav "Get your ticket" and hero CTA "Get your ticket"** both go to `#tickets`. No
+  multi-step funnel anymore (the old "`/membership` → `#pricing` → checkout" three-step funnel
+  from the membership era is gone along with membership itself) — `#tickets` embeds the real
+  Ticket Tailor checkout widget directly, same iframe URL as before:
+  `https://tickets.thelivinginternet.com/checkout/view-event/id/8531085/chk/ede5cd54da2d77b5125283f28206d958/?modal_widget=true&amp;widget=true`.
+  That event series (`es_2274135`) is **published**, has a Stripe payment method attached, and
+  (confirmed 2026-10-01) has real tickets on sale with nonzero `quantity_total` on all four ticket
+  types — this is a live purchase flow, not a placeholder.
 - No `href="#"` placeholders remain.
-- The archived page's CTA wiring (Register → `#get-access`, checkout → Circle paywall) is documented at the top of that file's history; unchanged there.
+- The archived page's CTA wiring (Register → `#get-access`, checkout → Circle paywall) is
+  documented at the top of that file's history; unchanged there.
 
 ---
 
@@ -308,47 +397,73 @@ Community: **The Living Internet Alliance** (Circle community `id 392287`, priva
 
 ---
 
-## 12. Commerce (Ticket Tailor) & the 2027 waitlist
+## 12. Commerce (Ticket Tailor) & the 2027 summit tickets
 
 Commerce historically runs on **Ticket Tailor** (`tickets.thelivinginternet.com`, Stripe-connected, store `st_73705`). The 2026 summit is event series `es_2057263` (in-person sold out; virtual was on sale).
 
-**2027 waitlist (published 2026-09-02):** event series **`es_2274135`** "Future-Proof Creator Summit 2027," waitlist enabled (`waitlist_active: true`), pre-sale shown sold out (its one `GA` ticket type is `status: hidden`), dates/venue TBA (placeholder occurrence Jun 4–6 2027, easily changed). Status is **`published`** with a Stripe payment method attached (`pm_163738`), confirmed via the Ticket Tailor MCP tools (`event_series_by_id_get`). The waitlist signup is **embedded directly on `index.html`** (later 2026-09-02; see the `#summit-2027` bullet in §8) via `<iframe src="https://tickets.thelivinginternet.com/checkout/view-event/id/8531085/chk/ede5cd54da2d77b5125283f28206d958/?modal_widget=true&amp;widget=true">`, the direct checkout URL, per Jesse's request; an initial version instead embedded the public event-series page (`https://tickets.thelivinginternet.com/events/thelivinginternetalliance/2274135?widget=true&minimal=true`), which also worked (`widget=true`/`minimal=true` are Ticket Tailor's own documented embed-mode params, confirmed from their WordPress plugin source since their help-center docs are Cloudflare-blocked from WebFetch) but wasn't the URL Jesse wanted embedded. Because the only ticket type is hidden and the waitlist is active, either URL's own page content *is* the waitlist signup form (the event series's `waitlist_call_to_action` / `waitlist_event_page_text` fields, "Join the 2027 waitlist" / "Tickets for the 2027 summit aren't public yet…", confirm this is the state a visitor sees), so no separate waitlist-only endpoint was needed. There's no MCP tool that generates embed code, so both versions were assembled by hand rather than from a Ticket Tailor API response. Cloudflare blocks automated checks of that domain, so **the iframe's actual rendering is still unverified**; a manual spot-check (does the waitlist form render inside the card, readable against the light `--paper` wrapper?) is worth doing after the next deploy.
+**2027 tickets (live, confirmed 2026-10-01):** event series **`es_2274135`** "Future-Proof Creator Summit 2027." This has moved past the waitlist phase described in earlier sessions: **real tickets are on sale now**, confirmed via `event_series_by_id_get`:
+- `tt_6491140` **General Admission** — $497, 120 total, on sale.
+- `tt_6761732` **VIP Admission** — $1,497, 30 total, on sale.
+- `tt_6761733` **Virtual Admission** — $197, 300 total, on sale.
+- `tt_6761734` **After-Party Ticket** — $77, 120 total, GA add-on (included free with VIP).
+
+Venue is correctly set to Abbotsford, BC, Canada (postal `V2S 7M7`) — the "stale Tempe, AZ placeholder" issue noted in earlier sessions is already resolved, no action needed. Dates: June 4–6, 2027, schedule (Fri 1pm start + 6pm welcome dinner / Sat 9am–4pm + 7pm VIP dinner / Sun 10am–3pm + 8pm after-party) lives in both the event series `description` field and `index.html`'s `#about` section — keep them in sync if either changes. Status `published`, Stripe payment method attached (`pm_163738`).
+
+**Two discount codes already exist** (found via `discounts_get`, not created this session): `di_609532` **`SUPEREARLY`** ($200 fixed off `tt_6491140` + `tt_6761732`, i.e. GA/VIP) and `di_609533` **`EARLYVIRTUAL`** ($50 fixed off `tt_6761733`, Virtual). Both are referenced on the live page (hero microcopy + `#tickets`) as an early-access reward for finding the page before public announcement.
+
+**The embedded checkout** on `index.html`'s `#tickets` section uses the direct checkout URL
+`https://tickets.thelivinginternet.com/checkout/view-event/id/8531085/chk/ede5cd54da2d77b5125283f28206d958/?modal_widget=true&amp;widget=true` in an iframe (same URL used since the waitlist era, now serving real checkout since tickets are on sale). Height increased 700px → 875px 2026-10-01. **Still not manually spot-checked rendering correctly** — Cloudflare's bot protection on that domain blocks automated verification; check after the next deploy, especially that the taller iframe doesn't leave excess empty space if the form is shorter than expected.
+
+⚠️ **Caution for future edits to this event series:** calling `event_series_update` (even for an unrelated field like `description`) returned a response body showing all ticket quantities and `total_issued_tickets` zeroed out and `next_occurrence_date: null`. A follow-up `event_series_by_id_get` immediately after confirmed the real data (quantities, 3 issued tickets, next occurrence date) was intact and correct — this appears to be a stale/transient echo in the update response itself, not actual data loss. Still, **always re-GET after any update to this event series to verify**, rather than trusting the update call's own response body.
 
 ---
 
 ## 13. Current status & next steps
 
-**Done:** original full sales page built and launched, then **retired on 2026-06-30** when Sprint registration closed. Live `index.html` rewritten as the post-registration page (§8); old page preserved at `index-sprint-open-archive.html`. `CNAME` added, `LAUNCH.md` written, domain live. **2026-08-05:** built `/membership`, the standalone sales page for the always-open premium community membership ($27/mo, $260/yr → `circle.so/checkout/membership`), with the free Field Notes space as its secondary takeaway (§6). **2026-09-02:** restructured `index.html` to lead with the 2026 summit's story before asking for anything (added `#story` + `#gallery`, reordered the page), then same-day iterated on that: added 4 more speakers (17 total), compacted `#story`/`#gallery`'s vertical space, folded the old `.photo-strip` into `#gallery`, removed the 2027 popup entirely, and reinstated a single dedicated `#summit-2027` tease-and-CTA section near the footer as the page's one on-page waitlist ask. Later the same day, per Jesse: flipped the bottom-of-page priority from membership-first to **2027-waitlist-first** (`#summit-2027` now leads, using the strong `.member-band` styling; `#community` follows as a quiet `.whisper` mention), and replaced the 2027 CTA's link-out with an **embedded Ticket Tailor waitlist widget** (an iframe on the event series's own page, which shows the waitlist form since its ticket type is hidden) so signup happens inline instead of off-site. Full rationale and section-by-section detail in §8.
+**Done (2026-10-01):** `index.html` rewritten again, this time from a membership-funnel/waitlist
+page into a **direct 2027 ticket-sale page** (§8), because the summit's registration had, by this
+point, actually gone live on Ticket Tailor with real tickets (§12) rather than just a waitlist.
+Added `#about` (what the event is) and `#founder` (note from Jesse, links to jesse.eden.so) as new
+sections; replaced the old `#summit-2027` waitlist band with `#tickets` (ticket tiers + promo
+codes + the same embedded checkout iframe, now taller); removed `#community`/membership from the
+page entirely per Jesse (paid membership is being phased out of the Alliance's model, free
+community TBD later); kept `#story`/`#gallery`/`#proof` (2026 proof) unchanged. Also fixed the
+live Ticket Tailor event description's speaker-announcement sentence to match the page (§12).
 
-**New from the 2026-09-02 work, still open:**
-- ✅ **Speaker photos, all 17 done.** Every speaker avatar now uses a real photo Jesse supplied (§8), including Brian Maierhofer (cropped from a group shot, identity confirmed by Jesse) and 4 later additions (Nathalie Agnes, Zach Scannapieco, Fia Houston-Hamilton, Paul Musso).
-- ✅ **Gallery/proof consolidated.** The static 3-photo `.photo-strip` that used to sit at the top of `#proof` (img6/img5/img14) was removed and those three photos folded into the `#gallery` conveyor instead, so every standalone summit photo lives in one interactive, lightbox-enabled place rather than being split across two non-matching treatments. `#gallery` grew to 10 photos that day, then to **39** later (§8): side nav arrows and a "view all photos" grid toggle were added alongside the extra photos so a 39-photo conveyor stays easy to navigate. `#proof` starts straight at the testimonial wall's header.
-- **Loose extra photos still sitting in `assets/images/` root** (not yet organized or used, and not matched to any of the 17 speakers): `hussain.png`, `jesseandtaylin.png`, `prisca.png`, `prisca2.png`, `prisca3.png`. Likely community members or testimonial authors (`hussain` matches a name seen in a testimonial screenshot, though it turns out to be a screenshot of him presenting over video call, not a headshot). Leave them until Jesse says what they're for.
-- ✅ **29 more event photos added to `#gallery`** (§8, §6), taking it to 39. Jesse's plan of adding more photos over time still holds: drop new raw exports into `assets/images/summit-photos/`, rename them into the `imgN.jpg` sequence, run the `sips -Z 1400 -s format jpeg -s formatOptions 70` pipeline to make the `-web.jpg` version, add a `<button class="gallery__item">` block for it, then **delete the raw original** once the `-web` version is confirmed in use (the summit-photos folder was cleaned of ~380 MB of no-longer-needed raw originals on 2026-09-02; keep it that way rather than letting sources pile back up).
-- ✅ **Resolved.** Both remaining 2027 CTAs (nav, `#summit-2027`) point at the published, working Ticket Tailor checkout link (§12) instead of a URL that 404'd.
-- ✅ **Popup replaced with an on-page CTA**, per Jesse's request: no more auto-opening interruption; `#summit-2027` at the bottom of the page carries the same ask with stronger sales copy (§8).
-- ✅ **Bottom-of-page priority flipped to the 2027 waitlist, and its signup is now embedded inline** (both later 2026-09-02, per Jesse). `#summit-2027` swapped to the strong `.member-band` treatment with an embedded Ticket Tailor iframe in place of its button; `#community` swapped to the quiet `.whisper` treatment as a secondary mention. Nav "2027 Waitlist" now scrolls in-page instead of opening Ticket Tailor. Full detail in §8/§12. ⚠️ Iframe rendering is unverified (Cloudflare blocks automated checks) — needs a manual look after deploy.
+**Open items from this pass:**
+- ⚠️ **Manually spot-check the `#tickets` embed** after the next deploy (Cloudflare blocks
+  automated checks of `tickets.thelivinginternet.com`): confirm the checkout widget renders at
+  875px without excess empty space, and that both `SUPEREARLY` and `EARLYVIRTUAL` actually apply
+  at checkout.
+- **Speaker announcements:** the page and the Ticket Tailor description both now say "some of the
+  2027 lineup in November/December, full lineup in early 2027" (Jesse's framing, 2026-10-01,
+  revised same day to add the concrete months). Keep an eye on whether that timeline actually
+  holds; it's a factual claim on a live page. If November/December passes without any names
+  posted, that line needs updating before it becomes a broken promise.
+- **`/membership` is now an orphaned page** (§6): still live at `/membership`, still a real
+  product in Circle (§11), but nothing on `index.html` links to it anymore. Decide if it should
+  stay up as a direct-URL-only page, get a deliberate new entry point once the free-community
+  model is figured out, or be retired.
+- **Loose extra photos** still sitting unorganized in `assets/images/` root, unmatched to any
+  speaker: `hussain.png`, `jesseandtaylin.png`, `prisca.png`, `prisca2.png`, `prisca3.png`. Leave
+  until Jesse says what they're for.
+- **Gallery is still a flat, hand-maintained list** of 39 `<button class="gallery__item">`
+  blocks in `#gallery` (unchanged by this pass). Jesse's documented workflow for adding more
+  (rename into the `imgN.jpg` sequence, run the `sips -Z 1400` pipeline, add a button, delete the
+  raw original) still applies if more photos show up.
 
-**Membership page open items:**
-- ✅ Paywall verified: `/checkout/membership` offers both $27/mo and $260/yr and grants Premium (`46857`).
-- ✅ Linked from `index.html` (nav CTA, hero CTA, and `#community`'s secondary mention, now the quiet `.whisper` treatment rather than the gold band; see §8).
-- ✅ Sprint copy corrected. The page no longer implies a fresh cohort. Pillar 03 plus a `.note` block under the pillars now say plainly: the Sprint runs July–September and is already underway; workshops are recorded so you can work backward; pods formed July 1 so **you are not placed in one automatically** and the accountability channel is where groups post openings; most sprinters came from the in-person summit, which makes it the shortest path to knowing the 2027 room.
-- ⚠️ **Re-date this page after September 30, 2026.** The `.note` block and pillar 03 are written for a Sprint that is *currently running*. Once it ends, that copy is wrong.
-- The 3 testimonials are 2026 *summit* posts, not membership testimonials. The section copy says so plainly. Swap in member testimonials once there are some.
-- Still unverified: the "bi-weekly live calls" cadence in pillar 01.
+**Historical (90-Day Sprint / membership era, now superseded by the above):** the old Sprint
+registration page, the `/membership` build, the 2026-09-02 story/gallery restructure, and the
+Circle access-group cleanup items (§11: the 249-member mystery, attendee spreadsheet sync, the
+orphaned $147 recordings paywall, the Sept 30 Premium→Free lapse) are all still accurate
+descriptions of past work and still-open Circle housekeeping, but are no longer the page's
+priority now that membership has been dropped from `index.html`. Revisit §11 if/when the
+free-community model gets decided.
 
-**Pending (rough priority):**
-1. ✅ **Publish the 2027 waitlist** in Ticket Tailor — **done** (confirmed 2026-09-02: `es_2274135` is `published` with Stripe attached, §12). The waitlist signup is now **embedded inline** on the page (§8, §12) rather than just linked. ⚠️ **Needs a manual spot-check** (Cloudflare blocks automated verification of that domain): confirm the embedded iframe actually renders the waitlist form, and that the fallback link still works as a backup.
-1a. **Decide the fate of the orphaned $147 recordings paywall** (`/checkout/2026-fpcs-recordings`). Its landing-page section was removed 2026-08-05, but the checkout is still live at its direct URL: disable it, redirect it to the membership checkout, or keep it as a deliberate side door. §11.
-2. **Fix the Circle checkout page copy** (the missing "90," "not all perks," speaker naming) — §11. Lower urgency now that the checkout isn't linked from the live page, but worth fixing before any future reopen.
-3. **Attendee access sync** from the spreadsheet → `90-day-sprinters` (re-provide the xlsx) — §11.
-4. **Clean up the 249** stray space-group members so Sprint spaces are access-gated — §11.
-5. **Schedule the Sept 30 lapse** (Premium → Free) — §11.
-6. **Build out the Sprint spaces** in Circle — §11.
-
-**Open decisions:** whether/when to reopen registration for a future cohort (would mean reviving `index-sprint-open-archive.html` rather than rebuilding); renewal pricing/offerings after September for anyone already enrolled; whether 2026 speakers can be named (currently generic); 2027 summit exact dates and venue (region is now decided, see below).
-
-**2027 location confirmed 2026-09-02:** British Columbia, Canada. `#summit-2027`'s copy was trimmed from a hedged "likely somewhere in the southwest United States" to a plain statement that the region is confirmed; exact dates/venue are still TBA. ⚠️ **Not yet reflected in Ticket Tailor.** The `es_2274135` event series' `venue` still reads `{ name: "To be announced", country: "US", postal_code: "85281" }` (Tempe, AZ area code, evidently a stale placeholder) and its description text doesn't mention a region at all. Update `venue.country` to `CA` (and the description, if Jesse wants the region named there too) next time Ticket Tailor is touched, so the waitlist page's own copy doesn't contradict the site.
+**Open decisions:** the free-community model to replace paid membership (mentioned but not yet
+designed, per Jesse); exact 2027 venue within Abbotsford (dates are locked: June 4–6, 2027,
+region/city already confirmed in Ticket Tailor); whether `/membership` gets revived once that
+model exists.
 
 ---
 
