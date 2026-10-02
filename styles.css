@@ -67,6 +67,11 @@ a { color: inherit; text-decoration: none; }
 }
 
 .hero__eyebrow { line-height: 1.7; }
+.hero__eyebrow-title {
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: var(--white);
+}
 
 /* ---------- Buttons ---------- */
 .btn {
@@ -1631,6 +1636,8 @@ a { color: inherit; text-decoration: none; }
   .ticket-embed { max-width: none; }
   .ticket-embed__fallback { text-align: center; }
   .ticket-tiers { grid-template-columns: 1fr; }
+  /* Tapping a tier scrolls to the checkout embed below (see index.html script) */
+  .ticket-tier { cursor: pointer; }
   .founder__inner { flex-direction: column; align-items: flex-start; text-align: left; }
   .footer__inner { flex-direction: column; align-items: flex-start; }
   .footer__links { text-align: left; }
