@@ -297,8 +297,15 @@ Kept for archaeology (`git log` has the rest); don't trust old bullets' CTA wiri
   November/December, with the full lineup announcement coming in early 2027."* Also pushed into
   the live Ticket Tailor event description, §12, so the two don't contradict each other.
 - ✅ **Photo gallery** (`#gallery`) — unchanged, all 39 photos, grid toggle, lightbox.
-- ✅ **Testimonial wall** (`#proof`) — unchanged, same 17 screenshots (`test9.png` still absent).
-  Intro copy gained one closing sentence: *"This is the room 2027 is inviting you into."*
+- ✅ **Testimonial wall** (`#proof`) — same 17 screenshots (`test9.png` still absent). Intro copy
+  gained one closing sentence: *"This is the room 2027 is inviting you into."* **2026-10-02:**
+  `.post` vertical spacing increased by a flat `+10px` on top of the existing responsive clamp
+  (`margin: 0 0 calc(clamp(0.85rem, 1.5vw, 1.25rem) + 10px)`), and the mobile/touch hover-zoom
+  (`.is-inview`, set by the IntersectionObserver for devices with no `:hover`) was split out from
+  desktop's `:hover` and dialed back to **3/4 of the zoom amount**: desktop stays `scale(1.15)`,
+  `.is-inview` is now `scale(1.1125)` (i.e. `1 + 0.15 * 0.75`) since 115% read as too exaggerated
+  on small screens. `/membership`'s `.proof-trio` no longer exists to share this class with (that
+  page was removed 2026-10-01), so this only affects `#proof` now.
 - ✅ **Tickets** (`#tickets`, replaces the old `#summit-2027` waitlist section, 2026-10-01) — the
   page's primary CTA, still the `.member-band` component (renamed modifier
   `.member-band--tickets`, was `--waitlist`) with the gold-gradient headline treatment. Content is
