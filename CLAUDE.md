@@ -77,7 +77,7 @@ The Sprint consists of six pillars:
 **Theme:** dark mode, black and white, warm-editorial. Mostly pure black backgrounds with warm-white text.
 
 **Type:**
-- Display / headings: **Fraunces** (warm italic serif) — carries the values-first feeling.
+- Display / headings: **EB Garamond** (classic serif; swapped from Fraunces 2026-10-04 because Jesse disliked Fraunces' quirky letterforms). Set once via the `--display` token. Garamond runs small at a given size, so small display text (founder name, schedule dates) is sized up.
 - Body / UI: **Inter**.
 - Wordmark ("The Living Internet Alliance"): **Montserrat, Bold (700), always.** Hard rule. Has its own `--wordmark` CSS variable.
 
@@ -85,7 +85,16 @@ The Sprint consists of six pillars:
 - `--ink` `#0a0a0a` page base, `--ink-2` `#121212` raised surfaces, `--black` `#000`.
 - `--text` `#f2f0ec` warm white, `--text-dim` muted, `--text-faint` faintest.
 - `--paper` `#f4f1ec` warm off-white for large display text.
-- `--accent` `#e8c89a` — warm gold accent. CTAs stay pure white-on-black to honor the black-and-white direction; the accent is reserved for hairline borders/glow only, used (via `--accent-soft` / `--accent-glow` / `--accent-faint` derived tokens) on the pillars grid, register panel, who-it's-for columns, photo strip, and the 2027 whisper section's smoke background. Only extend its use further if the user explicitly asks.
+- **Ember accent (rebrand, 2026-10-04, branch `brand-ember-bone`).** Replaces the old gold
+  `#e8c89a`. Brand rule: *black, bone, and one flame*, the flame being the logo's fire. Tokens:
+  `--ember` `#ff6a2b` (on dark), `--ember-hi` `#ffb347` (amber gradient end), `--ember-deep`
+  `#c2410c` (on bone, 4.9:1 contrast), `--bone` `#f4f1ec`. `--accent`/`--accent-soft`/`--accent-glow`/
+  `--accent-faint` now derive from ember, so existing hairline/glow usages changed color
+  automatically. CTAs stay white-on-black; `.btn--ember` is the one colored button (ticket band).
+- **Alternating sections.** Add `.theme-bone` to a section to make it light: it re-maps
+  `--white`/`--text*`/`--line*`/`--accent*` locally so existing components just work. Don't put
+  `.btn--solid` inside one. Currently bone: `#about`, `#gallery`, `#founder`. Dark: nav, hero,
+  `#story`, `#proof` (testimonial screenshots are dark-native), `#tickets`, footer.
 
 **Motion:** subtle and tasteful only. Slow hero zoom drift, scroll cue pulse, modal/fade entrances. All disabled under `prefers-reduced-motion`.
 
@@ -123,39 +132,10 @@ The Sprint consists of six pillars:
 ├── CNAME                   Custom domain for GitHub Pages: www.thelivinginternet.com
 ├── CLAUDE.md               This file
 ├── LAUNCH.md               Step-by-step go-live checklist (deploy, paywall, waitlist, DNS)
-├── accountability.md       Source content outline for /group-guide (not itself published)
-├── group-guide/            Standalone page-turning guide for Sprint accountability-group
-│   ├── index.html          members, at www.thelivinginternet.com/group-guide. Not linked
-│   ├── styles.css          from index.html or any nav. Own light "e-ink" theme (paper bg,
-│   └── script.js           warm ink text) distinct from the rest of the dark site; still
-│                          uses the shared Fraunces/Inter/Montserrat fonts. One page visible
-│                          at a time with a book-style page-turn transition (arrows, edge tap
-│                          zones, swipe, arrow keys), dot + "Page X of N" indicator at bottom.
-│                          Header reuses the black nav bar look but brand-only, no nav links.
-├── membership/             Sales page for the always-open **premium community membership**
-│   ├── index.html          ($27/mo or $260/yr), at www.thelivinginternet.com/membership.
-│   └── membership.css      Added 2026-08-05. A separate product from the annual summit;
-│                          keeps event promotion out of it entirely. Loads the shared
-│                          ../styles.css for tokens/nav/hero/pillars/footer, plus its own
-│                          membership.css for page-only components (.room manifesto list,
-│                          .proof-trio, .plans pricing cards, .takeaway). Inline JS is the
-│                          same nav smooth-scroll block as index.html. Sections: hero
-│                          (img13-web.jpg) → who's in the room → what's included (2x2
-│                          pillars) → 3 testimonials → pricing (annual featured) → quiet
-│                          Field Notes free-tier takeaway. Not yet linked from index.html.
 ├── last-call/              Redirect-only page (added 2026-09-14): /last-call sends visitors
 │   └── index.html          to Ticket Tailor event 2398103 via JS location.replace + meta
 │                          refresh (GitHub Pages has no server-side redirects). noindex.
 │                          Query strings/hashes (e.g. UTM params) are passed through.
-├── living-room/            "The Living Room" event page, hosted by Jesse James Carver &
-│   ├── index.html          Matthew Manning, at www.thelivinginternet.com/living-room. Not
-│   ├── main.css             linked from index.html or any nav — hidden page, noindex/
-│   ├── living-room.css      nofollow. Relocated from the jjcarver site; self-contained
-│   └── images/              with its own copy of jjcarver's main.css. Header/footer
-│       ├── soiul-hero.jpg   rebranded to The Living Internet Alliance (brand-only header,
-│       └── sauna.jpg        no nav links, matching group-guide/'s pattern). living-room.css
-│                            (page-specific overrides) still has "isi-" prefixed classes,
-│                            legacy from the page's former "Iron Sharpens Iron" name.
 ├── .github/workflows/
 │   └── deploy.yml          GitHub Pages auto-deploy on push to main
 └── assets/images/
@@ -214,7 +194,7 @@ The Sprint consists of six pillars:
         to any of the 17 speakers and unused anywhere (§13).
 ```
 
-**Tech:** plain static HTML + CSS, no build step, no framework. `index.html` keeps one small vanilla-JS block for in-page nav smooth-scrolling; the archived sales page additionally has the attendee modal and registration countdown scripts. Fonts load from Google Fonts (Fraunces, Inter, Montserrat). Keep it dependency-free unless there's a strong reason not to.
+**Tech:** plain static HTML + CSS, no build step, no framework. `index.html` keeps one small vanilla-JS block for in-page nav smooth-scrolling; the archived sales page additionally has the attendee modal and registration countdown scripts. Fonts load from Google Fonts (EB Garamond, Inter, Montserrat). Keep it dependency-free unless there's a strong reason not to.
 
 ---
 
