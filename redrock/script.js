@@ -22,6 +22,7 @@
   var STORE = 'rrr-pass';
 
   var params = new URLSearchParams(window.location.search);
+  var SEAT = (params.get('seat') || '').trim();
   var PAID = (params.get('paid') || '').toLowerCase();   // 'deposit' | 'full' (Stripe redirect)
 
   // Remember who this browser belongs to, so the post-payment ticket can show their name
@@ -31,15 +32,17 @@
 
   var NAME = (params.get('to') || '').trim().slice(0, 60);
   var NO = parseInt(params.get('no'), 10);
+  function forget(key) { try { localStorage.removeItem(key); } catch (e) {} }
   if (NAME) {
     remember('rrr-name', NAME);
-    if (NO) remember('rrr-no', String(NO)); else { try { localStorage.removeItem('rrr-no'); } catch (e) {} }
+    if (NO) remember('rrr-no', String(NO)); else forget('rrr-no');
+    if (SEAT) remember('rrr-seat', SEAT); else forget('rrr-seat');
   } else {
     NAME = recall('rrr-name');
     NO = parseInt(recall('rrr-no'), 10);
+    if (!SEAT) SEAT = recall('rrr-seat');
   }
   var FIRST = NAME ? NAME.split(/\s+/)[0] : '';
-  var SEAT = (params.get('seat') || '').trim();
 
   function personalise() {
     if (NAME) {
@@ -158,6 +161,28 @@
     });
     if (NO >= 1 && NO < ROMAN.length) {
       view.querySelectorAll('[data-ticket-no]').forEach(function (el) { el.textContent = 'No. ' + ROMAN[NO]; });
+    }
+
+    // Print-only receipt
+    var now = new Date();
+    var pad = function (n) { return (n < 10 ? '0' : '') + n; };
+    var invNo = 'RRR-2027-' + (NO >= 1 ? pad(NO) : pad(now.getMonth() + 1) + pad(now.getDate())) + '-' + (PAID === 'full' ? 'F' : 'D');
+    var fill = function (sel, text) { view.querySelectorAll(sel).forEach(function (el) { el.textContent = text; }); };
+    fill('[data-inv-no]', invNo);
+    fill('[data-inv-date]', now.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }));
+    fill('[data-inv-name]', NAME || 'Guest');
+    if (PAID === 'full') {
+      fill('[data-inv-paid-label]', 'Amount paid · in full');
+      fill('[data-inv-paid]', '$4,000.00');
+      fill('[data-inv-due-label]', 'Balance due');
+      fill('[data-inv-due]', '$0.00');
+      fill('[data-inv-stamp]', 'Paid in full');
+    } else {
+      fill('[data-inv-paid-label]', 'Amount paid · deposit');
+      fill('[data-inv-paid]', '$2,000.00');
+      fill('[data-inv-due-label]', 'Balance due by December 15, 2026');
+      fill('[data-inv-due]', '$2,000.00');
+      fill('[data-inv-stamp]', 'Deposit paid');
     }
 
     view.hidden = false;

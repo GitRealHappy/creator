@@ -801,12 +801,80 @@ img {
   .ticket-stub { width: 54px; font-size: 13px; }
 }
 
-/* Print / save as PDF: just the ticket */
+/* ---------- Print-only receipt ---------- */
+.invoice { display: none; }
+
 @media print {
-  body::after { display: none; }
+  @page { size: letter; margin: 14mm; }
+  html, body { background: #fff !important; }
+  body::after { display: none !important; }
+  .js .reveal { opacity: 1 !important; transform: none !important; }
   .ticket-open #page > *:not(.ticket-view) { display: none !important; }
-  .ticket-open .dots { display: none !important; }
-  .ticket-view { position: static; background: #fff !important; padding: 0; }
-  .ticket-view .eyebrow, .ticket-heading, .ticket-note, .ticket-actions { display: none; }
-  .ticket { box-shadow: none; border: 1px solid #ccc; animation: none; }
+  .dots, .lock { display: none !important; }
+  .ticket-view { position: static !important; display: block !important; background: #fff !important; padding: 0 !important; overflow: visible !important; }
+  .ticket-wrap { max-width: none; text-align: left; display: flex; flex-direction: column; }
+  .invoice { order: -1; }
+  .ticket-view .eyebrow, .ticket-heading, .ticket-note, .ticket-actions { display: none !important; }
+
+  .invoice {
+    display: block;
+    position: relative;
+    color: #221C17;
+    font-family: var(--sans);
+    font-size: 10.5pt;
+    line-height: 1.5;
+    margin-bottom: 10mm;
+  }
+  .inv-head { display: flex; justify-content: space-between; align-items: flex-start; padding-bottom: 6mm; border-bottom: 2px solid #221C17; }
+  .inv-brand { display: flex; gap: 12px; align-items: center; }
+  .inv-org { margin: 0; font-family: var(--caps); font-size: 15pt; letter-spacing: 0.12em; }
+  .inv-org-sub { margin: 2px 0 0; font-size: 9pt; color: #5E554A; }
+  .inv-title { text-align: right; }
+  .inv-kind { margin: 0 0 4px; font-family: var(--serif); font-size: 28pt; line-height: 1; letter-spacing: 0.02em; }
+  .inv-meta { margin: 0; font-size: 9.5pt; color: #5E554A; }
+
+  .inv-parties { display: grid; grid-template-columns: 1fr 1.4fr; gap: 10mm; padding: 6mm 0; }
+  .inv-label { margin: 0 0 2px; font-family: var(--caps); font-size: 10pt; letter-spacing: 0.14em; color: #8F4426; }
+  .inv-value { margin: 0; font-family: var(--serif); font-size: 15pt; }
+  .inv-small { font-size: 9pt; color: #5E554A; margin: 2px 0 0; }
+
+  .inv-table { width: 100%; border-collapse: collapse; margin-top: 2mm; }
+  .inv-table th { text-align: left; font-family: var(--caps); font-weight: 400; font-size: 10pt; letter-spacing: 0.12em; color: #8F4426; padding: 6px 0; border-bottom: 1px solid #221C17; }
+  .inv-table td { padding: 10px 0; vertical-align: top; border-bottom: 1px solid #ddd3c3; }
+  .inv-table .num { text-align: right; white-space: nowrap; padding-left: 16px; }
+  .inv-table tfoot td { border-bottom: none; padding: 5px 0; }
+  .inv-table tfoot tr:first-child td { padding-top: 12px; }
+  .inv-table .inv-due td { border-top: 2px solid #221C17; padding-top: 9px; font-weight: 600; font-size: 12pt; }
+
+  .inv-stamp {
+    display: inline-block;
+    margin: 5mm 0 0 2mm;
+    padding: 5px 16px;
+    border: 3px double #8F4426;
+    color: #8F4426;
+    font-family: var(--caps);
+    font-size: 18pt;
+    letter-spacing: 0.18em;
+    transform: rotate(-8deg);
+    opacity: 0.85;
+  }
+
+  .inv-foot { margin-top: 5mm; padding-top: 4mm; border-top: 1px solid #ddd3c3; font-size: 9pt; color: #3A322B; }
+  .inv-foot p { margin: 0 0 6px; }
+  .inv-thanks { margin-top: 10px !important; font-family: var(--serif); font-style: italic; font-size: 13pt; color: #221C17; }
+
+  .ticket { box-shadow: none !important; border: 1px dashed #b9ab94; animation: none !important; width: 150mm; max-width: 100%; margin: 6mm auto 0; break-inside: avoid; break-before: page; }
+  .ticket-main { padding: 7mm 7mm 6mm; }
+  .ticket-title { font-size: 22pt; margin: 3mm 0 4mm; }
+  .ticket-rows { gap: 4px; }
+  .ticket-rows > div { padding-top: 4px; grid-template-columns: 70px 1fr; }
+  .ticket-rows dt { font-size: 9pt; }
+  .ticket-rows dd { font-size: 11pt; }
+  .ticket-org { font-size: 9pt; }
+  .ticket-top img { width: 22px; height: 22px; }
+  .ticket-stub { width: 15mm; font-size: 9pt; padding: 5mm 0; }
+  .ticket-stub .stub-no { font-size: 11pt; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
+
+
