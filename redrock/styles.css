@@ -602,7 +602,28 @@ figcaption {
 }
 
 /* Payment cards greyed out for a complimentary seat */
-.pay-card.is-disabled { filter: grayscale(1); opacity: 0.38; pointer-events: none; user-select: none; }
+.pay-card.is-disabled { filter: grayscale(1); opacity: 0.55; pointer-events: none; user-select: none; }
+/* Struck through: a diagonal line across the whole card, prices and buttons crossed out */
+.pay-card.is-disabled::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(to top right,
+    transparent calc(50% - 1.5px), rgba(34,28,23,0.75) calc(50% - 1.5px),
+    rgba(34,28,23,0.75) calc(50% + 1.5px), transparent calc(50% + 1.5px));
+}
+.pay-card.is-disabled .card-price,
+.pay-card.is-disabled .btn { text-decoration: line-through; text-decoration-thickness: 2px; }
+.pay-card.is-disabled .card-main::after {
+  content: "Not needed · your seat is complimentary";
+  margin-top: 4px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 16px;
+  color: var(--ink);
+}
 .pay-card.is-disabled .btn { cursor: default; }
 
 /* ---------- Section dots ---------- */
