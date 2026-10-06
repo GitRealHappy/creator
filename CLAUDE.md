@@ -463,7 +463,7 @@ model exists.
 
 ---
 
-## /redrock — Red Rock Reconvene invitation page (added 2026-10-06)
+## /redrock — Red Rock Rendezvous invitation page (added 2026-10-06; renamed from "Reconvene" same day)
 
 Private, password-locked invitation page for the Jan 21–24, 2027 Sedona think tank, served at
 `www.thelivinginternet.com/redrock/`. **Do not edit `redrock/index.html` here by hand: it is
@@ -475,5 +475,17 @@ CSS, JS, web images and tinted logos into `livinginternet/redrock/`. The plainte
 enters this repo. Shared password: `inthevortex` (case-insensitive; set in build.mjs).
 Personalised links: `/redrock/?to=Full%20Name&no=4` → lock screen shows "Name: <first name>",
 unlocked page shows "Prepared for <name> · Invitation No. IV of Ten" and the letter opens with
-the first name. Names live only in each person's link, not in the source. Images under
+the first name. Names live only in each person's link, not in the source. Nick Serpico's
+complimentary "Strategist's Seat" ticket is a separate encrypted block (the `<!--COMP-->` section
+of the source) keyed to a private code (`COMP_CODE` in build.mjs); only his link
+`/redrock/?to=Nick%20Serpico&seat=<code>` decrypts it, and it greys out the payment cards.
+Seat tracker in the source is manual (`class="taken"` per reserved seat + count text). Link
+previews use `assets/images/web/og.jpg` (1200x630) via og/twitter tags in lock-template.html.
+Go/no-go and refund cutoff Nov 15 2026 (after that: house booked, non-refundable, transferable); balance due Dec 15 2026.
+Payments: Stripe Payment Links (deposit $2,000 / full $4,000) in the source's reserve cards. Stripe's
+after-payment redirects go to `/redrock/?paid=deposit` and `/redrock/?paid=full`, which open a ticket
+view; the guest's name/number come from their earlier personal link, remembered in localStorage
+(`rrr-name`, `rrr-no`), else the ticket reads "Seat reserved". The build script overwrites files in
+place (no delete) because the sandboxed shell can't unlink.
+Images under
 `redrock/assets/` are not encrypted (reachable by direct URL). noindex/nofollow.

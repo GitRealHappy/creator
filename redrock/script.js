@@ -1,9 +1,17 @@
-/* Red Rock Reconvene
+/* Red Rock Rendezvous
  *
  * Personalised links: add ?to=Full%20Name&no=4 to the address, e.g.
  *   https://www.thelivinginternet.com/redrock/?to=Craig%20Perry&no=4
  * The lock screen shows "Name: Craig", and once unlocked the page says
  * "Prepared for Craig Perry · Invitation No. IV of Ten" and the letter opens "Craig,".
+ *
+ * After payment: Stripe redirects to /redrock/?paid=deposit or /redrock/?paid=full,
+ * which opens a ticket view. The guest's name comes from their earlier personal link
+ * (remembered in this browser); otherwise the ticket reads "Seat reserved".
+ *
+ * Complimentary seat (Nick): his link carries a private code (see COMP_CODE in build.mjs).
+ * The ticket is encrypted with that code, so it only exists for his link.
+ * It shows his complimentary ticket and greys out the deposit / pay-in-full cards.
  *
  * The published page is encrypted (see build.mjs). Typing the shared password
  * decrypts it in the browser. On this source copy (no vault) it simply opens.
@@ -14,23 +22,56 @@
   var STORE = 'rrr-pass';
 
   var params = new URLSearchParams(window.location.search);
+  var PAID = (params.get('paid') || '').toLowerCase();   // 'deposit' | 'full' (Stripe redirect)
+
+  // Remember who this browser belongs to, so the post-payment ticket can show their name
+  // even though Stripe's redirect URL is the same for everyone.
+  function remember(key, value) { try { if (value) localStorage.setItem(key, value); } catch (e) {} }
+  function recall(key) { try { return localStorage.getItem(key) || ''; } catch (e) { return ''; } }
+
   var NAME = (params.get('to') || '').trim().slice(0, 60);
-  var FIRST = NAME ? NAME.split(/\s+/)[0] : '';
   var NO = parseInt(params.get('no'), 10);
+  if (NAME) {
+    remember('rrr-name', NAME);
+    if (NO) remember('rrr-no', String(NO)); else { try { localStorage.removeItem('rrr-no'); } catch (e) {} }
+  } else {
+    NAME = recall('rrr-name');
+    NO = parseInt(recall('rrr-no'), 10);
+  }
+  var FIRST = NAME ? NAME.split(/\s+/)[0] : '';
+  var SEAT = (params.get('seat') || '').trim();
 
   function personalise() {
     if (NAME) {
       document.querySelectorAll('[data-name]').forEach(function (el) { el.textContent = NAME; });
       document.querySelectorAll('[data-first]').forEach(function (el) { el.textContent = FIRST; });
       document.querySelectorAll('[data-prepared], [data-greeting]').forEach(function (el) { el.hidden = false; });
-      document.title = 'For ' + NAME + ' · The Red Rock Reconvene';
+      document.title = 'For ' + NAME + ' · The Red Rock Rendezvous';
     } else {
-      document.title = 'The Red Rock Reconvene · Sedona, January 2027';
+      document.title = 'The Red Rock Rendezvous · Sedona, January 2027';
     }
     if (NAME && NO >= 1 && NO < ROMAN.length) {
       document.querySelectorAll('[data-no]').forEach(function (el) { el.textContent = ROMAN[NO]; });
       document.querySelectorAll('[data-no-wrap]').forEach(function (el) { el.hidden = false; });
     }
+  }
+
+  function applyComp() {
+    document.querySelectorAll('[data-comp]').forEach(function (el) { el.hidden = false; });
+    document.querySelectorAll('[data-comp-label]').forEach(function (el) {
+      el.textContent = ' · The Strategist’s Seat';
+      el.hidden = false;
+    });
+    document.querySelectorAll('[data-no-wrap]').forEach(function (el) { el.hidden = true; });
+    document.querySelectorAll('.pay-card').forEach(function (card) {
+      card.classList.add('is-disabled');
+      card.setAttribute('aria-disabled', 'true');
+      card.querySelectorAll('a').forEach(function (a) {
+        a.removeAttribute('href');
+        a.setAttribute('tabindex', '-1');
+        a.setAttribute('aria-disabled', 'true');
+      });
+    });
   }
 
   function reveal() {
@@ -51,6 +92,97 @@
       el.style.transitionDelay = (i % 4) * 90 + 'ms';
       io.observe(el);
     });
+  }
+
+  function sectionDots() {
+    var nav = document.querySelector('.dots');
+    if (!nav || !('IntersectionObserver' in window)) return;
+    var links = {};
+    nav.querySelectorAll('[data-dot]').forEach(function (a) { links[a.getAttribute('data-dot')] = a; });
+    var ids = Object.keys(links);
+    var visible = {};
+
+    function update() {
+      var best = null, bestRatio = 0;
+      ids.forEach(function (id) {
+        if ((visible[id] || 0) > bestRatio) { bestRatio = visible[id]; best = id; }
+      });
+      ids.forEach(function (id) { links[id].classList.toggle('is-active', id === best); });
+      if (best) {
+        links[best].setAttribute('aria-current', 'true');
+      }
+      ids.forEach(function (id) { if (id !== best) links[id].removeAttribute('aria-current'); });
+    }
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { visible[e.target.id] = e.isIntersecting ? e.intersectionRatio : 0; });
+      update();
+    }, { threshold: [0, 0.1, 0.25, 0.5, 0.75, 1], rootMargin: '-30% 0px -30% 0px' });
+    ids.forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
+
+    // Show the dots only once the reader is past the hero
+    var hero = document.querySelector('.hero');
+    if (hero) {
+      new IntersectionObserver(function (entries) {
+        nav.classList.toggle('is-visible', !entries[0].isIntersecting);
+      }, { threshold: 0.15 }).observe(hero);
+    } else {
+      nav.classList.add('is-visible');
+    }
+  }
+
+  var protectedOnce = false;
+  function protectImages() {
+    document.querySelectorAll('img').forEach(function (img) { img.setAttribute('draggable', 'false'); });
+    if (protectedOnce) return;
+    protectedOnce = true;
+    document.querySelectorAll('img').forEach(function (img) { img.setAttribute('draggable', 'false'); });
+    document.addEventListener('contextmenu', function (e) {
+      if (e.target && e.target.tagName === 'IMG') e.preventDefault();
+    });
+    document.addEventListener('dragstart', function (e) {
+      if (e.target && e.target.tagName === 'IMG') e.preventDefault();
+    });
+  }
+
+  function showTicket() {
+    var view = document.querySelector('[data-ticket]');
+    if (!view || (PAID !== 'deposit' && PAID !== 'full')) return;
+
+    view.querySelectorAll('[data-ticket-first]').forEach(function (el) { el.textContent = FIRST ? ', ' + FIRST : ''; });
+    view.querySelectorAll('[data-ticket-name]').forEach(function (el) { el.textContent = NAME || 'Seat reserved'; });
+    view.querySelectorAll('[data-ticket-status]').forEach(function (el) {
+      el.textContent = PAID === 'full'
+        ? 'Paid in full'
+        : 'Deposit received · balance of $2,000 due December 15, 2026';
+    });
+    if (NO >= 1 && NO < ROMAN.length) {
+      view.querySelectorAll('[data-ticket-no]').forEach(function (el) { el.textContent = 'No. ' + ROMAN[NO]; });
+    }
+
+    view.hidden = false;
+    document.documentElement.classList.add('ticket-open');
+    document.title = 'Your ticket · Red Rock Rendezvous';
+
+    view.querySelector('[data-ticket-print]').addEventListener('click', function () { window.print(); });
+    view.querySelector('[data-ticket-close]').addEventListener('click', function () {
+      view.classList.add('is-leaving');
+      document.documentElement.classList.remove('ticket-open');
+      setTimeout(function () { view.hidden = true; view.classList.remove('is-leaving'); }, 600);
+      // Drop ?paid= from the address so a refresh shows the invitation
+      var q = new URLSearchParams(window.location.search); q.delete('paid');
+      var qs = q.toString();
+      history.replaceState(null, '', window.location.pathname + (qs ? '?' + qs : '') + window.location.hash);
+      personalise();
+    });
+  }
+
+  function initPage() {
+    personalise();
+    reveal();
+    sectionDots();
+    protectImages();
+    showTicket();
   }
 
   /* ---------- Lock ---------- */
@@ -77,15 +209,25 @@
       .then(function (buf) { return new TextDecoder().decode(buf); });
   }
 
-  function openPage(html) {
+  function openPage(html, vault) {
     var page = document.getElementById('page');
     var lock = document.getElementById('lock');
     page.innerHTML = html;
     page.hidden = false;
     lock.classList.add('is-leaving');
     setTimeout(function () { lock.remove(); }, 900);
-    personalise();
-    reveal();
+    initPage();
+    if (SEAT && vault && vault.comp) {
+      decrypt(vault.comp, SEAT).then(function (compHtml) {
+        var cards = document.querySelector('.cards');
+        if (!cards) return;
+        cards.insertAdjacentHTML('afterbegin', compHtml);
+        cards.querySelectorAll('[data-name]').forEach(function (el) { el.textContent = NAME; });
+        cards.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('is-in'); });
+        protectImages();
+        applyComp();
+      }, function () { /* not the comp code: show the normal page */ });
+    }
     if (window.location.hash) {
       var target = document.querySelector(window.location.hash);
       if (target) target.scrollIntoView();
@@ -101,13 +243,14 @@
     if (FIRST) {
       document.querySelectorAll('[data-lock-first]').forEach(function (el) { el.textContent = FIRST; });
       document.querySelectorAll('[data-lock-name]').forEach(function (el) { el.hidden = false; });
-      document.title = 'For ' + FIRST + ' · The Red Rock Reconvene';
+      document.title = 'For ' + FIRST + ' · The Red Rock Rendezvous';
     }
+    protectImages();
 
     var saved = null;
     try { saved = localStorage.getItem(STORE); } catch (e) {}
     if (saved) {
-      decrypt(vault, saved).then(openPage, function () {
+      decrypt(vault.main, saved).then(function (html) { openPage(html, vault); }, function () {
         try { localStorage.removeItem(STORE); } catch (e) {}
       });
     }
@@ -118,9 +261,9 @@
       if (!pass) return;
       btn.disabled = true;
       error.textContent = '';
-      decrypt(vault, pass).then(function (html) {
+      decrypt(vault.main, pass).then(function (html) {
         try { localStorage.setItem(STORE, pass); } catch (e) {}
-        openPage(html);
+        openPage(html, vault);
       }, function (err) {
         btn.disabled = false;
         error.textContent = err && err.message === 'no-crypto'
@@ -141,8 +284,8 @@
     if (vaultEl) {
       setupLock(JSON.parse(vaultEl.textContent));
     } else {
-      personalise();
-      reveal();
+      initPage();
+      if (SEAT) applyComp();
     }
   });
 })();
