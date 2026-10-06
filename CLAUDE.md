@@ -460,3 +460,20 @@ model exists.
 - Match the established design tokens and conventions; do not introduce new colors, fonts, or libraries without asking.
 - Keep all copy em-dash-free and on the warm, values-first, anti-hype voice.
 - Consequential external actions (creating/charging via Circle or Ticket Tailor, bulk member changes, pushing/deploying) — confirm with Jesse first.
+
+---
+
+## /redrock — Red Rock Reconvene invitation page (added 2026-10-06)
+
+Private, password-locked invitation page for the Jan 21–24, 2027 Sedona think tank, served at
+`www.thelivinginternet.com/redrock/`. **Do not edit `redrock/index.html` here by hand: it is
+build output.** The readable source lives outside this repo in `/websites/redrock/`
+(`index.html`, `styles.css`, `script.js`, `lock-template.html`, `assets/`). After editing the
+source, run `node redrock/build.mjs` from the `/websites` folder: it AES-GCM-encrypts the page
+body (PBKDF2-SHA256, 250k iterations) with the shared password and writes the encrypted page,
+CSS, JS, web images and tinted logos into `livinginternet/redrock/`. The plaintext page never
+enters this repo. Shared password: `inthevortex` (case-insensitive; set in build.mjs).
+Personalised links: `/redrock/?to=Full%20Name&no=4` → lock screen shows "Name: <first name>",
+unlocked page shows "Prepared for <name> · Invitation No. IV of Ten" and the letter opens with
+the first name. Names live only in each person's link, not in the source. Images under
+`redrock/assets/` are not encrypted (reachable by direct URL). noindex/nofollow.
