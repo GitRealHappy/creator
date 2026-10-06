@@ -49,9 +49,9 @@
       document.querySelectorAll('[data-name]').forEach(function (el) { el.textContent = NAME; });
       document.querySelectorAll('[data-first]').forEach(function (el) { el.textContent = FIRST; });
       document.querySelectorAll('[data-prepared], [data-greeting]').forEach(function (el) { el.hidden = false; });
-      document.title = 'For ' + NAME + ' · The Red Rock Rendezvous';
+      document.title = 'For ' + NAME + ' · Red Rock Rendezvous';
     } else {
-      document.title = 'The Red Rock Rendezvous · Sedona, January 2027';
+      document.title = 'Red Rock Rendezvous · Sedona, January 2027';
     }
     if (NAME && NO >= 1 && NO < ROMAN.length) {
       document.querySelectorAll('[data-no]').forEach(function (el) { el.textContent = ROMAN[NO]; });
@@ -66,6 +66,7 @@
       el.hidden = false;
     });
     document.querySelectorAll('[data-no-wrap]').forEach(function (el) { el.hidden = true; });
+    document.querySelectorAll('[data-team]').forEach(function (el) { el.textContent = 'you and me'; });
     document.querySelectorAll('.pay-card').forEach(function (card) {
       card.classList.add('is-disabled');
       card.setAttribute('aria-disabled', 'true');
@@ -202,11 +203,47 @@
     });
   }
 
+  function photoWall() {
+    var wall = document.querySelector('[data-photos]');
+    var openBtn = document.querySelector('[data-photos-open]');
+    if (!wall || !openBtn) return;
+    var closeBtn = wall.querySelector('[data-photos-close]');
+    var loaded = false, lastFocus = null;
+    function load() {
+      if (loaded) return;
+      loaded = true;
+      wall.querySelectorAll('img[data-src]').forEach(function (img) {
+        img.setAttribute('draggable', 'false');
+        img.src = img.getAttribute('data-src');
+        img.removeAttribute('data-src');
+      });
+    }
+    function show() {
+      lastFocus = document.activeElement;
+      load();
+      wall.hidden = false;
+      document.documentElement.classList.add('photos-open');
+      wall.scrollTop = 0;
+      closeBtn.focus();
+    }
+    function hide() {
+      wall.hidden = true;
+      document.documentElement.classList.remove('photos-open');
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+    openBtn.addEventListener('click', show);
+    closeBtn.addEventListener('click', hide);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !wall.hidden) hide();
+    });
+  }
+
   function initPage() {
     personalise();
     reveal();
     sectionDots();
     protectImages();
+    photoWall();
     showTicket();
   }
 
@@ -268,7 +305,7 @@
     if (FIRST) {
       document.querySelectorAll('[data-lock-first]').forEach(function (el) { el.textContent = FIRST; });
       document.querySelectorAll('[data-lock-name]').forEach(function (el) { el.hidden = false; });
-      document.title = 'For ' + FIRST + ' · The Red Rock Rendezvous';
+      document.title = 'For ' + FIRST + ' · Red Rock Rendezvous';
     }
     protectImages();
 

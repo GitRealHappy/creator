@@ -381,9 +381,10 @@ figcaption {
 .seats-count { margin: 12px 0 0; font-family: var(--caps); font-size: 16px; letter-spacing: 0.14em; color: var(--on-dark-muted); }
 
 /* Stationery cards */
-.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 28px; max-width: 920px; margin: 0 auto; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: 28px; max-width: 920px; margin: 0 auto; }
 .card {
   position: relative;
+  min-width: 0;
   display: flex;
   background: var(--paper);
   color: var(--ink);
@@ -392,6 +393,7 @@ figcaption {
 .card-main {
   position: relative;
   flex: 1;
+  min-width: 0;
   padding: 44px 36px 36px;
   display: flex;
   flex-direction: column;
@@ -496,7 +498,7 @@ figcaption {
   .premise, .days, .reserve { padding-top: 76px; padding-bottom: 76px; }
   .jeep-body { padding-top: 76px; padding-bottom: 76px; }
   .house { padding-bottom: 76px; }
-  .cards { grid-template-columns: 1fr; }
+  .cards { grid-template-columns: minmax(0, 1fr); }
   .card-main { padding: 36px 26px 30px; }
   .card-price { font-size: 54px; }
   .card-stub { width: 52px; }
@@ -899,3 +901,38 @@ img {
 }
 
 
+
+/* Very narrow phones: keep the comp seat headline inside the card */
+@media (max-width: 400px) { .card-comp .card-price { font-size: 42px; } }
+
+/* ---------- Photo wall: "More photos of the house" ---------- */
+.gallery-more { margin-top: 36px; text-align: center; }
+.photos {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  background: var(--night);
+  color: var(--on-dark);
+}
+.photos[hidden] { display: none; }
+.photos-bar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px var(--gutter);
+  background: rgba(30,25,21,0.94);
+  border-bottom: 1px solid rgba(196,160,112,0.25);
+}
+.photos-title { margin: 0; font-family: var(--caps); font-size: 18px; letter-spacing: 0.18em; color: var(--brass-light); }
+.photos-grid { max-width: var(--wrap); margin: 0 auto; padding: 24px var(--gutter) 64px; column-count: 2; column-gap: 14px; }
+.photos-grid figure { margin: 0 0 14px; break-inside: avoid; background: var(--night-2); }
+.photos-grid img { width: 100%; height: auto; }
+@media (max-width: 640px) { .photos-grid { column-count: 1; } }
+.photos-open, .photos-open body { overflow: hidden; }
