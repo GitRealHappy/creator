@@ -450,7 +450,7 @@ figcaption {
     radial-gradient(circle at 50% 100%, var(--night) 7px, transparent 7.5px) bottom / 16px 16px no-repeat;
 }
 
-.terms { margin: 48px auto 0; max-width: 720px; text-align: center; font-family: var(--serif); font-style: italic; font-size: 17px; line-height: 1.55; color: var(--on-dark-muted); }
+.terms { margin: 48px auto 0; max-width: 720px; text-align: center; font-family: var(--serif); font-style: italic; font-size: 19px; line-height: 1.55; color: var(--on-dark); }
 
 .site-footer { border-top: 1px solid rgba(196,160,112,0.2); }
 .site-footer .wrap {
