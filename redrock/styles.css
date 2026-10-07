@@ -929,3 +929,8 @@ img {
 .photos-grid img { width: 100%; height: auto; }
 @media (max-width: 640px) { .photos-grid { column-count: 1; } }
 .photos-open, .photos-open body { overflow: hidden; }
+
+/* Hero title: on phones, size it from the viewport so "RENDEZVOUS" always fits between the side gutters. */
+@media (max-width: 640px) {
+  .hero h1 { font-size: min(calc((100vw - 48px) / 4.9), 96px); }
+}
