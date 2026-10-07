@@ -3,7 +3,8 @@
  * Personalised links: add ?to=Full%20Name&no=4 to the address, e.g.
  *   https://www.thelivinginternet.com/redrock/?to=Craig%20Perry&no=4
  * The lock screen shows "Name: Craig", and once unlocked the page says
- * "Prepared for Craig Perry · Invitation No. Four of Ten" and the letter opens "Craig,".
+ * "This invitation is for Craig Perry" and the letter opens "Craig,". The &no= number is
+ * no longer shown on the page; it only numbers the receipt/invoice (RRR-2027-NN-D/F).
  *
  * After payment: Stripe redirects to /redrock/?paid=deposit or /redrock/?paid=full,
  * which opens a ticket view. The guest's name comes from their earlier personal link
@@ -18,8 +19,7 @@
  */
 
 (function () {
-  var NUMBER_WORDS = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve'];
-  var STORE = 'rrr-pass';
+    var STORE = 'rrr-pass';
 
   var params = new URLSearchParams(window.location.search);
   var SEAT = (params.get('seat') || '').trim();
@@ -53,12 +53,6 @@
     } else {
       document.title = 'Red Rock Rendezvous · Sedona, January 2027';
     }
-    if (NAME && NO >= 1 && NO < NUMBER_WORDS.length) {
-      document.querySelectorAll('[data-no]').forEach(function (el) { el.textContent = NUMBER_WORDS[NO]; });
-      // Past ten invitations (more are sent than there are seats), "No. Eleven of Ten" would read oddly, so drop "of Ten".
-      if (NO > 10) document.querySelectorAll('[data-of-ten]').forEach(function (el) { el.hidden = true; });
-      document.querySelectorAll('[data-no-wrap]').forEach(function (el) { el.hidden = false; });
-    }
   }
 
   function applyComp() {
@@ -67,7 +61,6 @@
       el.textContent = ' · The Strategist’s Seat';
       el.hidden = false;
     });
-    document.querySelectorAll('[data-no-wrap]').forEach(function (el) { el.hidden = true; });
     document.querySelectorAll('[data-team]').forEach(function (el) { el.textContent = 'you and me'; });
     document.querySelectorAll('.pay-card').forEach(function (card) {
       card.classList.add('is-disabled');
@@ -162,9 +155,6 @@
         ? 'Paid in full'
         : 'Deposit received · balance of $2,000 due December 15, 2026';
     });
-    if (NO >= 1 && NO < NUMBER_WORDS.length) {
-      view.querySelectorAll('[data-ticket-no]').forEach(function (el) { el.textContent = 'No. ' + NUMBER_WORDS[NO]; });
-    }
 
     // Print-only receipt
     var now = new Date();
