@@ -1,16 +1,16 @@
 /* Red Rock Rendezvous
  *
  * Personalised links: add ?to=Full%20Name&no=4 to the address, e.g.
- *   https://www.thelivinginternet.com/redrock/?to=Craig%20Perry&no=4
- * The lock screen shows "Name: Craig", and once unlocked the page says
- * "This invitation is for Craig Perry" and the letter opens "Craig,". The &no= number is
+ *   https://www.thelivinginternet.com/redrock/?to=Jane%20Doe&no=4
+ * The lock screen shows "Name: Jane", and once unlocked the page says
+ * "This invitation is for Jane Doe" and the letter opens "Jane,". The &no= number is
  * no longer shown on the page; it only numbers the receipt/invoice (RRR-2027-NN-D/F).
  *
  * After payment: Stripe redirects to /redrock/?paid=deposit or /redrock/?paid=full,
  * which opens a ticket view. The guest's name comes from their earlier personal link
  * (remembered in this browser); otherwise the ticket reads "Seat reserved".
  *
- * Complimentary seat (Nick): his link carries a private code (see COMP_CODE in build.mjs).
+ * Complimentary seat: that guest's link carries a private code (see COMP_CODE in build.mjs).
  * The ticket is encrypted with that code, so it only exists for his link.
  * It shows his complimentary ticket and greys out the deposit / pay-in-full cards.
  *
