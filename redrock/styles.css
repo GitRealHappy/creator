@@ -24,6 +24,7 @@
   --serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
   --caps: 'Cormorant SC', 'Cormorant Garamond', Georgia, serif;
   --sans: 'Jost', 'Futura', system-ui, sans-serif;
+  --display: 'Big Shoulders Display', 'Oswald', 'Arial Narrow', Impact, sans-serif;
   --wrap: 1200px;
   --gutter: 24px;
 }
@@ -157,7 +158,8 @@ a:hover { color: var(--clay-dark); }
 }
 .brand { display: flex; align-items: center; gap: 12px; color: var(--cream); text-decoration: none; }
 .brand:hover { color: var(--cream); }
-.brand-name { font-family: var(--caps); font-size: 21px; letter-spacing: 0.2em; }
+.brand-name { font-family: var(--caps); font-size: 20px; letter-spacing: 0.14em; }
+@media (max-width: 640px) { .brand-name { font-size: 16px; letter-spacing: 0.1em; } }
 .masthead-meta {
   margin: 0;
   font-family: var(--serif);
@@ -181,18 +183,8 @@ a:hover { color: var(--clay-dark); }
   padding-bottom: 88px;
 }
 .hero-copy { flex: 1 1 460px; min-width: 0; }
-.hero-credit {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 0 0 22px;
-  font-family: var(--caps);
-  font-size: 18px;
-  letter-spacing: 0.14em;
-  color: var(--brass);
-}
 .prepared {
-  margin: -8px 0 24px;
+  margin: 0 0 24px;
   font-family: var(--serif);
   font-style: italic;
   font-size: 20px;
@@ -201,13 +193,14 @@ a:hover { color: var(--clay-dark); }
 .prepared span[data-name] { font-style: normal; font-weight: 500; }
 .hero h1 {
   margin: 0;
-  font-family: var(--serif);
-  font-weight: 300;
-  font-size: clamp(54px, 7vw, 100px);
-  line-height: 0.98;
-  letter-spacing: -0.015em;
+  font-family: var(--display);
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: clamp(66px, 9vw, 132px);
+  line-height: 0.9;
+  letter-spacing: 0.01em;
 }
-.hero h1 em { font-style: italic; color: var(--brass-light); }
+.hero h1 em { font-style: normal; color: var(--brass-light); }
 .hero-lede {
   margin: 28px 0 0;
   font-family: var(--serif);
