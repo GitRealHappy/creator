@@ -1,3 +1,13 @@
+/* Stand-in shown only while the title font loads (or if it fails): a bold system sans shrunk to roughly the same
+   width as Big Shoulders Display, so the hero title can never push the page sideways. */
+@font-face {
+  font-family: 'Display Fallback';
+  src: local('Arial Narrow Bold'), local('ArialNarrow-Bold'), local('Arial Bold'), local('Arial-BoldMT'),
+       local('Helvetica Neue Bold'), local('HelveticaNeue-Bold'), local('Roboto Bold'), local('Roboto-Bold'), local('Helvetica Bold');
+  font-weight: 800;
+  size-adjust: 62%;
+}
+
 /* =========================================================
    Red Rock Reconvene — styles
    ========================================================= */
@@ -24,7 +34,7 @@
   --serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
   --caps: 'Cormorant SC', 'Cormorant Garamond', Georgia, serif;
   --sans: 'Jost', 'Futura', system-ui, sans-serif;
-  --display: 'Big Shoulders Display', 'Oswald', 'Arial Narrow', Impact, sans-serif;
+  --display: 'Big Shoulders Display', 'Display Fallback', sans-serif;
   --wrap: 1200px;
   --gutter: 24px;
 }
@@ -199,6 +209,8 @@ a:hover { color: var(--clay-dark); }
   font-size: clamp(56px, 7.4vw, 112px);
   line-height: 0.9;
   letter-spacing: 0.01em;
+  max-width: 100%;
+  overflow-wrap: anywhere;
 }
 .hero h1 em { font-style: normal; color: var(--brass-light); }
 .hero-lede {
@@ -932,5 +944,8 @@ img {
 
 /* Hero title: on phones, size it from the viewport so "RENDEZVOUS" always fits between the side gutters. */
 @media (max-width: 640px) {
-  .hero h1 { font-size: min(calc((100vw - 48px) / 4.9), 96px); }
+  .hero h1 { font-size: min(calc((100vw - 48px) / 5.2), 96px); }
 }
+
+/* Last-resort guard: nothing in the hero may create sideways scrolling. */
+.hero { overflow-x: clip; }
