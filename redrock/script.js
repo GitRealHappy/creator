@@ -55,6 +55,8 @@
     }
     if (NAME && NO >= 1 && NO < NUMBER_WORDS.length) {
       document.querySelectorAll('[data-no]').forEach(function (el) { el.textContent = NUMBER_WORDS[NO]; });
+      // Past ten invitations (more are sent than there are seats), "No. Eleven of Ten" would read oddly, so drop "of Ten".
+      if (NO > 10) document.querySelectorAll('[data-of-ten]').forEach(function (el) { el.hidden = true; });
       document.querySelectorAll('[data-no-wrap]').forEach(function (el) { el.hidden = false; });
     }
   }
