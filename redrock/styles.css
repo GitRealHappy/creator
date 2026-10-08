@@ -522,9 +522,12 @@ figcaption {
   transition: opacity .9s ease;
 }
 .lock.is-leaving { opacity: 0; pointer-events: none; }
+.lock { grid-template-columns: minmax(0, 1fr); }
 .lock-card {
   width: 100%;
-  max-width: 400px;
+  max-width: 420px;
+  min-width: 0;
+  justify-self: center;
   padding: 48px 36px 32px;
   text-align: center;
   border: 1px solid rgba(196,160,112,0.35);
@@ -570,6 +573,28 @@ figcaption {
 .lock-btn { width: 100%; margin-top: 28px; border: 0; cursor: pointer; }
 .lock-btn:disabled { opacity: 0.6; cursor: wait; }
 .lock-error { min-height: 1.4em; margin: 14px 0 0; font-family: var(--serif); font-style: italic; font-size: 17px; color: #E3A57E; }
+.lock-inquire {
+  margin: 24px 0 0;
+  padding-top: 20px;
+  border-top: 1px solid rgba(196,160,112,0.22);
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--on-dark);
+}
+.lock-inquire[hidden] { display: none; }
+.lock-inquire a { color: var(--brass-light); text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
+.lock-inquire a:hover { color: var(--cream); }
+@media (max-width: 480px) {
+  .lock { padding: 16px 12px; }
+  .lock-card { padding: 36px 22px 26px; }
+  .lock-title { font-size: 19px; letter-spacing: 0.12em; }
+  .lock-sub { margin-bottom: 26px; font-size: 15px; }
+  .lock-label { width: 72px; font-size: 15px; letter-spacing: 0.1em; }
+  .lock-name, .lock-field input { font-size: 20px; }
+  .lock-inquire { font-size: 16px; }
+}
 .lock-foot { margin: 18px 0 0; font-family: var(--caps); font-size: 14px; letter-spacing: 0.16em; color: var(--on-dark-muted); }
 .shake { animation: shake .45s ease; }
 @keyframes shake {

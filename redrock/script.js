@@ -298,6 +298,9 @@
       document.querySelectorAll('[data-lock-first]').forEach(function (el) { el.textContent = FIRST; });
       document.querySelectorAll('[data-lock-name]').forEach(function (el) { el.hidden = false; });
       document.title = 'For ' + FIRST + ' · Red Rock Rendezvous';
+    } else {
+      // No personal link: tell visitors who weren't invited how to enquire.
+      document.querySelectorAll('[data-lock-inquire]').forEach(function (el) { el.hidden = false; });
     }
     protectImages();
 
