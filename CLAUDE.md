@@ -8,6 +8,21 @@ Project context for any Claude session working in this repository. Read this fir
 > (`Summit_Registrants_2026-2.xlsx`, was an upload) and the companion planning doc
 > `creator-sprint-landing-plan.md` (lived in the session scratchpad, not in this repo).
 
+> **🔁 2026-10-25: multi-page rebuild (per `siteplan.md`, which is gitignored: it holds the
+> private ALLIANCE15 code).** The single long page became four: `/` (Summit 2027, sells the
+> ticket), `/community/` (the Alliance, $3/mo or $15/yr, buttons go to Eden checkout
+> `jesse.eden.so/the-living-internet-alliance`), `/2026/` (all the proof: story, 17 speakers,
+> every testimonial transcribed as text, full gallery) and `/faq/`. `/membership/` now
+> redirects to `/community/`. Shared nav (with mobile menu), footer (Substack embed) and
+> two-option close are duplicated in each page; shared JS moved to `site.js`; new CSS is the
+> "SITE REBUILD" block at the end of `styles.css`. Root-absolute paths (`/styles.css`), so
+> preview with a local server from the repo root, not file://. **Prices:** early-bird
+> (GA $397 / VIP $1,297 / Virtual $147) is shown until midnight Pacific, Jan 1, 2027, then an
+> inline `<head>` script adds `.is-full-price` and every `.when-early` / `.when-full` pair
+> flips to $497 / $1,497 / $197 on its own. Edit both halves of a pair when prices change.
+> SUPEREARLY/EARLYVIRTUAL copy is gone (codes expired). Testimonial screenshots are no longer
+> used by any page. Sections below this note describe earlier eras.
+
 > **⚠️ As of 2026-10-01, `index.html` is a ticket-sale page for the 2027 summit, not a
 > post-registration/membership page.** The 90-Day Creator Sprint has ended; the Future-Proof
 > Creator Summit 2027 (Abbotsford, BC, June 4–6, 2027) is live on Ticket Tailor with real tickets

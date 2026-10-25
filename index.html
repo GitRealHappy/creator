@@ -3,461 +3,534 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Future-Proof Creator Summit 2027 · The Living Internet Alliance</title>
-  <meta name="description" content="The Future-Proof Creator Summit returns to Abbotsford, BC, June 4-6, 2027. Three days of live talks, workshops, and a room full of creators doubling down on the part of their business only they can do. Tickets on sale now." />
+  <title>Future-Proof Creator Summit 2027 · Becoming Irreplaceably Human</title>
+  <meta name="description" content="Becoming Irreplaceably Human. Three days of talks, working sessions and time with a room full of creators. Abbotsford, BC, June 4-6, 2027. Early-bird tickets from $397, virtual $147, until January 1." />
+  <link rel="canonical" href="https://www.thelivinginternet.com/" />
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Future-Proof Creator Summit 2027" />
-  <meta property="og:description" content="Abbotsford, BC, June 4-6, 2027. Three days of live talks, workshops, and a room full of creators doubling down on the part of their business only they can do. Tickets on sale now." />
+  <meta property="og:title" content="Future-Proof Creator Summit 2027 · Becoming Irreplaceably Human" />
+  <meta property="og:description" content="Becoming Irreplaceably Human. Three days of talks, working sessions and time with a room full of creators. Abbotsford, BC, June 4-6, 2027. Early-bird tickets from $397, virtual $147, until January 1." />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.thelivinginternet.com/" />
+  <meta property="og:image" content="https://www.thelivinginternet.com/assets/images/summit-photos/img1-new.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- Fonts: EB Garamond (classic serif display) + Inter (clean body) -->
+  <link rel="icon" type="image/png" href="/assets/images/graphics/logo-white.png" />
+
+  <!-- Early-bird ends at midnight Pacific, Jan 1, 2027. From then on, every
+       .when-early element hides and every .when-full element shows (styles.css). -->
+  <script>if (Date.now() >= Date.parse('2027-01-01T00:00:00-08:00')) document.documentElement.classList.add('is-full-price');</script>
+
+  <!-- Fonts: EB Garamond (display) + Inter (body) + Montserrat (wordmark) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&family=Montserrat:wght@600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="preload" as="image" href="assets/images/summit-photos/img1.jpg" fetchpriority="high" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="preload" as="image" href="/assets/images/summit-photos/img1-new.jpg" fetchpriority="high" />
 </head>
 <body>
 
-  <!-- ===================== NAV ===================== -->
+  <!-- ===================== NAV (shared) ===================== -->
   <header class="nav" id="top">
     <div class="nav__inner">
-      <a class="nav__brand" href="#top" aria-label="The Living Internet Alliance, home">
-        <img src="assets/images/graphics/logo-white.png" alt="The Living Internet Alliance" class="nav__logo" width="470" height="469" />
+      <a class="nav__brand" href="/" aria-label="The Living Internet Alliance, home">
+        <img src="/assets/images/graphics/logo-white.png" alt="" class="nav__logo" width="470" height="469" />
         <span class="nav__wordmark">The Living Internet Alliance</span>
       </a>
-      <nav class="nav__links" aria-label="Primary">
-        <a href="#about">The Summit</a>
-        <a href="#proof">Stories</a>
+      <nav class="nav__links" id="navLinks" aria-label="Primary">
+        <a href="/" aria-current="page">Summit 2027</a>
+        <a href="/community/">Community</a>
+        <a href="/2026/">2026 Recap</a>
+        <a href="/faq/">FAQ</a>
       </nav>
-      <a href="#tickets" class="btn btn--solid nav__cta">Get your ticket</a>
+      <a href="/#tickets" class="btn btn--solid nav__cta">Get tickets</a>
+      <button type="button" class="nav__toggle" aria-controls="navLinks" aria-expanded="false" aria-label="Open menu"><span class="nav__toggle-bars"></span></button>
     </div>
   </header>
 
-  <!-- ===================== HERO ===================== -->
+  <!-- ===================== 1 · HERO ===================== -->
   <section class="hero" aria-labelledby="hero-title">
-    <div class="hero__media" role="img" aria-label="Jesse holding the mic in front of the speaker panel at the 2026 Future-Proof Creator Summit"></div>
+    <div class="hero__media" role="img" aria-label="Panel of speakers answering questions from the audience at the 2026 Future-Proof Creator Summit"></div>
     <div class="hero__scrim"></div>
 
     <div class="hero__content">
       <div class="hero__overlay">
-        <h1 class="hero__title" id="hero-title">
-          With the admin work more automated than ever, your voice is more valuable than ever.
-        </h1>
-
+        <h1 class="hero__title" id="hero-title">Becoming Irreplaceably Human.</h1>
         <p class="eyebrow hero__eyebrow">
           <span class="hero__eyebrow-title">Future-Proof Creator Summit 2027</span><br />
-          Abbotsford, BC Canada &middot; June 4&ndash;6
+          June 4&ndash;6, 2027 &middot; Abbotsford, BC, Canada
         </p>
       </div>
 
       <p class="hero__sub">
-        For content creators, the busywork is increasingly manageable with AI. Those who are most effectively building personal brands are now
-       spending the time it buys them going into the more creative and fulfilling work.<br>
-        In June 2026, 100 of them flew into Abbotsford, BC Canada, and called it the best event
-        they'd been to all year. In 2027 we're getting back together.
+        As AI takes on more of the admin, the part of your work only you can do matters more
+        every year. This is three days with a room full of creators going deeper on it.
       </p>
 
-      <div class="hero__actions">
-        <a href="#tickets" class="btn btn--solid btn--lg">Get your ticket</a>
-        <p class="hero__deadline">
-          Congratulations! You found this page before registration was even announced publicly.
-          Use code <span class="code-chip">SUPEREARLY</span> at checkout for $200 off General
-          Admission or VIP. Or, use the code <span class="code-chip">EARLYVIRTUAL</span> for $50
-          off Virtual tickets.
-        </p>
-      </div>
+      <p class="hero__price when-early">Early-bird until January 1: <strong>in person from $397</strong> &middot; <strong>virtual $147</strong></p>
+      <p class="hero__price when-full">Tickets: <strong>in person from $497</strong> &middot; <strong>virtual $197</strong></p>
 
+      <div class="hero__actions">
+        <a href="#tickets" class="btn btn--solid btn--lg">Get tickets</a>
+        <a href="#lineup" class="textlink">Get the lineup first</a>
+      </div>
     </div>
 
-    <a href="#proof" class="hero__scroll" aria-label="Scroll to learn more">
-      <span></span>
-    </a>
   </section>
 
-  <!-- ===================== WHAT IT IS (2027) ===================== -->
+  <main>
+  <!-- ===================== 2 · PROOF STRIP ===================== -->
+  <section class="proof-strip" id="proof-strip" aria-label="The 2026 summit in numbers and words">
+    <div class="section__inner">
+      <ul class="stats">
+        <li class="stat"><span class="stat__num">~100</span><span class="stat__label">creators in the room in 2026, most flying in from other countries</span></li>
+        <li class="stat"><span class="stat__num">17</span><span class="stat__label">speakers, led by Dan Koe, Kieran Drew and Taylin Simmonds</span></li>
+        <li class="stat"><span class="stat__num">Sold out</span><span class="stat__label">every in-person ticket, the first year it ran</span></li>
+      </ul>
+      <div class="quotes">
+        <figure class="quote">
+          <blockquote class="quote__text">I went into it thinking I'd learn business tactics. What I got was a spiritual awakening.</blockquote>
+          <figcaption class="quote__who">
+            <span class="quote__avatar" aria-hidden="true">CA</span>
+            <span><span class="quote__name">Christian Angelo</span><span class="quote__meta">over/thinking &middot; Substack</span></span>
+          </figcaption>
+        </figure>
+        <figure class="quote">
+          <blockquote class="quote__text">Nothing about being in that room felt like networking. It felt more like being reunited with long-lost friends.</blockquote>
+          <figcaption class="quote__who">
+            <span class="quote__avatar" aria-hidden="true">PO</span>
+            <span><span class="quote__name">Prisca Onyebuchi</span><span class="quote__meta">Lead AI Agents &middot; Substack</span></span>
+          </figcaption>
+        </figure>
+        <figure class="quote">
+          <blockquote class="quote__text">That was an experience of a lifetime, honestly one of the coolest and most valuable in-person things I've ever been to.</blockquote>
+          <figcaption class="quote__who">
+            <span class="quote__avatar" aria-hidden="true">AO</span>
+            <span><span class="quote__name">Aldis Oz</span><span class="quote__meta">2026 attendee &middot; DM</span></span>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 3 · WHAT IT IS ===================== -->
   <section id="about" class="section theme-bone" aria-labelledby="about-title">
     <div class="section__inner">
       <header class="section-head">
-        <p class="eyebrow">What you're walking into</p>
-        <h2 class="section-title" id="about-title">Three days built for wisdom seekers.</h2>
+        <p class="eyebrow">What it is</p>
+        <h2 class="section-title" id="about-title">A conference for wisdom seekers.</h2>
         <p class="section-intro">
-          The people who showed up in 2026 are building the new meaning economy: finding out how
-          to earn a living without sacrificing their sense of deeper purpose.
+          The people in this room are building the new meaning economy: creators and one-person
+          businesses working out how to earn a living without giving up their sense of deeper purpose.
         </p>
       </header>
 
-      <p class="story__body">
-        AI is already handling more of the research, scheduling, and busywork that used to eat up
-        half your time. That leaves real time for the ideas, the voice, and the taste and judgment calls that only a human
-        can bring. That's what the Summit is actually built around: live talks from people
-        who've done the work they're talking about, workshops you participate in rather than just watch like another Youtube video,
-        and unstructured blocks of time with a room full of people doing the same. Back in
-        Abbotsford, BC, June 4&ndash;6, 2027.
-      </p>
-
-      <ul class="schedule">
-        <li class="schedule__day">
-          <span class="schedule__date">Fri, Jun 4</span>
-          <span class="schedule__desc"><strong>1:00pm start.</strong> Welcome dinner at 6:00pm.</span>
+      <ul class="formats">
+        <li class="format">
+          <p class="format__num">01</p>
+          <p class="format__title">Talks from people who've done the work</p>
+          <p class="format__desc">Live keynotes and panels from creators who built the thing they're talking about.</p>
         </li>
-        <li class="schedule__day">
-          <span class="schedule__date">Sat, Jun 5</span>
-          <span class="schedule__desc"><strong>9:00am&ndash;4:00pm.</strong> VIP dinner with the speakers at 7:00pm.</span>
+        <li class="format">
+          <p class="format__num">02</p>
+          <p class="format__title">Working sessions</p>
+          <p class="format__desc">Workshops you take part in, with your own work on the table, instead of another video to watch.</p>
         </li>
-        <li class="schedule__day">
-          <span class="schedule__date">Sun, Jun 6</span>
-          <span class="schedule__desc"><strong>10:00am&ndash;3:00pm.</strong> After-party at 8:00pm.</span>
+        <li class="format">
+          <p class="format__num">03</p>
+          <p class="format__title">Long stretches with the room</p>
+          <p class="format__desc">Shared meals, open blocks and late nights with people who believe your creative work matters.</p>
         </li>
       </ul>
 
-      <p class="story__body about__note">
-        Most of us creators
-        spend a lot of time working alone. For these three days, you'll immersed in a community
-        of people who believe that your creative work truly matters.
-      </p>
-      <p>
-        Can't make the trip? A virtual ticket streams every session live, and puts you in a chatroom with people from around the world.
-      </p>
+      <div class="about__cols">
+        <ul class="schedule" aria-label="2027 schedule">
+          <li class="schedule__day">
+            <span class="schedule__date">Fri, Jun 4</span>
+            <span class="schedule__desc"><strong>1:00pm start.</strong> Welcome dinner at 6:00pm.</span>
+          </li>
+          <li class="schedule__day">
+            <span class="schedule__date">Sat, Jun 5</span>
+            <span class="schedule__desc"><strong>9:00am&ndash;4:00pm.</strong> VIP dinner with the speakers at 7:00pm.</span>
+          </li>
+          <li class="schedule__day">
+            <span class="schedule__date">Sun, Jun 6</span>
+            <span class="schedule__desc"><strong>10:00am&ndash;3:00pm.</strong> After-Party at 8:00pm.</span>
+          </li>
+        </ul>
+        <div>
+          <p class="about__virtual">
+            <strong>Can't make the trip?</strong> A virtual ticket streams every session live and
+            puts you in a chatroom with people joining from around the world.
+          </p>
+          <p class="section-foot"><a href="#tickets" class="textlink">See tickets and prices</a></p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- ===================== THE STORY (2026) ===================== -->
-  <section id="story" class="section section--compact story">
-    <div class="section__inner">
-      <header class="section-head">
-        <p class="eyebrow">2026, The First Summit</p>
-        <h2 class="section-title">Three days of personal transformation and brand strategy.</h2>
-      </header>
-
-      <p class="story__body">
-        In June, about 100 creators and builders gathered for three days of keynote talks, workshops, panel
-        discussions, warm meals, and late nights that ran past the last sessions.
-      </p>
-
-      <!-- All 17 speakers now have real photos (assets/images/speakers/, added 2026-09-02,
-           cropped square + optimized from Jesse's originals in assets/images/). Brian
-           Maierhofer's only supplied photo is a 3-person group shot; he's the middle person
-           (confirmed by Jesse), so his crop is centered tighter on him specifically rather
-           than the whole group. -->
-      <p class="story__body">
-        Some of the 2027 speaker lineup will be released in November/December, with the full
-        lineup announcement coming in early 2027.
-      </p>
-
-      <p class="speakers__label">The 2026 lineup</p>
-      <ul class="speakers">
-        <li class="speaker"><span class="speaker__avatar"><img class="speaker__avatar-img" src="assets/images/speakers/dan-koe-web.jpg" alt="Dan Koe" loading="lazy" decoding="async" width="240" height="240" /></span><span class="speaker__name">Dan Koe</span></li>
-        <li class="speaker"><span class="speaker__avatar"><img class="speaker__avatar-img" src="assets/images/speakers/dan-goldfield-web.jpg" alt="Dan Goldfield" loading="lazy" decoding="async" width="240" height="240" /></span><span class="speaker__name">Dan Goldfield</span></li>
-        <li class="speaker"><span class="speaker__avatar"><img class="speaker__avatar-img" src="assets/images/speakers/taylin-simmonds-web.jpg" alt="Taylin Simmonds" loading="lazy" decoding="async" width="240" height="240" /></span><span class="speaker__name">Taylin Simmonds</span></li>
-        <li class="speaker"><span class="speaker__avatar"><img class="speaker__avatar-img" src="assets/images/speakers/kieran-drew-web.jpg" alt="Kieran Drew" loading="lazy" decoding="async" width="240" height="240" /></span><span class="speaker__name">Kieran Drew</span></li>
-        <li class="speaker"><span class="speaker__avatar"><img class="speaker__avatar-img" src="assets/images/speakers/kimia-nora-web.jpg" alt="Kimia Nora" loading="lazy" decoding="async" width="240" height="240" /></span><span class="speaker__name">Kimia Nora</span></li>
-        <li class="speaker"><span class="speaker__avatar"><img class="speaker__avatar-img" src="assets/images/speakers/jack-moses-web.jpg" alt="Jack Moses" loading="lazy" decoding="async" width="240" height="240" /></span><span class="speaker__name">Jack Moses</span></li>
-        <li class="speaker"><span class="speaker__avatar"><img class="speaker__avatar-img" src="assets/images/speakers/david-morin-web.jpg" alt="David Morin" loading="lazy" decoding="async" width="240" height="240" /></span><span class="speaker__name">David Morin</span></li>
-        <li class="speaker"><span class="speaker__avatar"><img class="speaker__avatar-img" src="assets/images/speakers/ish-hasan-web.jpg" alt="Ish Hasan" loading="lazy" decoding="async" width="240" height="240" /></span><span class="speaker__name">Ish Hasan</span></li>
-        <li class="speaker"><span class="speaker__avatar"><img class="speaker__avatar-img" src="assets/images/speakers/logan-quinn-web.jpg" alt="Logan Quinn" loading="lazy" decoding="async" width="240" height="240" /></span><span class="speaker__name">Logan Quinn</span></li>
-        <li class="speaker"><span class="speaker__avatar"><img class="speaker__avatar-img" src="assets/images/speakers/olivia-peers-web.jpg" alt="Olivia Peers" loading="lazy" decoding="async" width="240" height="240" /></span><span class="speaker__name">Olivia Peers</span></li>
-        <li class="speaker"><span class="speaker__avatar"><img class="speaker__avatar-img" src="assets/images/speakers/michael-oliver-web.jpg" alt="Michael Oliver" loading="lazy" decoding="async" width="240" height="240" /></span><span class="speaker__name">Michael Oliver</span></li>
-        <li class="speaker"><span class="speaker__avatar"><img class="speaker__avatar-img" src="assets/images/speakers/jesse-james-carver-web.jpg" alt="Jesse James Carver" loading="lazy" decoding="async" width="240" height="240" /></span><span class="speaker__name">Jesse James Carver</span></li>
-        <li class="speaker"><span class="speaker__avatar"><img class="speaker__avatar-img" src="assets/images/speakers/brian-maierhofer-web.jpg" alt="Brian Maierhofer" loading="lazy" decoding="async" width="240" height="240" /></span><span class="speaker__name">Brian Maierhofer</span></li>
-        <li class="speaker"><span class="speaker__avatar"><img class="speaker__avatar-img" src="assets/images/speakers/nathalie-agnes-web.jpg" alt="Nathalie Agnes" loading="lazy" decoding="async" width="240" height="240" /></span><span class="speaker__name">Nathalie Agnes</span></li>
-        <li class="speaker"><span class="speaker__avatar"><img class="speaker__avatar-img" src="assets/images/speakers/zach-scannapieco-web.jpg" alt="Zach Scannapieco" loading="lazy" decoding="async" width="240" height="240" /></span><span class="speaker__name">Zach Scannapieco</span></li>
-        <li class="speaker"><span class="speaker__avatar"><img class="speaker__avatar-img" src="assets/images/speakers/fia-houston-hamilton-web.jpg" alt="Fia Houston-Hamilton" loading="lazy" decoding="async" width="240" height="240" /></span><span class="speaker__name">Fia Houston-Hamilton</span></li>
-        <li class="speaker"><span class="speaker__avatar"><img class="speaker__avatar-img" src="assets/images/speakers/paul-musso-web.jpg" alt="Paul Musso" loading="lazy" decoding="async" width="240" height="240" /></span><span class="speaker__name">Paul Musso</span></li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- ===================== (sections below to be built) ===================== -->
-  <main>
-    <!-- ===================== TESTIMONIAL WALL ===================== -->
-    <section id="proof" class="section section--proof">
-      <div class="section__inner">
-        <header class="section-head">
-          <p class="eyebrow">What the 2026 Attendees Said</p>
-          <h2 class="section-title">Nobody asked them to post these.</h2>
-          <p class="section-intro">
-            When people left Abbotsford, they went home and wrote about it on their own.
-            Here's what they wrote about the Future Proof Creator Summit 2026. This is the room
-            2027 is inviting you into.
-          </p>
-        </header>
-
-        <div class="wall">
-          <figure class="post"><img src="assets/images/testimonials/test1.png" alt="future proof creator summit 2026 testimonial" loading="lazy" decoding="async" width="1044" height="456" /></figure>
-          <figure class="post"><img src="assets/images/testimonials/test14.png" alt="future proof creator summit 2026 testimonial" loading="lazy" decoding="async" width="1230" height="1236" /></figure>
-          <figure class="post"><img src="assets/images/testimonials/test3.png" alt="future proof creator summit 2026 testimonial" loading="lazy" decoding="async" width="1304" height="398" /></figure>
-          <figure class="post"><img src="assets/images/testimonials/test12.png" alt="future proof creator summit 2026 testimonial" loading="lazy" decoding="async" width="1208" height="980" /></figure>
-          <figure class="post"><img src="assets/images/testimonials/test10.png" alt="future proof creator summit 2026 testimonial" loading="lazy" decoding="async" width="564" height="140" /></figure>
-          <figure class="post"><img src="assets/images/testimonials/test4.png" alt="future proof creator summit 2026 testimonial" loading="lazy" decoding="async" width="1372" height="1226" /></figure>
-          <figure class="post"><img src="assets/images/testimonials/test2.png" alt="future proof creator summit 2026 testimonial" loading="lazy" decoding="async" width="1318" height="512" /></figure>
-          <figure class="post"><img src="assets/images/testimonials/test16.png" alt="A 2026 summit attendee's social post" loading="lazy" decoding="async" width="1154" height="990" /></figure>
-          <figure class="post"><img src="assets/images/testimonials/test6.png" alt="future proof creator summit 2026 testimonial" loading="lazy" decoding="async" width="872" height="368" /></figure>
-          <figure class="post"><img src="assets/images/testimonials/test11.png" alt="future proof creator summit 2026 testimonial" loading="lazy" decoding="async" width="964" height="1388" /></figure>
-          <figure class="post"><img src="assets/images/testimonials/test8.png" alt="future proof creator summit 2026 testimonial" loading="lazy" decoding="async" width="1326" height="558" /></figure>
-          <figure class="post"><img src="assets/images/testimonials/test17.png" alt="future proof creator summit 2026 testimonial" loading="lazy" decoding="async" width="1200" height="966" /></figure>
-          <figure class="post"><img src="assets/images/testimonials/test7.png" alt="future proof creator summit 2026 testimonial" loading="lazy" decoding="async" width="1322" height="688" /></figure>
-          <figure class="post"><img src="assets/images/testimonials/test13.png" alt="future proof creator summit 2026 testimonial" loading="lazy" decoding="async" width="698" height="510" /></figure>
-          <figure class="post"><img src="assets/images/testimonials/test15.png" alt="future proof creator summit 2026 testimonial" loading="lazy" decoding="async" width="1242" height="686" /></figure>
-          <figure class="post"><img src="assets/images/testimonials/test18.png" alt="future proof creator summit 2026 testimonial" loading="lazy" decoding="async" width="1320" height="1246" /></figure>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== PHOTO GALLERY ===================== -->
-    <section id="gallery" class="section section--compact gallery-section theme-bone">
-      <div class="section__inner">
-        <header class="section-head">
-          <p class="eyebrow">More from the summit</p>
-          <h2 class="section-title">Moments from the weekend.</h2>
-          <p class="section-intro">Tap any photo to open the full gallery.</p>
-        </header>
-
-        <div class="gallery-controls">
-          <button type="button" class="btn btn--ghost gallery__view-toggle" id="galleryViewToggle" aria-pressed="false">View all photos</button>
-        </div>
-
-        <div class="gallery-wrap">
-          <div class="gallery-track">
-            <button type="button" class="gallery__nav gallery__nav--prev" id="galleryPrev" aria-label="Scroll to previous photos">&#8249;</button>
-            <div class="gallery" role="group" aria-label="Summit photo gallery">
-            <button type="button" class="gallery__item">
-              <img src="assets/images/summit-photos/img10-thumb.jpg" data-full="assets/images/summit-photos/img10-web.jpg" alt="Kimia Nora speaking at the Future Proof Creator Summit 2026" loading="lazy" decoding="async" width="1400" height="897" />
-            </button>
-            <button type="button" class="gallery__item">
-              <img src="assets/images/summit-photos/img7-thumb.jpg" data-full="assets/images/summit-photos/img7-web.jpg" alt="Olivia Peers speaking at the Future Proof Creator Summit 2026" loading="lazy" decoding="async" width="1400" height="887" />
-            </button>
-            <button type="button" class="gallery__item">
-              <img src="assets/images/summit-photos/img3-thumb.jpg" data-full="assets/images/summit-photos/img3-web.jpg" alt="Brian Maierhofer speaking at the Future Proof Creator Summit 2026" loading="lazy" decoding="async" width="1400" height="949" />
-            </button>
-            <button type="button" class="gallery__item">
-              <img src="assets/images/summit-photos/group-photo-thumb.jpg" data-full="assets/images/summit-photos/group-photo-web.jpg" alt="The full group of 2026 summit attendees gathered for a group photo" loading="lazy" decoding="async" width="1400" height="606" />
-            </button>
-            <button type="button" class="gallery__item">
-              <img src="assets/images/summit-photos/img4-thumb.jpg" data-full="assets/images/summit-photos/img4-web.jpg" alt="Attendees talking with Dan Koe at the VIP Dinner" loading="lazy" decoding="async" width="1400" height="933" />
-            </button>
-            <button type="button" class="gallery__item">
-              <img src="assets/images/summit-photos/img9-thumb.jpg" data-full="assets/images/summit-photos/img9-web.jpg" alt="Nick Serpico, Kimia Nora, and Brian Maierhofer at the VIP Dinner" loading="lazy" decoding="async" width="1400" height="933" />
-            </button>
-            <button type="button" class="gallery__item">
-              <img src="assets/images/summit-photos/img12-thumb.jpg" data-full="assets/images/summit-photos/img12-web.jpg" alt="Paul Musso Philosophizing at the VIP Dinner" loading="lazy" decoding="async" width="1400" height="933" />
-            </button>
-            <button type="button" class="gallery__item">
-              <img src="assets/images/summit-photos/img6-thumb.jpg" data-full="assets/images/summit-photos/img6.jpg" alt="Nathalie Agnes Speaking at the 2026 summit" loading="lazy" decoding="async" width="2160" height="1316" />
-            </button>
-            <button type="button" class="gallery__item">
-              <img src="assets/images/summit-photos/img5-thumb.jpg" data-full="assets/images/summit-photos/img5.jpg" alt="Lily Alexandra asking a question during a Q&amp;A session at the 2026 summit" loading="lazy" decoding="async" width="2160" height="1215" />
-            </button>
-            <button type="button" class="gallery__item">
-              <img src="assets/images/summit-photos/img14-thumb.jpg" data-full="assets/images/summit-photos/img14.jpg" alt="Prisca Onyebuchi Meeting Dan Koe at the Future Proof Creator Summit 2026" loading="lazy" decoding="async" width="2640" height="1837" />
-            </button>
-            <button type="button" class="gallery__item">
-              <img src="assets/images/summit-photos/img16-thumb.jpg" data-full="assets/images/summit-photos/img16-web.jpg" alt="Speakers seated together on stage for a Q&amp;A panel at the Future Proof Creator Summit 2026" loading="lazy" decoding="async" width="1400" height="933" />
-            </button>
-            <button type="button" class="gallery__item">
-              <img src="assets/images/summit-photos/img17-thumb.jpg" data-full="assets/images/summit-photos/img17-web.jpg" alt="David Morin speaking poetry at the Future Proof Creator Summit 2026" loading="lazy" decoding="async" width="1400" height="933" />
-            </button>
-            <button type="button" class="gallery__item">
-              <img src="assets/images/summit-photos/img18-thumb.jpg" data-full="assets/images/summit-photos/img18-web.jpg" alt="Adam Laroza and Kimia Nora chatting over lunch at the Future Proof Creator Summit 2026" loading="lazy" decoding="async" width="1400" height="933" />
-            </button>
-            <button type="button" class="gallery__item">
-              <img src="assets/images/summit-photos/img19-thumb.jpg" data-full="assets/images/summit-photos/img19-web.jpg" alt="Kieran Drew speaking at the Future Proof Creator Summit 2026" loading="lazy" decoding="async" width="1400" height="933" />
-            </button>
-            <button type="button" class="gallery__item">
-              <img src="assets/images/summit-photos/img20-thumb.jpg" data-full="assets/images/summit-photos/img20-web.jpg" alt="Logan Quinn mingling with attendees of the Future Proof Creator Summit 2026" loading="lazy" decoding="async" width="1400" height="933" />
-            </button>
-            <button type="button" class="gallery__item">
-              <img src="assets/images/summit-photos/img21-thumb.jpg" data-full="assets/images/summit-photos/img21-web.jpg" alt="Olivia Peers and Kimia Nora, two speakers of the Future Proof Creator Summit 2026" loading="lazy" decoding="async" width="1400" height="933" />
-            </button>
-            <button type="button" class="gallery__item">
-              <img src="assets/images/summit-photos/img22-thumb.jpg" data-full="assets/images/summit-photos/img22-web.jpg" alt="Ashley Aria definitely not doomscrolling at the Future Proof Creator Summit 2026" loading="lazy" decoding="async" width="1400" height="933" />
-            </button>
-            <button type="button" class="gallery__item">
-              <img src="assets/images/summit-photos/img23-thumb.jpg" data-full="assets/images/summit-photos/img23-web.jpg" alt="Dan Goldfield, speaker at the Future Proof Creator Summit 2026" loading="lazy" decoding="async" width="1400" height="933" />
-            </button>
-            <button type="button" class="gallery__item">
-              <img src="assets/images/summit-photos/img24-thumb.jpg" data-full="assets/images/summit-photos/img24-web.jpg" alt="Attendees laughing and contemplating during a talk at the Future Proof Creator Summit 2026" loading="lazy" decoding="async" width="1400" height="933" />
-            </button>
-            <button type="button" class="gallery__item">
-              <img src="assets/images/summit-photos/img25-thumb.jpg" data-full="assets/images/summit-photos/img25-web.jpg" alt="Christian, Ashley, and Prisca,s deep in conversation at a roundtable during the Future Proof Creator Summit 2026" loading="lazy" decoding="async" width="1400" height="933" />
-            </button>
-            <button type="button" class="gallery__item">
-              <img src="assets/images/summit-photos/img26-thumb.jpg" data-full="assets/images/summit-photos/img26-web.jpg" alt="Dan Goldfield and Nathalie Agnes chatting it up." loading="lazy" decoding="async" width="1400" height="933" />
-            </button>
-            <button type="button" class="gallery__item">
-              <img src="assets/images/summit-photos/img27-thumb.jpg" data-full="assets/images/summit-photos/img27-web.jpg" alt="Taylin Simmonds and Jesse preparing for a talk at the Future Proof Creator Summit 2026" loading="lazy" decoding="async" width="1400" height="933" />
-            </button>
-            <button type="button" class="gallery__item">
-              <img src="assets/images/summit-photos/img28-thumb.jpg" data-full="assets/images/summit-photos/img28-web.jpg" alt="Fia Houston-Hamilton adresses the room at the Future Proof Creator Summit 2026" loading="lazy" decoding="async" width="1400" height="933" />
-            </button>
-            <button type="button" class="gallery__item">
-              <img src="assets/images/summit-photos/img29-thumb.jpg" data-full="assets/images/summit-photos/img29-web.jpg" alt="Fia, Logan, and David, laughing over dinner at the Future Proof Creator Summit 2026" loading="lazy" decoding="async" width="1400" height="933" />
-            </button>
-            <button type="button" class="gallery__item">
-              <img src="assets/images/summit-photos/img30-thumb.jpg" data-full="assets/images/summit-photos/img30-web.jpg" alt="Dan Koe addressing the room during a workshop on meaningful work at the Future Proof Creator Summit 2026" loading="lazy" decoding="async" width="1400" height="933" />
-            </button>
-            <button type="button" class="gallery__item">
-              <img src="assets/images/summit-photos/img31-thumb.jpg" data-full="assets/images/summit-photos/img31-web.jpg" alt="Mike and Michael, excited attendees at the Future Proof Creator Summit 2026" loading="lazy" decoding="async" width="1400" height="933" />
-            </button>
-            <button type="button" class="gallery__item">
-              <img src="assets/images/summit-photos/img32-thumb.jpg" data-full="assets/images/summit-photos/img32-web.jpg" alt="Paul Musso and Kyle Gilboy hanging out at the Future Proof Creator Summit 2026" loading="lazy" decoding="async" width="1400" height="933" />
-            </button>
-            <button type="button" class="gallery__item">
-              <img src="assets/images/summit-photos/img33-thumb.jpg" data-full="assets/images/summit-photos/img33-web.jpg" alt="Kimia Nora laughing with other speakers at the Future Proof Creator Summit 2026" loading="lazy" decoding="async" width="1400" height="933" />
-            </button>
-            <button type="button" class="gallery__item">
-              <img src="assets/images/summit-photos/img34-thumb.jpg" data-full="assets/images/summit-photos/img34-web.jpg" alt="Nick Man and Cyrus Yang ambush Kieran Drew for a photo at the Future Proof Creator Summit 2026" loading="lazy" decoding="async" width="1400" height="933" />
-            </button>
-            <button type="button" class="gallery__item">
-              <img src="assets/images/summit-photos/img35-thumb.jpg" data-full="assets/images/summit-photos/img35-web.jpg" alt="Michael Oliver and Gabrielle Bachand near The Living Internet Alliance sign at the Future Proof Creator Summit 2026" loading="lazy" decoding="async" width="1400" height="933" />
-            </button>
-            <button type="button" class="gallery__item">
-              <img src="assets/images/summit-photos/img36-thumb.jpg" data-full="assets/images/summit-photos/img36-web.jpg" alt="Michael Taguinota and Mike Li chatting at the Future Proof Creator Summit 2026" loading="lazy" decoding="async" width="1400" height="933" />
-            </button>
-            <button type="button" class="gallery__item">
-              <img src="assets/images/summit-photos/img37-thumb.jpg" data-full="assets/images/summit-photos/img37-web.jpg" alt="Logan Quinn stoked to be representing Medicine of Mankind at the Future Proof Creator Summir" loading="lazy" decoding="async" width="1400" height="933" />
-            </button>
-            <button type="button" class="gallery__item">
-              <img src="assets/images/summit-photos/img38-thumb.jpg" data-full="assets/images/summit-photos/img38-web.jpg" alt="Kieran Drew asking a question to another speaker at the Future Proof Creator Summit 2026" loading="lazy" decoding="async" width="1400" height="933" />
-            </button>
-            <button type="button" class="gallery__item">
-              <img src="assets/images/summit-photos/img39-thumb.jpg" data-full="assets/images/summit-photos/img39-web.jpg" alt="Cyrus Yang and Nathaniel King at the VIP dinner of the 2026 Future-Proof Creator Summit" loading="lazy" decoding="async" width="1400" height="933" />
-            </button>
-            <button type="button" class="gallery__item">
-              <img src="assets/images/summit-photos/img40-thumb.jpg" data-full="assets/images/summit-photos/img40-web.jpg" alt="Dan and Stephanie Koe at the VIP dinner" loading="lazy" decoding="async" width="1400" height="933" />
-            </button>
-            <button type="button" class="gallery__item">
-              <img src="assets/images/summit-photos/img41-thumb.jpg" data-full="assets/images/summit-photos/img41-web.jpg" alt="Attendees playing 4D chess late into the evening at afterparty of the Future Proof Creator Summit 2026" loading="lazy" decoding="async" width="1400" height="933" />
-            </button>
-            <button type="button" class="gallery__item">
-              <img src="assets/images/summit-photos/img42-thumb.jpg" data-full="assets/images/summit-photos/img42-web.jpg" alt="The speaker panel seated together on stage at the Future Proof Creator Summit 2026" loading="lazy" decoding="async" width="1400" height="933" />
-            </button>
-            <button type="button" class="gallery__item">
-              <img src="assets/images/summit-photos/img43-thumb.jpg" data-full="assets/images/summit-photos/img43-web.jpg" alt="Ish Hasan in conversation at the Future Proof Creator Summit 2026" loading="lazy" decoding="async" width="1400" height="933" />
-            </button>
-            <button type="button" class="gallery__item">
-              <img src="assets/images/summit-photos/img44-thumb.jpg" data-full="assets/images/summit-photos/img44-web.jpg" alt="Matt, Sara, Lily, and Vanya, in conversation at a table during the Future Proof Creator Summit 2026" loading="lazy" decoding="async" width="1400" height="933" />
-            </button>
-            </div>
-            <button type="button" class="gallery__nav gallery__nav--next" id="galleryNext" aria-label="Scroll to next photos">&#8250;</button>
-          </div>
-          <div class="gallery__dots" id="galleryDots" role="tablist" aria-label="Gallery pages"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== TICKETS (primary CTA) ===================== -->
-    <section id="tickets" class="member-band member-band--tickets" aria-labelledby="tickets-title">
-      <div class="member-band__inner">
-        <div class="member-band__text">
-          <p class="eyebrow member-band__eyebrow">Future-Proof Creator Summit 2027</p>
-          <h2 class="member-band__title" id="tickets-title">Three ways in.</h2>
-          <p class="member-band__body">
-            Abbotsford, British Columbia, Canada.<br>
-            <strong>June 4th, 5th, and 6th, 2027.</strong><br>
-            The first twenty tickets already sold out in a one-day pre-sale. General admission,
-            VIP, and virtual tickets are open now below.
-          </p>
-
-          <p class="member-band__body">
-            Congratulations on finding this page before registration was even announced publicly.
-            Use code <span class="code-chip">SUPEREARLY</span> at checkout for $200 off General
-            Admission or VIP, or <span class="code-chip">EARLYVIRTUAL</span> for $50 off Virtual.
-          </p>
-        </div>
-
-        <div class="ticket-tiers">
-          <div class="ticket-tier">
-            <p class="ticket-tier__name">General Admission</p>
-            <p class="ticket-tier__price">$497 USD</p>
-            <p class="ticket-tier__desc">
-              Three days of talks, workshops, and real conversations. Includes the Friday
-              welcome dinner, and lunches on Saturday and Sunday. All in-person attendees also get access to the recordings after the event.
-            </p>
-          </div>
-          <div class="ticket-tier ticket-tier--featured">
-            <p class="ticket-tier__name">VIP &middot; 30 seats</p>
-            <p class="ticket-tier__price">$1,497 USD</p>
-            <p class="ticket-tier__desc">
-              Everything in General Admission, plus the Saturday VIP dinner with the speakers,
-              reserved front-row seating, and the Sunday after-party, included.
-            </p>
-          </div>
-          <div class="ticket-tier">
-            <p class="ticket-tier__name">Virtual</p>
-            <p class="ticket-tier__price">$197 USD</p>
-            <p class="ticket-tier__desc">
-              Full live stream access to every session, from wherever you are.
-            </p>
-          </div>
-          <div class="ticket-tier">
-            <p class="ticket-tier__name">After-Party</p>
-            <p class="ticket-tier__price">$77 USD</p>
-            <p class="ticket-tier__desc">
-              Get groovy on the dance floor and unwind after three packed days of taking notes
-              and thinking deep. Included automatically with VIP tickets.
-            </p>
-          </div>
-        </div>
-
-        <div class="ticket-embed" id="ticketEmbed">
-          <iframe
-            src="https://tickets.thelivinginternet.com/checkout/view-event/id/8531085/chk/ede5cd54da2d77b5125283f28206d958/?modal_widget=true&amp;widget=true"
-            title="Get your Future-Proof Creator Summit 2027 ticket"
-            loading="lazy"></iframe>
-        </div>
-      </div>
-      <p class="ticket-embed__fallback">
-        Box office not loading? <a href="https://tickets.thelivinginternet.com/checkout/view-event/id/8531085/chk/ede5cd54da2d77b5125283f28206d958/?modal_widget=true&amp;widget=true" target="_blank" rel="noopener">Try here.</a>.
-      </p>
-    </section>
-  </main>
-
-  <!-- ===================== A NOTE FROM THE FOUNDER ===================== -->
-  <section id="founder" class="founder theme-bone" aria-labelledby="founder-title">
+  <!-- ===================== 4 · A NOTE FROM JESSE ===================== -->
+  <section id="founder" class="founder founder--dark" aria-labelledby="founder-title">
     <div class="founder__inner">
       <div class="founder__avatar">
-        <img src="assets/images/speakers/jesse-james-carver-web.jpg" alt="Jesse James Carver" loading="lazy" decoding="async" width="240" height="240" />
+        <img src="/assets/images/speakers/jesse-james-carver-web.jpg" alt="Jesse James Carver" loading="lazy" decoding="async" width="240" height="240" />
       </div>
       <div class="founder__text">
         <p class="eyebrow">A note from the founder</p>
         <p class="founder__name" id="founder-title">Jesse James Carver</p>
         <p class="founder__body">
-          Leading up to June of 2026, a team of people and I compelled a hundred creators to fly to a little-known city of Abbotsford
-          for three days together in a conference room, and
-          watched it turn into what some said was the best event they've been to. It was a big endeavor
-          the first time, and I struck some luck with getting so many great people involved.
-          For me, it was an epic experience to watch it play out in real time, and see people
-          so thoroughly enjoy their experience. If you want the longer
-          story of why this Summit exists, and what else I'm building, check out my Substack letters
-          at <a href="https://jesse.eden.so" target="_blank" rel="noopener">jesse.eden.so</a>.
-        </p>
-        <p>
-          To those who came in 2026: If you can make it this year, it will mean the world to see you!
-         If you can make it, I intend to make it more than worth it once again.
-
+          Leading up to June 2026, a team of people and I got a hundred creators to fly to the
+          little-known city of Abbotsford for three days together in one room, and watched it turn
+          into what some said was the best event they'd ever been to. Watching it play out in real
+          time, and seeing people enjoy it that thoroughly, was an epic experience. To those who came
+          in 2026: it will mean the world to see you again, and I intend to make it more than worth
+          it once more. For the longer story of why this summit exists, and what else I'm building,
+          read my letters at <a href="https://jesse.eden.so" target="_blank" rel="noopener">jesse.eden.so</a>.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- ===================== FOOTER ===================== -->
+  <!-- ===================== 5 · 2027 SO FAR ===================== -->
+  <!-- Fill-in plan (siteplan.md): December, add 3 to 5 speaker cards under
+       "First speakers confirmed" plus one "More in early 2027" card. January,
+       name the venue. Early 2027, full lineup and session-level agenda. -->
+  <section id="lineup" class="section theme-bone" aria-labelledby="lineup-title">
+    <div class="section__inner">
+      <header class="section-head">
+        <p class="eyebrow">2027 so far</p>
+        <h2 class="section-title" id="lineup-title">The lineup is being announced in waves.</h2>
+        <p class="section-intro">
+          First speakers in December, the venue by January, the full program in early 2027.
+          Here's what you'll be working on in the meantime.
+        </p>
+      </header>
+
+      <div class="lineup">
+        <div>
+          <p class="speakers__label">What you'll work on</p>
+          <ul class="themes">
+            <li>
+              <p class="theme__title">Personal transformation</p>
+              <p class="theme__desc">The inner work under a creative life: clarity about what you're for, and the nerve to make it public.</p>
+            </li>
+            <li>
+              <p class="theme__title">Brand and business strategy</p>
+              <p class="theme__desc">Building a personal brand and a one-person business that can actually carry you.</p>
+            </li>
+            <li>
+              <p class="theme__title">Working with the new tools</p>
+              <p class="theme__desc">Letting AI take the research, scheduling and busywork, so your hours go into the work with your name on it.</p>
+            </li>
+          </ul>
+
+          <ul class="milestones" aria-label="Announcement timeline">
+            <li class="milestone"><span class="milestone__when">Now</span><span class="milestone__what"><strong>Tickets on sale</strong> <span class="when-early">at early-bird prices, until January 1.</span><span class="when-full">at full price.</span></span></li>
+            <li class="milestone"><span class="milestone__when">December</span><span class="milestone__what"><strong>First speakers announced.</strong> Subscribers hear first.</span></li>
+            <li class="milestone"><span class="milestone__when">January</span><span class="milestone__what"><strong>Venue announced</strong>, in Abbotsford.</span></li>
+            <li class="milestone"><span class="milestone__when">Early 2027</span><span class="milestone__what"><strong>Full lineup</strong> and the session-by-session agenda.</span></li>
+          </ul>
+        </div>
+
+        <div class="signup ">
+          <p class="signup__eyebrow">The Living Internet Substack</p>
+          <p class="signup__title">Get the lineup first.</p>
+          <p class="signup__body">Speaker announcements reach subscribers 48 hours before they go public, plus a reminder before early-bird prices end.</p>
+          <div class="signup__frame">
+            <iframe src="https://livinginternet.substack.com/embed" title="Subscribe to the Living Internet Substack" loading="lazy" scrolling="no"></iframe>
+          </div>
+          <p class="signup__fallback">Form not loading? <a href="https://livinginternet.substack.com/subscribe" target="_blank" rel="noopener">Subscribe on Substack</a>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 6 · TICKETS ===================== -->
+  <section id="tickets" class="member-band member-band--tickets" aria-labelledby="tickets-title">
+    <div class="member-band__inner">
+      <div class="member-band__text">
+        <p class="eyebrow member-band__eyebrow"><span class="when-early">Tickets &middot; Early-bird until January 1</span><span class="when-full">Tickets</span></p>
+        <h2 class="member-band__title" id="tickets-title">Choose how you're coming.</h2>
+        <p class="member-band__body">
+          <strong>June 4&ndash;6, 2027 &middot; Abbotsford, BC, Canada.</strong> No code needed: the
+          price you see is the price at checkout. Prices in USD.
+        </p>
+      </div>
+
+      <div class="tiers">
+        <article class="tier">
+          <p class="tier__name">General Admission</p>
+          <p class="tier__price"><span class="when-early">$397</span><span class="when-full">$497</span><small>USD</small></p>
+          <p class="tier__later"><span class="when-early">$497 from January 1 &middot; 120 seats</span><span class="when-full">120 seats</span></p>
+          <p class="tier__member">Alliance members: <span class="when-early">$337.45</span><span class="when-full">$422.45</span></p>
+          <ul class="tier__list">
+            <li class="yes">All talks, live in the room</li>
+            <li class="yes">In-person working sessions</li>
+            <li class="yes">Friday welcome dinner + lunches</li>
+            <li class="yes">Recordings after the event</li>
+            <li class="add">After-Party: add for $77 at checkout</li>
+            <li class="no">VIP dinner with the speakers</li>
+          </ul>
+          <a href="#checkout" class="btn btn--ember">Get General Admission</a>
+        </article>
+
+        <article class="tier tier--featured">
+          <p class="tier__flag">30 seats</p>
+          <p class="tier__name">VIP</p>
+          <p class="tier__price"><span class="when-early">$1,297</span><span class="when-full">$1,497</span><small>USD</small></p>
+          <p class="tier__later"><span class="when-early">$1,497 from January 1</span><span class="when-full">Only 30 seats</span></p>
+          <p class="tier__member">Alliance members: <span class="when-early">$1,102.45</span><span class="when-full">$1,272.45</span></p>
+          <ul class="tier__list">
+            <li class="yes">Everything in General Admission</li>
+            <li class="yes">Saturday VIP dinner with the speakers</li>
+            <li class="yes">Reserved front-row seating</li>
+            <li class="yes">Sunday After-Party, included</li>
+            <li class="yes">Recordings after the event</li>
+          </ul>
+          <a href="#checkout" class="btn btn--ember">Get VIP</a>
+        </article>
+
+        <article class="tier">
+          <p class="tier__name">Virtual</p>
+          <p class="tier__price"><span class="when-early">$147</span><span class="when-full">$197</span><small>USD</small></p>
+          <p class="tier__later"><span class="when-early">$197 from January 1 &middot; 300 seats</span><span class="when-full">300 seats</span></p>
+          <p class="tier__member">Alliance members: <span class="when-early">$124.95</span><span class="when-full">$167.45</span></p>
+          <ul class="tier__list">
+            <li class="yes">Every talk, streamed live</li>
+            <li class="yes">Live chat with attendees worldwide</li>
+            <li class="yes">Recordings after the event</li>
+            <li class="no">In-person sessions and meals</li>
+            <li class="no">After-Party</li>
+          </ul>
+          <a href="#checkout" class="btn btn--ember">Get Virtual</a>
+        </article>
+      </div>
+
+      <div class="tickets__notes">
+        <div class="tickets__note">
+          <p class="tickets__note-title">Coming as a group</p>
+          <p><strong>GA 3-Pack <span class="when-early">$997</span><span class="when-full">$1,297</span></strong><span class="when-early"> (then $1,297)</span> &middot;
+             <strong>VIP 3-Pack <span class="when-early">$3,397</span><span class="when-full">$4,000</span></strong><span class="when-early"> (then $4,000)</span>, After-Party included.
+             Ten GA packs and three VIP packs. Send all three names and emails to
+             <a href="mailto:jesse@thelivinginternet.com">jesse@thelivinginternet.com</a> by May 1, 2027.
+             The member 15% applies to packs too.</p>
+        </div>
+        <div class="tickets__note">
+          <p class="tickets__note-title">About sales</p>
+          <p class="when-early">There won't be Black Friday or holiday sales. Tickets stay at the early-bird
+             price until 2027 begins, and this is the lowest they'll be. On January 1, prices go to
+             $497, $1,497 and $197. Alliance members get 15% off any ticket, and will likely get
+             windows in 2027 when early-bird prices return.</p>
+          <p class="when-full">Early-bird ended on January 1. Alliance members still get 15% off any
+             ticket, and will likely get windows during 2027 when early-bird prices return.</p>
+        </div>
+      </div>
+
+      <div class="checkout" id="checkout">
+        <div class="ticket-embed" id="ticketEmbed">
+          <iframe src="https://tickets.thelivinginternet.com/checkout/view-event/id/8531085/chk/ede5cd54da2d77b5125283f28206d958/?modal_widget=true&amp;widget=true" title="Buy Future-Proof Creator Summit 2027 tickets" loading="lazy"></iframe>
+        </div>
+        <div class="checkout__aside">
+          <p class="tickets__note-title">Before you check out</p>
+          <p><strong>Alliance member?</strong> Use the member code from the community at checkout
+             for 15% off. Not a member yet? <a href="/community/">Join for $15/year</a> first:
+             on a GA ticket it saves you <span class="when-early">$59.55</span><span class="when-full">$74.55</span>.</p>
+          <p><strong>No refunds</strong>, but tickets are transferable until May 1, 2027.</p>
+          <p><strong>Coming from out of town?</strong> <a href="/faq/#getting-here">Plan your trip</a>:
+             airports, where to stay, and rideshares.</p>
+          <p class="ticket-embed__fallback">Box office not loading? <a href="https://tickets.thelivinginternet.com/checkout/view-event/id/8531085/chk/ede5cd54da2d77b5125283f28206d958/?modal_widget=true&amp;widget=true" target="_blank" rel="noopener">Open checkout in a new tab</a>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 7 · THE ALLIANCE ===================== -->
+  <section id="alliance" class="alliance-band theme-bone" aria-labelledby="alliance-title">
+    <div class="alliance-band__inner">
+      <div class="alliance-band__text">
+        <p class="eyebrow">The Living Internet Alliance</p>
+        <h2 class="section-title" id="alliance-title">Meet the room before June.</h2>
+        <p class="alliance-band__body">
+          The Alliance is the year-round community around the summit: Friday Creator Hangouts with
+          Jesse, his Field Notes on where the creator economy is heading, and free beta access to
+          new things he's building. Members get 15% off any summit ticket, on top of the current price.
+        </p>
+      </div>
+      <div class="alliance-band__card">
+        <p class="price-big">$3<small>/month</small></p>
+        <p class="price-note">Your first month is $1. Or $15/year, which pays for itself on a single
+          ticket four times over.</p>
+        <a href="/community/" class="btn btn--ink">Join the Alliance</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 8 · WHAT 2026 FELT LIKE ===================== -->
+  <!-- The 2026 highlight clip goes at the top of this section once it's edited. -->
+  <section id="felt" class="section" aria-labelledby="felt-title">
+    <div class="section__inner">
+      <header class="section-head">
+        <p class="eyebrow">2026, the first summit</p>
+        <h2 class="section-title" id="felt-title">What 2026 felt like.</h2>
+        <p class="section-intro">Nobody was asked to post about it. A lot of people did anyway.</p>
+      </header>
+
+      <div class="photo-grid">
+        <button type="button" class="photo-grid__item photo-grid__item--wide" data-lightbox><img src="/assets/images/summit-photos/group-photo-web.jpg" alt="The full group of 2026 summit attendees gathered for a group photo" loading="lazy" decoding="async" width="1400" height="606" /></button>
+        <button type="button" class="photo-grid__item" data-lightbox><img src="/assets/images/summit-photos/img24-thumb.jpg" data-full="/assets/images/summit-photos/img24-web.jpg" alt="Attendees laughing and contemplating during a talk at the Future Proof Creator Summit 2026" loading="lazy" decoding="async" width="1400" height="933" /></button>
+        <button type="button" class="photo-grid__item" data-lightbox><img src="/assets/images/summit-photos/img25-thumb.jpg" data-full="/assets/images/summit-photos/img25-web.jpg" alt="Christian, Ashley, and Prisca deep in conversation at a roundtable during the Future Proof Creator Summit 2026" loading="lazy" decoding="async" width="1400" height="933" /></button>
+        <button type="button" class="photo-grid__item" data-lightbox><img src="/assets/images/summit-photos/img30-thumb.jpg" data-full="/assets/images/summit-photos/img30-web.jpg" alt="Dan Koe addressing the room during a workshop on meaningful work at the Future Proof Creator Summit 2026" loading="lazy" decoding="async" width="1400" height="933" /></button>
+        <button type="button" class="photo-grid__item" data-lightbox><img src="/assets/images/summit-photos/img41-thumb.jpg" data-full="/assets/images/summit-photos/img41-web.jpg" alt="Attendees playing 4D chess late into the evening at the after-party of the Future Proof Creator Summit 2026" loading="lazy" decoding="async" width="1400" height="933" /></button>
+        <button type="button" class="photo-grid__item" data-lightbox><img src="/assets/images/summit-photos/img4-thumb.jpg" data-full="/assets/images/summit-photos/img4-web.jpg" alt="Attendees talking with Dan Koe at the VIP Dinner" loading="lazy" decoding="async" width="1400" height="933" /></button>
+      </div>
+
+      <div class="quotes">
+        <figure class="quote">
+          <blockquote class="quote__text">The event pre-selected for people who value connection, immersion and depth. Many of us spent 24 hours travelling and/or hundreds of dollars just to be in the room. And the ROI was beyond anything we could've imagined.</blockquote>
+          <figcaption class="quote__who">
+            <span class="quote__avatar" aria-hidden="true"><img src="/assets/images/speakers/dan-goldfield-web.jpg" alt="" loading="lazy" decoding="async" width="240" height="240" /></span>
+            <span><span class="quote__name">Dan Goldfield</span><span class="quote__meta">2026 speaker &middot; Substack</span></span>
+          </figcaption>
+        </figure>
+        <figure class="quote">
+          <blockquote class="quote__text">Seeing all of the people I met and talked to over the past 2-3 years in one place was surreal. When I started writing 3 years ago, I didn't know anyone.</blockquote>
+          <figcaption class="quote__who">
+            <span class="quote__avatar" aria-hidden="true">HI</span>
+            <span><span class="quote__name">Hussain Ibarra</span><span class="quote__meta">The Profitable Micro Business &middot; 2026 speaker</span></span>
+          </figcaption>
+        </figure>
+        <figure class="quote">
+          <blockquote class="quote__text">Extremely valuable presentation from the one and only Taylin John Simmonds... All about how creators can use ideas to grow and solve real-world problems.</blockquote>
+          <figcaption class="quote__who">
+            <span class="quote__avatar" aria-hidden="true">CW</span>
+            <span><span class="quote__name">Chris Winter</span><span class="quote__meta">2026 attendee &middot; Substack</span></span>
+          </figcaption>
+        </figure>
+      </div>
+
+      <p class="section-foot"><a href="/2026/" class="textlink">See the full 2026 recap</a></p>
+    </div>
+  </section>
+
+  <!-- ===================== 9 · SPONSORS (later) =====================
+       Slot reserved. Add once the Eden sponsorship agreement is set
+       (logo, placement, credit wording). Don't ship it empty. -->
+
+  <!-- ===================== 10 · TOP QUESTIONS ===================== -->
+  <section id="questions" class="section theme-bone" aria-labelledby="questions-title">
+    <div class="section__inner">
+      <header class="section-head">
+        <p class="eyebrow">Before you book</p>
+        <h2 class="section-title" id="questions-title">Top questions.</h2>
+      </header>
+      <div class="faq__list faq__list--left">
+        <details class="faq__item">
+          <summary class="faq__q">Can I get a refund?</summary>
+          <div class="faq__a"><p>No, all sales are final. Tickets are transferable until May 1, 2027, though: email
+            <a href="mailto:jesse@thelivinginternet.com">jesse@thelivinginternet.com</a> with the new attendee's name and email.</p></div>
+        </details>
+        <details class="faq__item">
+          <summary class="faq__q">What if I can't travel?</summary>
+          <div class="faq__a"><p>Get a Virtual ticket (<span class="when-early">$147 until January 1</span><span class="when-full">$197</span>).
+            Every talk streams live, there's a chatroom for virtual attendees, and the recordings are yours afterward.</p></div>
+        </details>
+        <details class="faq__item">
+          <summary class="faq__q">How do I get to Abbotsford?</summary>
+          <div class="faq__a"><p>Abbotsford is the city in the country, about an hour east of Vancouver. Fly into Abbotsford
+            International (YXX), or Vancouver International (YVR) for more routes. The venue is announced by January 2027.
+            <a href="/faq/#getting-here">More on getting here</a>.</p></div>
+        </details>
+        <details class="faq__item">
+          <summary class="faq__q">What's included with each ticket?</summary>
+          <div class="faq__a"><p>General Admission and VIP include the Friday welcome dinner and lunches. VIP adds the Saturday
+            dinner with the speakers, front-row seating and the Sunday After-Party (GA can add the After-Party for $77).
+            All three tickets, Virtual included, come with the recordings.</p></div>
+        </details>
+        <details class="faq__item">
+          <summary class="faq__q">Can I bring my team?</summary>
+          <div class="faq__a"><p>Yes. The GA 3-Pack is <span class="when-early">$997</span><span class="when-full">$1,297</span>
+            and the VIP 3-Pack is <span class="when-early">$3,397</span><span class="when-full">$4,000</span>. Send all three names and
+            emails to Jesse by May 1, 2027.</p></div>
+        </details>
+        <details class="faq__item">
+          <summary class="faq__q">Is there an age limit?</summary>
+          <div class="faq__a"><p>The summit is 19+ unless you're accompanied by a chaperone.</p></div>
+        </details>
+      </div>
+      <p class="section-foot"><a href="/faq/" class="textlink">All FAQs</a></p>
+    </div>
+  </section>
+  </main>
+
+  <!-- ===================== TWO-OPTION CLOSE (shared) ===================== -->
+  <section class="final" aria-labelledby="final-title">
+    <div class="final__inner">
+      <h2 class="final__title" id="final-title">Come be in the room.</h2>
+      <p class="final__sub">Three days in Abbotsford next June, or a year-round seat with the people who'll be there.</p>
+    </div>
+    <div class="final__options">
+      <div class="option option--primary">
+        <p class="option__label">The summit</p>
+        <p class="option__title">Future-Proof Creator Summit 2027</p>
+        <p class="option__body">June 4&ndash;6, 2027 in Abbotsford, BC, or live from anywhere.
+          <span class="when-early">Early-bird until January 1: in person from $397, virtual $147.</span><span class="when-full">In person from $497, virtual $197.</span></p>
+        <a href="/#tickets" class="btn btn--solid">Get tickets</a>
+      </div>
+      <div class="option">
+        <p class="option__label">The community</p>
+        <p class="option__title">The Living Internet Alliance</p>
+        <p class="option__body">$3/month (your first month is $1) or $15/year. Friday Creator Hangouts, Jesse's Field Notes, and 15% off any summit ticket.</p>
+        <a href="/community/" class="btn btn--ghost">Join the Alliance</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER (shared) ===================== -->
   <footer class="footer" id="footer">
-    <div class="footer__inner">
-      <div>
+    <div class="footer__grid">
+      <div class="footer__about">
+        <img src="/assets/images/graphics/logo-white.png" alt="" class="footer__logo" width="470" height="469" loading="lazy" />
         <p class="footer__brand">The Living Internet Alliance</p>
-        <p class="footer__meta">Questions about access? <a href="mailto:jesse@thelivinginternet.com">jesse@thelivinginternet.com</a></p>
+        <p class="footer__meta">Questions? <a href="mailto:jesse@thelivinginternet.com">jesse@thelivinginternet.com</a></p>
       </div>
-      <div class="footer__links">
-        <p class="footer__meta">© 2026 The Living Internet Alliance</p>
+      <div>
+        <p class="footer__col-title">Summit</p>
+        <ul class="footer__list">
+          <li><a href="/#tickets">Get tickets</a></li>
+          <li><a href="/#lineup">2027 lineup</a></li>
+          <li><a href="/faq/">FAQ</a></li>
+          <li><a href="/2026/">2026 Recap</a></li>
+          <li><a href="mailto:jesse@thelivinginternet.com?subject=Sponsoring%20or%20speaking%20at%20FPCS%202027">Sponsor or speak</a></li>
+        </ul>
       </div>
+      <div>
+        <p class="footer__col-title">The Alliance</p>
+        <ul class="footer__list">
+          <li><a href="/community/">Join the community</a></li>
+          <li><a href="/community/#founding">Founding member access</a></li>
+        </ul>
+      </div>
+      <div class="footer__signup">
+        <div class="signup ">
+          <p class="signup__eyebrow">The Living Internet Substack</p>
+          <p class="signup__title">Hear it here first.</p>
+          <p class="signup__body">The lineup, the venue and every price change, two days before anyone else.</p>
+          <div class="signup__frame">
+            <iframe src="https://livinginternet.substack.com/embed" title="Subscribe to the Living Internet Substack" loading="lazy" scrolling="no"></iframe>
+          </div>
+          <p class="signup__fallback">Form not loading? <a href="https://livinginternet.substack.com/subscribe" target="_blank" rel="noopener">Subscribe on Substack</a>.</p>
+        </div>
+      </div>
+    </div>
+    <div class="footer__base">
+      <p class="footer__meta">&copy; 2026 The Living Internet Alliance</p>
+      <p class="footer__meta">Abbotsford, British Columbia</p>
     </div>
   </footer>
 
-  <!-- ===================== GALLERY LIGHTBOX ===================== -->
-  <div class="modal modal--lightbox" id="modal-gallery" role="dialog" aria-modal="true" aria-label="Photo gallery" hidden>
+  <!-- ===================== LIGHTBOX ===================== -->
+  <div class="modal modal--lightbox" id="modal-gallery" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
     <div class="modal__backdrop" data-modal-close></div>
     <div class="modal__panel modal__panel--lightbox" role="document">
       <button type="button" class="modal__close" data-modal-close aria-label="Close">&times;</button>
@@ -470,291 +543,6 @@
     </div>
   </div>
 
-  <script>
-    /* ---------- In-page nav scrolling ---------- */
-    (function () {
-      const header = document.querySelector('.nav');
-
-      function getOffset() {
-        return (header ? header.offsetHeight : 0) + 4;
-      }
-
-      function scrollToHash(hash) {
-        if (hash === '#top') {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-          return;
-        }
-        const target = document.querySelector(hash);
-        if (!target) return;
-        const top = target.getBoundingClientRect().top + window.pageYOffset - getOffset();
-        window.scrollTo({ top: Math.max(top, 0), behavior: 'smooth' });
-      }
-
-      document.querySelectorAll('a[href^="#"]').forEach(function (link) {
-        const hash = link.getAttribute('href');
-        if (!hash || hash.length < 2) return;
-        if (hash !== '#top' && !document.querySelector(hash)) return;
-        link.addEventListener('click', function (e) {
-          e.preventDefault();
-          scrollToHash(hash);
-          if (history.pushState) history.pushState(null, '', hash);
-        });
-      });
-    })();
-
-    /* ---------- Testimonial wall: auto-zoom as each post scrolls into view on touch devices
-       (desktop gets the same 115% zoom via :hover in CSS, no JS needed there) ---------- */
-    (function () {
-      const posts = document.querySelectorAll('.post');
-      if (!posts.length) return;
-      if (!window.matchMedia('(hover: none)').matches) return;
-      if (!('IntersectionObserver' in window)) return;
-
-      const observer = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          entry.target.classList.toggle('is-inview', entry.isIntersecting);
-        });
-      }, { threshold: 0.5 });
-
-      posts.forEach(function (post) { observer.observe(post); });
-    })();
-
-    /* ---------- Ticket tiers: tap a tier on mobile to jump to the checkout embed ---------- */
-    (function () {
-      const tiers = document.querySelectorAll('.ticket-tier');
-      const embed = document.getElementById('ticketEmbed');
-      if (!tiers.length || !embed) return;
-
-      tiers.forEach(function (tier) {
-        tier.addEventListener('click', function () {
-          if (!window.matchMedia('(max-width: 760px)').matches) return;
-          const header = document.querySelector('.nav');
-          const offset = (header ? header.offsetHeight : 0) + 4;
-          const top = embed.getBoundingClientRect().top + window.pageYOffset - offset;
-          window.scrollTo({ top: Math.max(top, 0), behavior: 'smooth' });
-        });
-      });
-    })();
-
-    /* ---------- Modal core: open/close, focus, Escape, backdrop ---------- */
-    (function () {
-      let lastFocused = null;
-
-      function openModal(modal) {
-        if (!modal) return;
-        lastFocused = document.activeElement;
-        modal.hidden = false;
-        document.body.style.overflow = 'hidden';
-        const focusable = modal.querySelector('.modal__close');
-        if (focusable) focusable.focus();
-        document.addEventListener('keydown', onKey);
-      }
-      function closeModal(modal) {
-        if (!modal) return;
-        modal.hidden = true;
-        document.body.style.overflow = '';
-        document.removeEventListener('keydown', onKey);
-        if (lastFocused) lastFocused.focus();
-      }
-      function onKey(e) {
-        if (e.key === 'Escape') {
-          const open = document.querySelector('.modal:not([hidden])');
-          if (open) closeModal(open);
-        }
-      }
-
-      document.querySelectorAll('[data-modal-close]').forEach(function (el) {
-        el.addEventListener('click', function () {
-          closeModal(el.closest('.modal'));
-        });
-      });
-
-      window.liaOpenModal = openModal;
-      window.liaCloseModal = closeModal;
-    })();
-
-    /* ---------- Photo gallery: conveyor + lightbox with prev/next, swipe, keyboard ---------- */
-    (function () {
-      const items = Array.prototype.slice.call(document.querySelectorAll('.gallery__item'));
-      if (!items.length) return;
-
-      const gallery = document.querySelector('.gallery');
-      const dotsWrap = document.getElementById('galleryDots');
-      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const step = 2; // photos the conveyor advances per tick / per dot
-      const pageCount = Math.ceil(items.length / step);
-      let activePage = 0;
-      let autoplayTimer = null;
-
-      function setActiveDot(page) {
-        activePage = page;
-        dotsWrap.querySelectorAll('.gallery__dot').forEach(function (dot, i) {
-          dot.classList.toggle('is-active', i === page);
-          dot.setAttribute('aria-selected', i === page ? 'true' : 'false');
-        });
-      }
-
-      function scrollToItem(index, smooth) {
-        const item = items[Math.min(index, items.length - 1)];
-        if (!item || !gallery) return;
-        const delta = item.getBoundingClientRect().left - gallery.getBoundingClientRect().left;
-        gallery.scrollTo({ left: gallery.scrollLeft + delta, behavior: smooth === false ? 'auto' : 'smooth' });
-      }
-
-      function goToPage(page, smooth) {
-        const wrapped = (page + pageCount) % pageCount;
-        scrollToItem(wrapped * step, smooth);
-        setActiveDot(wrapped);
-      }
-
-      // Build the dots, one per group of `step` photos. Stays correct if more photos are added.
-      if (dotsWrap && gallery) {
-        for (let p = 0; p < pageCount; p++) {
-          const dot = document.createElement('button');
-          dot.type = 'button';
-          dot.className = 'gallery__dot';
-          dot.setAttribute('role', 'tab');
-          dot.setAttribute('aria-label', 'Show photos ' + (p * step + 1) + (items[p * step + 1] ? '-' + (p * step + 2) : ''));
-          dot.addEventListener('click', function () {
-            stopAutoplay();
-            goToPage(p);
-            startAutoplay();
-          });
-          dotsWrap.appendChild(dot);
-        }
-        setActiveDot(0);
-
-        function startAutoplay() {
-          if (reduceMotion || autoplayTimer) return;
-          autoplayTimer = setInterval(function () { goToPage(activePage + 1); }, 4500);
-        }
-        function stopAutoplay() {
-          clearInterval(autoplayTimer);
-          autoplayTimer = null;
-        }
-
-        // Keep the dots synced if someone drags/swipes the conveyor by hand.
-        let scrollSyncTimer = null;
-        gallery.addEventListener('scroll', function () {
-          clearTimeout(scrollSyncTimer);
-          scrollSyncTimer = setTimeout(function () {
-            const galleryLeft = gallery.getBoundingClientRect().left;
-            let closest = 0;
-            let minDist = Infinity;
-            items.forEach(function (item, i) {
-              const dist = Math.abs(item.getBoundingClientRect().left - galleryLeft);
-              if (dist < minDist) { minDist = dist; closest = i; }
-            });
-            setActiveDot(Math.round(closest / step) % pageCount);
-          }, 120);
-        }, { passive: true });
-
-        gallery.addEventListener('mouseenter', stopAutoplay);
-        gallery.addEventListener('mouseleave', startAutoplay);
-        gallery.addEventListener('touchstart', stopAutoplay, { passive: true });
-        gallery.addEventListener('focusin', stopAutoplay);
-        gallery.addEventListener('focusout', startAutoplay);
-
-        // Side arrows: same page-stepping as the dots, easier to find than the tiny dots.
-        const navPrev = document.getElementById('galleryPrev');
-        const navNext = document.getElementById('galleryNext');
-        if (navPrev) navPrev.addEventListener('click', function () {
-          stopAutoplay();
-          goToPage(activePage - 1);
-          startAutoplay();
-        });
-        if (navNext) navNext.addEventListener('click', function () {
-          stopAutoplay();
-          goToPage(activePage + 1);
-          startAutoplay();
-        });
-
-        // Grid view: swap the scrolling conveyor for every photo at once, no paging.
-        // The toggle itself goes sticky (see .gallery-controls.is-grid) so it's always
-        // reachable as "Collapse grid" without scrolling back up past dozens of photos.
-        const viewToggle = document.getElementById('galleryViewToggle');
-        const galleryWrap = document.querySelector('.gallery-wrap');
-        const galleryControls = document.querySelector('.gallery-controls');
-        if (viewToggle && galleryWrap) {
-          viewToggle.addEventListener('click', function () {
-            const isGrid = gallery.classList.toggle('gallery--grid');
-            galleryWrap.classList.toggle('is-grid', isGrid);
-            if (galleryControls) galleryControls.classList.toggle('is-grid', isGrid);
-            viewToggle.setAttribute('aria-pressed', isGrid ? 'true' : 'false');
-            viewToggle.textContent = isGrid ? 'Collapse grid' : 'View all photos';
-            if (isGrid) {
-              stopAutoplay();
-            } else {
-              scrollToItem(activePage * step, false);
-              startAutoplay();
-              // Grid view can be many screens tall; land back at the section
-              // top instead of leaving the visitor stranded mid-page once it collapses.
-              const section = document.getElementById('gallery');
-              if (section) {
-                const navEl = document.querySelector('.nav');
-                const top = section.getBoundingClientRect().top + window.pageYOffset - (navEl ? navEl.offsetHeight : 0) - 4;
-                window.scrollTo({ top: Math.max(top, 0), behavior: 'smooth' });
-              }
-            }
-          });
-        }
-
-        startAutoplay();
-      }
-
-      const modal = document.getElementById('modal-gallery');
-      const imgEl = document.getElementById('lightboxImg');
-      const captionEl = document.getElementById('lightboxCaption');
-      const figureEl = document.getElementById('lightboxFigure');
-      const btnPrev = document.getElementById('lightboxPrev');
-      const btnNext = document.getElementById('lightboxNext');
-      let current = 0;
-
-      function show(index) {
-        current = (index + items.length) % items.length; // wrap around, a lightbox has no "end"
-        const source = items[current].querySelector('img');
-        imgEl.src = source.src;
-        imgEl.alt = source.alt;
-        captionEl.textContent = source.alt;
-      }
-      function next() { show(current + 1); }
-      function prev() { show(current - 1); }
-
-      items.forEach(function (item, index) {
-        item.addEventListener('click', function () {
-          show(index);
-          window.liaOpenModal(modal);
-        });
-      });
-
-      btnPrev.addEventListener('click', prev);
-      btnNext.addEventListener('click', next);
-
-      document.addEventListener('keydown', function (e) {
-        if (modal.hidden) return;
-        if (e.key === 'ArrowRight') next();
-        else if (e.key === 'ArrowLeft') prev();
-      });
-
-      // Touch swipe
-      let touchStartX = null;
-      let touchStartY = null;
-      figureEl.addEventListener('touchstart', function (e) {
-        touchStartX = e.touches[0].clientX;
-        touchStartY = e.touches[0].clientY;
-      }, { passive: true });
-      figureEl.addEventListener('touchend', function (e) {
-        if (touchStartX === null) return;
-        const dx = e.changedTouches[0].clientX - touchStartX;
-        const dy = e.changedTouches[0].clientY - touchStartY;
-        if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
-          if (dx < 0) { next(); } else { prev(); }
-        }
-        touchStartX = null;
-        touchStartY = null;
-      }, { passive: true });
-    })();
-  </script>
-
+  <script src="/site.js"></script>
 </body>
 </html>
