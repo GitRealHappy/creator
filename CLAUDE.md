@@ -21,7 +21,9 @@ Project context for any Claude session working in this repository. Read this fir
 > inline `<head>` script adds `.is-full-price` and every `.when-early` / `.when-full` pair
 > flips to $497 / $1,497 / $197 on its own. Edit both halves of a pair when prices change.
 > SUPEREARLY/EARLYVIRTUAL copy is gone (codes expired). Testimonial screenshots are no longer
-> used by any page. Sections below this note describe earlier eras.
+> used by any page. **2026-10-26:** the `/2026` `#wall` testimonials are styled as a single-column
+> Substack Notes-style feed (`.quote-wall` in `styles.css`); `site.js` shows the first 5 and adds a
+> "Read more testimonials" button that reveals 5 more per click until all are visible. Sections below this note describe earlier eras.
 
 > **⚠️ As of 2026-10-01, `index.html` is a ticket-sale page for the 2027 summit, not a
 > post-registration/membership page.** The 90-Day Creator Sprint has ended; the Future-Proof

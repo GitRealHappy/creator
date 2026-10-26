@@ -6,6 +6,7 @@
    - Modal core (lightbox)
    - Photo conveyor + grid toggle (/2026 #gallery)
    - Lightbox for any [data-lightbox] photo button on the page
+   - "Read more testimonials" reveal (/2026 #wall)
    The early-bird / full-price switch is an inline script in each
    page's <head> so prices never flash the wrong value.
    ============================================================ */
@@ -245,4 +246,40 @@
     if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) show(current + (dx < 0 ? 1 : -1));
     sx = sy = null;
   }, { passive: true });
+})();
+
+/* ---------- Testimonial wall: show a few, reveal 5 more per click ---------- */
+(function () {
+  const wall = document.querySelector('.quote-wall');
+  if (!wall) return;
+  const notes = Array.prototype.slice.call(wall.querySelectorAll('.quote'));
+  const initial = 5, step = 5;
+  if (notes.length <= initial) return;
+
+  let shown = initial;
+  notes.forEach(function (note, i) { if (i >= shown) note.hidden = true; });
+
+  const wrap = document.createElement('div');
+  wrap.className = 'quote-more';
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'btn btn--ghost';
+  btn.innerHTML = 'Read more testimonials <span class="quote-more__count"></span>' +
+    '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
+  const count = btn.querySelector('.quote-more__count');
+  function updateCount() { count.textContent = '(' + (notes.length - shown) + ' more)'; }
+  updateCount();
+  wrap.appendChild(btn);
+  wall.after(wrap);
+
+  btn.addEventListener('click', function () {
+    const next = notes.slice(shown, shown + step);
+    next.forEach(function (note) { note.hidden = false; note.classList.add('is-new'); });
+    shown += next.length;
+    // Move focus to the first new note so keyboard and screen-reader users land on it
+    next[0].tabIndex = -1;
+    next[0].focus({ preventScroll: true });
+    if (shown >= notes.length) wrap.remove();
+    else updateCount();
+  });
 })();
