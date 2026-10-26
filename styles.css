@@ -2491,6 +2491,7 @@ a { color: inherit; text-decoration: none; }
 @media (max-width: 760px) {
   .actions .btn { width: 100%; }
   .actions { gap: 1rem; }
+  .actions .textlink { white-space: normal; text-align: center; margin: 0 auto; }
   .hero__actions { flex-direction: column; align-items: stretch; }
   .hero__actions .textlink { align-self: center; }
 }
