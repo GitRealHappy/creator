@@ -1867,6 +1867,59 @@ a { color: inherit; text-decoration: none; }
     linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 40%, rgba(0,0,0,0.15) 75%, rgba(0,0,0,0.35) 100%);
 }
 .page-hero--photo .page-hero__inner { width: 100%; }
+
+/* Dot-field variant (/community): a slowly rotating grid of bone dots on
+   blue that drift away from the cursor. Drawn by the canvas in site.js. */
+.page-hero--dots {
+  --hero-blue: #0115a6;
+  background: var(--hero-blue);
+  border-bottom-color: rgba(255,255,255,0.12);
+}
+.page-hero--dots::before { display: none; }
+/* Darkens the left side, behind the copy, so the white text reads clearly over the dots */
+.page-hero--dots::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(0,4,48,0.78) 0%, rgba(0,4,48,0.55) 35%, rgba(0,4,48,0) 70%);
+  pointer-events: none;
+}
+@media (max-width: 860px) {
+  .page-hero--dots::after { background: rgba(0,4,48,0.45); }
+}
+
+/* Question-mark variant (/faq): faint drifting "?" glyphs on black that
+   straighten, warm to ember and flip to "!" near the cursor. Drawn by site.js. */
+.page-hero--questions { background: var(--black); }
+.page-hero--questions::before { display: none; }
+.page-hero__field {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.page-hero--questions::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.6) 35%, rgba(0,0,0,0) 70%);
+  pointer-events: none;
+}
+@media (max-width: 860px) {
+  .page-hero--questions::after { background: rgba(0,0,0,0.5); }
+}
+.page-hero__dots {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.page-hero--dots .eyebrow { color: rgba(244,241,236,0.72); }
+.page-hero--dots .page-hero__price { color: rgba(244,241,236,0.78); }
+.page-hero--dots .textlink { border-color: rgba(255,255,255,0.4); }
+.page-hero--dots .textlink:hover { border-color: var(--bone); }
 @media (max-width: 860px) {
   .page-hero { padding-top: clamp(3rem, 9vh, 5rem); }
   .page-hero--photo { min-height: 72vh; }

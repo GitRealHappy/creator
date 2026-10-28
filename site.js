@@ -7,6 +7,8 @@
    - Photo conveyor + grid toggle (/2026 #gallery)
    - Lightbox for any [data-lightbox] photo button on the page
    - "Read more testimonials" reveal (/2026 #wall)
+   - Dot-field hero (/community)
+   - Question-mark hero (/faq)
    The early-bird / full-price switch is an inline script in each
    page's <head> so prices never flash the wrong value.
    ============================================================ */
@@ -282,4 +284,252 @@
     if (shown >= notes.length) wrap.remove();
     else updateCount();
   });
+})();
+
+/* ---------- Dot-field hero (/community) ----------
+   A grid of dots that slowly rotates as a whole. Dots near the cursor
+   (or a finger on touch) drift away from it and brighten from gray to
+   bone, then ease back once it moves on. Reduced motion: one static frame. */
+(function () {
+  const hero = document.querySelector('.page-hero--dots');
+  const canvas = hero && hero.querySelector('.page-hero__dots');
+  if (!canvas || !canvas.getContext) return;
+  const ctx = canvas.getContext('2d');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const TURN_SECONDS = 180;   // one full rotation of the grid
+  const RADIUS = 210;         // cursor reach, in CSS px
+  const PUSH = 42;            // max drift away from the cursor
+  const SWIRL = 16;           // sideways drift, so dots curl around the cursor
+
+  let w = 0, h = 0, dpr = 1, spacing = 30;
+  let gx, gy, ox, oy, n = 0;  // grid points (relative to center) + eased offsets
+  const mouse = { x: 0, y: 0, active: false, strength: 0 };
+  let angle = 0, last = 0, raf = 0, visible = true;
+
+  function build() {
+    const rect = hero.getBoundingClientRect();
+    w = rect.width; h = rect.height;
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(w * dpr);
+    canvas.height = Math.round(h * dpr);
+    spacing = w < 600 ? 24 : 30;
+    // Cover the hero's diagonal so the rotating grid never shows a corner
+    const half = Math.ceil(Math.hypot(w, h) / 2 / spacing) + 1;
+    const side = half * 2 + 1;
+    n = side * side;
+    gx = new Float32Array(n); gy = new Float32Array(n);
+    ox = new Float32Array(n); oy = new Float32Array(n);
+    let i = 0;
+    for (let r = -half; r <= half; r++) {
+      for (let c = -half; c <= half; c++) { gx[i] = c * spacing; gy[i] = r * spacing; i++; }
+    }
+  }
+
+  function draw() {
+    const cx = w / 2, cy = h / 2;
+    const cos = Math.cos(angle), sin = Math.sin(angle);
+    const pad = PUSH + 4;
+    const s = mouse.strength;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+
+    // Resting dots share one path; dots inside the cursor's reach are drawn one by one
+    ctx.beginPath();
+    const lit = [];
+    for (let i = 0; i < n; i++) {
+      const bx = cx + gx[i] * cos - gy[i] * sin;
+      const by = cy + gx[i] * sin + gy[i] * cos;
+      let tx = 0, ty = 0, f = 0;
+      if (s > 0.001) {
+        const dx = bx - mouse.x, dy = by - mouse.y;
+        const d = Math.hypot(dx, dy);
+        if (d < RADIUS && d > 0.01) {
+          f = 1 - d / RADIUS; f = f * f * (3 - 2 * f) * s;
+          tx = (dx / d) * PUSH * f - (dy / d) * SWIRL * f;
+          ty = (dy / d) * PUSH * f + (dx / d) * SWIRL * f;
+        }
+      }
+      ox[i] += (tx - ox[i]) * 0.12;
+      oy[i] += (ty - oy[i]) * 0.12;
+      const x = bx + ox[i], y = by + oy[i];
+      if (x < -pad || y < -pad || x > w + pad || y > h + pad) continue;
+      if (f > 0.02) { lit.push(x, y, f); continue; }
+      ctx.moveTo(x + 1.6, y);
+      ctx.arc(x, y, 1.6, 0, Math.PI * 2);
+    }
+    ctx.fillStyle = 'rgba(196, 200, 214, 0.38)';
+    ctx.fill();
+
+    for (let j = 0; j < lit.length; j += 3) {
+      const f = lit[j + 2];
+      ctx.beginPath();
+      ctx.arc(lit[j], lit[j + 1], 1.6 + f * 2.2, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(244, 241, 236, ' + (0.38 + f * 0.62).toFixed(3) + ')';
+      ctx.fill();
+    }
+  }
+
+  function frame(now) {
+    const dt = last ? Math.min((now - last) / 1000, 0.05) : 0;
+    last = now;
+    angle = (angle + dt * (Math.PI * 2 / TURN_SECONDS)) % (Math.PI * 2);
+    mouse.strength += ((mouse.active ? 1 : 0) - mouse.strength) * 0.08;
+    draw();
+    raf = requestAnimationFrame(frame);
+  }
+
+  function start() {
+    if (reduceMotion || raf || !visible || document.hidden) return;
+    last = 0;
+    raf = requestAnimationFrame(frame);
+  }
+  function stop() { cancelAnimationFrame(raf); raf = 0; }
+
+  function track(e) {
+    const rect = hero.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left;
+    mouse.y = e.clientY - rect.top;
+    mouse.active = true;
+  }
+  if (!reduceMotion) {
+    hero.addEventListener('pointermove', track);
+    hero.addEventListener('pointerdown', track);
+    hero.addEventListener('pointerleave', function () { mouse.active = false; });
+    hero.addEventListener('pointerup', function (e) { if (e.pointerType !== 'mouse') mouse.active = false; });
+    hero.addEventListener('pointercancel', function () { mouse.active = false; });
+  }
+
+  build();
+  draw();
+  if ('ResizeObserver' in window) {
+    new ResizeObserver(function () { build(); draw(); }).observe(hero);
+  }
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      visible = entries[0].isIntersecting;
+      visible ? start() : stop();
+    }).observe(hero);
+  }
+  document.addEventListener('visibilitychange', function () { document.hidden ? stop() : start(); });
+  start();
+})();
+
+/* ---------- Question-mark hero (/faq) ----------
+   A loose scatter of faint "?" glyphs that bob gently. Near the cursor (or
+   a finger) they straighten up, grow and warm to ember; the closest ones
+   flip to "!", a question answered. Reduced motion: one static frame. */
+(function () {
+  const hero = document.querySelector('.page-hero--questions');
+  const canvas = hero && hero.querySelector('.page-hero__field');
+  if (!canvas || !canvas.getContext) return;
+  const ctx = canvas.getContext('2d');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const RADIUS = 200;   // cursor reach, in CSS px
+  const ANSWERED = 0.62; // closeness at which "?" becomes "!"
+
+  let w = 0, h = 0, dpr = 1, marks = [];
+  const mouse = { x: 0, y: 0, active: false, strength: 0 };
+  let t = 0, last = 0, raf = 0, visible = true;
+
+  function build() {
+    const rect = hero.getBoundingClientRect();
+    w = rect.width; h = rect.height;
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(w * dpr);
+    canvas.height = Math.round(h * dpr);
+    const spacing = w < 600 ? 50 : 62;
+    marks = [];
+    for (let y = spacing / 2; y < h + spacing; y += spacing) {
+      for (let x = spacing / 2; x < w + spacing; x += spacing) {
+        marks.push({
+          x: x + (Math.random() - 0.5) * spacing * 0.7,
+          y: y + (Math.random() - 0.5) * spacing * 0.7,
+          size: 16 + Math.random() * 14,
+          tilt: (Math.random() - 0.5) * 0.9,
+          phase: Math.random() * Math.PI * 2,
+          f: 0  // eased closeness to the cursor, 0..1
+        });
+      }
+    }
+  }
+
+  function draw() {
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    const s = mouse.strength;
+    for (let i = 0; i < marks.length; i++) {
+      const m = marks[i];
+      const bob = Math.sin(t * 0.6 + m.phase);
+      const x = m.x, y = m.y + bob * 4;
+      let target = 0;
+      if (s > 0.001) {
+        const d = Math.hypot(x - mouse.x, y - mouse.y);
+        if (d < RADIUS) { target = 1 - d / RADIUS; target = target * target * (3 - 2 * target) * s; }
+      }
+      m.f += (target - m.f) * 0.1;
+      const f = m.f;
+      // Faint bone at rest, warming to ember as the cursor nears
+      const r = Math.round(244 + (255 - 244) * f);
+      const g = Math.round(241 + (106 - 241) * f);
+      const b = Math.round(236 + (43 - 236) * f);
+      const a = 0.13 + f * 0.82;
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate((m.tilt + bob * 0.06) * (1 - f));
+      ctx.font = 'italic 400 ' + (m.size * (1 + f * 0.55)).toFixed(1) + 'px "EB Garamond", Georgia, serif';
+      ctx.fillStyle = 'rgba(' + r + ',' + g + ',' + b + ',' + a.toFixed(3) + ')';
+      ctx.fillText(f > ANSWERED ? '!' : '?', 0, 0);
+      ctx.restore();
+    }
+  }
+
+  function frame(now) {
+    const dt = last ? Math.min((now - last) / 1000, 0.05) : 0;
+    last = now;
+    t += dt;
+    mouse.strength += ((mouse.active ? 1 : 0) - mouse.strength) * 0.08;
+    draw();
+    raf = requestAnimationFrame(frame);
+  }
+
+  function start() {
+    if (reduceMotion || raf || !visible || document.hidden) return;
+    last = 0;
+    raf = requestAnimationFrame(frame);
+  }
+  function stop() { cancelAnimationFrame(raf); raf = 0; }
+
+  function track(e) {
+    const rect = hero.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left;
+    mouse.y = e.clientY - rect.top;
+    mouse.active = true;
+  }
+  if (!reduceMotion) {
+    hero.addEventListener('pointermove', track);
+    hero.addEventListener('pointerdown', track);
+    hero.addEventListener('pointerleave', function () { mouse.active = false; });
+    hero.addEventListener('pointerup', function (e) { if (e.pointerType !== 'mouse') mouse.active = false; });
+    hero.addEventListener('pointercancel', function () { mouse.active = false; });
+  }
+
+  build();
+  draw();
+  // Redraw once EB Garamond has loaded so the glyphs aren't stuck in the fallback serif
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
+  if ('ResizeObserver' in window) {
+    new ResizeObserver(function () { build(); draw(); }).observe(hero);
+  }
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      visible = entries[0].isIntersecting;
+      visible ? start() : stop();
+    }).observe(hero);
+  }
+  document.addEventListener('visibilitychange', function () { document.hidden ? stop() : start(); });
+  start();
 })();

@@ -23,7 +23,14 @@ Project context for any Claude session working in this repository. Read this fir
 > SUPEREARLY/EARLYVIRTUAL copy is gone (codes expired). Testimonial screenshots are no longer
 > used by any page. **2026-10-26:** the `/2026` `#wall` testimonials are styled as a single-column
 > Substack Notes-style feed (`.quote-wall` in `styles.css`); `site.js` shows the first 5 and adds a
-> "Read more testimonials" button that reveals 5 more per click until all are visible. Sections below this note describe earlier eras.
+> "Read more testimonials" button that reveals 5 more per click until all are visible. **2026-10-28:** the
+> `/community` hero (`.page-hero--dots`) dropped the ember radial-gradient glow for a solid `#0115a6` blue
+> with a `<canvas>` dot field drawn by `site.js`: a gray/bone dot grid that slowly rotates (one turn per
+> 180s) and parts/brightens around the cursor or a finger. Static single frame under reduced motion.
+> A left-side darkening overlay (`::after`) keeps the copy legible. Same day, `/faq`'s hero became
+> `.page-hero--questions`: black, with faint drifting italic Garamond "?" glyphs on a canvas that
+> straighten, warm to ember and flip to "!" near the cursor (also in `site.js`, same left overlay).
+> Sections below this note describe earlier eras.
 
 > **⚠️ As of 2026-10-01, `index.html` is a ticket-sale page for the 2027 summit, not a
 > post-registration/membership page.** The 90-Day Creator Sprint has ended; the Future-Proof
