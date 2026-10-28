@@ -2584,6 +2584,17 @@ a { color: inherit; text-decoration: none; }
 }
 .founding__steps strong { color: var(--text); }
 @media (max-width: 860px) { .founding { grid-template-columns: 1fr; } }
+/* Quieter founding band on /community: same copy, tighter and smaller, like a secret */
+.section--whisper { padding: clamp(2.25rem, 5vh, 3.5rem) 0; }
+.section--whisper .section-title { font-size: clamp(1.5rem, 3vw, 2.1rem); line-height: 1.12; }
+.section--whisper .eyebrow + .section-title { margin-top: 0.5rem; }
+.section--whisper .section-title + .section-intro { margin-top: 0.6rem; font-size: 0.95rem; line-height: 1.5; }
+.section--whisper .founding__steps { gap: 0.5rem; margin-top: 0.85rem; font-size: 0.9rem; line-height: 1.5; }
+.section--whisper .founding__steps li { padding-left: 2rem; }
+.section--whisper .founding__steps li::before { width: 1.4rem; height: 1.4rem; font-size: 0.7rem; }
+.section--whisper .price-big { font-size: clamp(1.9rem, 3.2vw, 2.4rem); }
+.section--whisper .price-note { font-size: 0.8rem; }
+.section--whisper .alliance-band__card { padding: 1.25rem 1.5rem; }
 
 /* ---------- 2026 recap page ---------- */
 .speaker-grid {
