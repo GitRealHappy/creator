@@ -1631,14 +1631,20 @@ a { color: inherit; text-decoration: none; }
      applies, the photo's own aspect ratio (set at the base rule) keeps
      its full width in frame instead of a fixed vh height forcing a
      crop of its left/right edges. */
+  /* Phones get a 3:2 crop of the panel's middle (img1-mobile.jpg) so
+     faces are legible, instead of the full panorama shrunk to a strip. */
+  .hero__media { aspect-ratio: 3 / 2; }
   .hero__media::before {
     transform: none;
     animation: none;
-    background-position: 50% 30%;
+    background-image: url("assets/images/summit-photos/img1-mobile.jpg");
+    background-size: cover;
+    background-position: 50% 50%;
   }
   /* Fade the bottom of the photo into the dark content area */
   .hero__scrim {
     top: 0;   /* .hero has no top padding at this breakpoint (sticky nav) */
+    aspect-ratio: 3 / 2;
     background: linear-gradient(to bottom,
       rgba(0,0,0,0.15) 0%,
       rgba(0,0,0,0.05) 45%,
@@ -1881,11 +1887,12 @@ a { color: inherit; text-decoration: none; }
 }
 .page-hero--photo .page-hero__inner { width: 100%; }
 
-/* Dot-field variant (/community): a slowly rotating grid of bone dots on
-   blue that drift away from the cursor. Drawn by the canvas in site.js. */
+/* Dot-field variant (/community): a slowly rotating grid of ember dots on
+   black that drift away from the cursor and brighten to amber. Drawn by
+   the canvas in site.js. (Was blue until 2026-10-28: the palette is black,
+   bone and one ember flame.) */
 .page-hero--dots {
-  --hero-blue: #0115a6;
-  background: var(--hero-blue);
+  background: var(--black);
   border-bottom-color: rgba(255,255,255,0.12);
 }
 .page-hero--dots::before { display: none; }
@@ -1894,11 +1901,11 @@ a { color: inherit; text-decoration: none; }
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to right, rgba(0,4,48,0.78) 0%, rgba(0,4,48,0.55) 35%, rgba(0,4,48,0) 70%);
+  background: linear-gradient(to right, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.55) 35%, rgba(0,0,0,0) 70%);
   pointer-events: none;
 }
 @media (max-width: 860px) {
-  .page-hero--dots::after { background: rgba(0,4,48,0.45); }
+  .page-hero--dots::after { background: rgba(0,0,0,0.45); }
 }
 
 /* Question-mark variant (/faq): faint drifting "?" glyphs on black that
@@ -2172,6 +2179,7 @@ a { color: inherit; text-decoration: none; }
   gap: clamp(2rem, 5vw, 4.5rem);
   align-items: start;
 }
+.lineup > .signup { align-self: start; }
 .themes { list-style: none; display: grid; gap: 1.4rem; }
 .theme__title {
   font-family: var(--display);
@@ -2181,6 +2189,7 @@ a { color: inherit; text-decoration: none; }
   line-height: 1.2;
 }
 .theme__desc { margin-top: 0.3rem; color: var(--text-dim); font-size: 0.96rem; line-height: 1.6; }
+.lineup__main .section-head { margin-bottom: 0; }
 .milestones {
   list-style: none;
   margin-top: clamp(2rem, 5vh, 2.75rem);
@@ -2646,20 +2655,24 @@ details.tickets__note > p + p { margin-top: 0.6rem; }
 /* ---------- 2026 recap page ---------- */
 .speaker-grid {
   list-style: none;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(118px, 1fr));
-  gap: clamp(1.25rem, 3vw, 2rem) clamp(0.75rem, 2vw, 1.25rem);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(1.5rem, 3vw, 2.25rem) clamp(0.75rem, 2vw, 1.25rem);
+  max-width: 1000px;   /* 6 per row at desktop: 6 + 6 + 5, last row centered */
+  margin-inline: auto;
 }
-.speaker-card { text-align: center; }
+.speaker-card { text-align: center; flex: 0 0 clamp(104px, 27vw, 150px); }
 .speaker-card img {
-  width: 88px;
-  height: 88px;
-  margin: 0 auto 0.65rem;
+  width: clamp(80px, 20vw, 108px);
+  height: clamp(80px, 20vw, 108px);
+  margin: 0 auto 0.7rem;
   border-radius: 50%;
   object-fit: cover;
   border: 1px solid var(--accent-soft);
+  filter: brightness(1.12) contrast(1.04);
 }
-.speaker-card span { display: block; font-size: 0.88rem; color: var(--text); line-height: 1.3; }
+.speaker-card span { display: block; font-size: 0.95rem; color: var(--text); line-height: 1.3; }
 .story__lead {
   font-family: var(--display);
   font-size: clamp(1.35rem, 2.4vw, 1.75rem);
@@ -2695,3 +2708,22 @@ details.tickets__note > p + p { margin-top: 0.6rem; }
 /* Heading rhythm outside .section-head (founding, recap split, recordings) */
 .eyebrow + .section-title { margin-top: 0.9rem; }
 .section-title + .section-intro { margin-top: 1rem; }
+
+/* ---------- Design pass (2026-10-28) ---------- */
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 200;
+  padding: 0.7em 1.2em;
+  background: var(--white);
+  color: var(--black);
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 999px;
+  transform: translateY(-200%);
+  transition: transform .18s ease;
+}
+.skip-link:focus { transform: none; }
+main:focus { outline: none; }
+.signup__btn { margin-top: 1rem; }

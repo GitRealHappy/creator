@@ -27,15 +27,17 @@
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="/styles.css" />
-  <link rel="preload" as="image" href="/assets/images/summit-photos/img1-new.jpg" fetchpriority="high" />
+  <link rel="preload" as="image" href="/assets/images/summit-photos/img1-new.jpg" media="(min-width: 861px)" fetchpriority="high" />
+  <link rel="preload" as="image" href="/assets/images/summit-photos/img1-mobile.jpg" media="(max-width: 860px)" fetchpriority="high" />
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
   <!-- ===================== NAV (shared) ===================== -->
   <header class="nav" id="top">
     <div class="nav__inner">
       <a class="nav__brand" href="/" aria-label="The Living Internet Alliance, home">
-        <img src="/assets/images/graphics/logo-white.png" alt="" class="nav__logo" width="470" height="469" />
+        <img src="/assets/images/graphics/logo-white-128.png" alt="" class="nav__logo" width="128" height="128" />
         <span class="nav__wordmark">The Living Internet Alliance</span>
       </a>
       <nav class="nav__links" id="navLinks" aria-label="Primary">
@@ -79,7 +81,7 @@
 
   </section>
 
-  <main>
+  <main id="main" tabindex="-1">
   <!-- ===================== 2 · PROOF STRIP ===================== -->
   <section class="proof-strip" id="proof-strip" aria-label="The 2026 summit in numbers and words">
     <div class="section__inner">
@@ -131,7 +133,7 @@
           <p class="format__num">01</p>
           <p class="format__title">Talks from people who've done the work</p>
           <p class="format__desc">Live keynotes and panels from creators who built the thing they're talking about.</p>
-          <p>The inner transformation work as well as the social media strategy for successful brand construction.</p>
+          <p class="format__desc">The inner transformation work as well as the social media strategy for successful brand construction.</p>
         </li>
         <li class="format">
           <p class="format__num">02</p>
@@ -199,17 +201,16 @@
        name the venue. Early 2027, full lineup and session-level agenda. -->
   <section id="lineup" class="section theme-bone" aria-labelledby="lineup-title">
     <div class="section__inner">
-      <header class="section-head">
-        <p class="eyebrow">2027 so far</p>
-        <h2 class="section-title" id="lineup-title">The lineup is being announced in waves.</h2>
-        <p class="section-intro">
-          Speakers, venue and the full program are still being finalized. Here's when each one
-          lands, and the easiest way to hear about it.
-        </p>
-      </header>
-
       <div class="lineup">
-        <div>
+        <div class="lineup__main">
+          <header class="section-head">
+            <p class="eyebrow">2027 so far</p>
+            <h2 class="section-title" id="lineup-title">The lineup is being announced in waves.</h2>
+            <p class="section-intro">
+              Speakers, venue and the full program are still being finalized. Here's when each one
+              lands, and the easiest way to hear about it.
+            </p>
+          </header>
           <ul class="milestones" aria-label="Announcement timeline">
             <li class="milestone"><span class="milestone__when">Now</span><span class="milestone__what"><strong>Tickets on sale</strong> <span class="when-early">at early-bird prices, until January 1.</span><span class="when-full">at full price.</span></span></li>
             <li class="milestone"><span class="milestone__when">December</span><span class="milestone__what"><strong>First speakers announced.</strong> Subscribers hear first.</span></li>
@@ -223,7 +224,7 @@
           <p class="signup__title">Get the lineup first.</p>
           <p class="signup__body">Speaker announcements reach subscribers first. The Substack publishes only 12 to 18 articles a year, so it won't crowd your inbox.<span class="when-early"> You'll also get a reminder as early-bird pricing ends.</span></p>
           <div class="signup__frame">
-            <iframe src="https://livinginternet.substack.com/embed" width="480" height="320" style="border: 1px solid #EEE; background: white" frameborder="0" scrolling="no"></iframe>
+            <iframe src="https://livinginternet.substack.com/embed" title="Subscribe to The Living Internet Substack" loading="lazy" width="480" height="320" style="border: 1px solid #EEE; background: white" frameborder="0" scrolling="no"></iframe>
           </div>
           <p class="signup__fallback">Form not loading? <a href="https://livinginternet.substack.com/subscribe" target="_blank" rel="noopener">Subscribe on Substack</a>.</p>
         </div>
@@ -478,7 +479,7 @@
   <footer class="footer" id="footer">
     <div class="footer__grid">
       <div class="footer__about">
-        <img src="/assets/images/graphics/logo-white.png" alt="" class="footer__logo" width="470" height="469" loading="lazy" />
+        <img src="/assets/images/graphics/logo-white-128.png" alt="" class="footer__logo" width="128" height="128" loading="lazy" />
         <p class="footer__brand">The Living Internet Alliance</p>
         <p class="footer__meta">Questions? <a href="mailto:jesse@thelivinginternet.com">jesse@thelivinginternet.com</a></p>
       </div>
@@ -504,9 +505,7 @@
           <p class="signup__eyebrow">The Living Internet Substack</p>
           <p class="signup__title">Hear it here first.</p>
           <p class="signup__body">The speaker lineup, the exact venue, and all the details...</p>
-          <div class="signup__frame">
-            <iframe src="https://livinginternet.substack.com/embed" width="480" height="320" style="border: 1px solid #EEE; background: white" frameborder="0" scrolling="no"></iframe>          </div>
-          <p class="signup__fallback">Form not loading? <a href="https://livinginternet.substack.com/subscribe" target="_blank" rel="noopener">Subscribe on Substack</a>.</p>
+          <a href="https://livinginternet.substack.com/subscribe" target="_blank" rel="noopener" class="btn btn--solid signup__btn">Subscribe on Substack</a>
         </div>
       </div>
     </div>

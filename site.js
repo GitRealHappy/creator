@@ -11,7 +11,7 @@
    - Question-mark hero (/faq)
    - Cursor twinkles (/2026 #speakers)
    - Sparkler (/2026 closing section)
-   - Gold coins (/community #values)
+   - Ember coins (/community #values)
    - Rising embers (home #tickets)
    The early-bird / full-price switch is an inline script in each
    page's <head> so prices never flash the wrong value.
@@ -362,14 +362,14 @@
       ctx.moveTo(x + 1.6, y);
       ctx.arc(x, y, 1.6, 0, Math.PI * 2);
     }
-    ctx.fillStyle = 'rgba(196, 200, 214, 0.38)';
+    ctx.fillStyle = 'rgba(255, 106, 43, 0.36)';
     ctx.fill();
 
     for (let j = 0; j < lit.length; j += 3) {
       const f = lit[j + 2];
       ctx.beginPath();
       ctx.arc(lit[j], lit[j + 1], 1.6 + f * 2.2, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(244, 241, 236, ' + (0.38 + f * 0.62).toFixed(3) + ')';
+      ctx.fillStyle = 'rgba(255, ' + Math.round(106 + f * 73) + ', ' + Math.round(43 + f * 28) + ', ' + (0.36 + f * 0.64).toFixed(3) + ')';
       ctx.fill();
     }
   }
@@ -737,8 +737,8 @@
   if ('ResizeObserver' in window) new ResizeObserver(size).observe(section);
 })();
 
-/* ---------- Gold coins (/community #values, "Seek Your Treasure") ----------
-   While the mouse is in the section, little gold coins pop out of the
+/* ---------- Ember coins (/community #values, "Seek Your Treasure") ----------
+   While the mouse is in the section, little amber coins pop out of the
    cursor, arc upward and tumble back down, flipping end over end as they
    fall and fading out. Drawn behind the content. Mouse only; off under
    reduced motion. */
@@ -791,21 +791,21 @@
     ctx.rotate(c.tilt);
     ctx.globalAlpha = alpha;
     // Rim: a darker gold that shows as the coin turns edge-on
-    ctx.fillStyle = '#9a6a12';
+    ctx.fillStyle = '#9a3c0c';
     ctx.beginPath();
     ctx.ellipse(c.r * 0.12 * (1 - sx) * (front ? 1 : -1), 0, c.r * sx + 1, c.r, 0, 0, Math.PI * 2);
     ctx.fill();
     // Face, lit differently on each side so the flip reads
     const face = ctx.createLinearGradient(-c.r * sx, -c.r, c.r * sx, c.r);
-    if (front) { face.addColorStop(0, '#fff1b8'); face.addColorStop(0.45, '#ffcb47'); face.addColorStop(1, '#d9930f'); }
-    else       { face.addColorStop(0, '#f2c14a'); face.addColorStop(0.5, '#d9a024'); face.addColorStop(1, '#a8720f'); }
+    if (front) { face.addColorStop(0, '#ffe2b8'); face.addColorStop(0.45, '#ffb347'); face.addColorStop(1, '#e2631a'); }
+    else       { face.addColorStop(0, '#f5a64a'); face.addColorStop(0.5, '#e07a22'); face.addColorStop(1, '#a8430f'); }
     ctx.fillStyle = face;
     ctx.beginPath();
     ctx.ellipse(0, 0, c.r * sx, c.r, 0, 0, Math.PI * 2);
     ctx.fill();
     // Inner ring, like a stamped edge
     if (sx > 0.3) {
-      ctx.strokeStyle = 'rgba(150,95,10,0.7)';
+      ctx.strokeStyle = 'rgba(140,50,10,0.7)';
       ctx.lineWidth = 1;
       ctx.beginPath();
       ctx.ellipse(0, 0, c.r * sx * 0.68, c.r * 0.68, 0, 0, Math.PI * 2);

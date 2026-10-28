@@ -24,8 +24,9 @@ Project context for any Claude session working in this repository. Read this fir
 > used by any page. **2026-10-26:** the `/2026` `#wall` testimonials are styled as a single-column
 > Substack Notes-style feed (`.quote-wall` in `styles.css`); `site.js` shows the first 5 and adds a
 > "Read more testimonials" button that reveals 5 more per click until all are visible. **2026-10-28:** the
-> `/community` hero (`.page-hero--dots`) dropped the ember radial-gradient glow for a solid `#0115a6` blue
-> with a `<canvas>` dot field drawn by `site.js`: a gray/bone dot grid that slowly rotates (one turn per
+> `/community` hero (`.page-hero--dots`) became a `<canvas>` dot field drawn by `site.js` (first on a
+> `#0115a6` blue, retired the same day per the palette lock below; now black with ember dots that
+> brighten to amber near the cursor): a grid that slowly rotates (one turn per
 > 180s) and parts/brightens around the cursor or a finger. Static single frame under reduced motion.
 > A left-side darkening overlay (`::after`) keeps the copy legible. Same day, `/faq`'s hero became
 > `.page-hero--questions`: black, with faint drifting italic Garamond "?" glyphs on a canvas that
@@ -34,7 +35,7 @@ Project context for any Claude session working in this repository. Read this fir
 > along the cursor's path (one per 22px of travel, ~1.1s life, soft glow; mouse only, off under reduced
 > motion). `/2026`'s closing "Come to the 2027 summit." section (`.final--sparkler`, only on that page)
 > turns the cursor into a sparkler tip throwing sparks that arc up and fall as they cool to ember.
-> `/community` `#values` ("Seek Your Treasure", `.section--coins`) does the same with little gold coins
+> `/community` `#values` ("Seek Your Treasure", `.section--coins`) does the same with little amber/ember coins
 > that pop out of the cursor and flip as they fall (16/s, mouse only, off under reduced motion).
 > Home `#tickets` ("Choose how you're coming.") dropped its blurred ember radial glow for plain black
 > with a canvas of small embers drifting up on their own (no cursor; works on phones; still frame
@@ -43,7 +44,11 @@ Project context for any Claude session working in this repository. Read this fir
 > row of tiers, General Admission first (was VIP first, stacked); "Coming as a group" / "About
 > sales" are collapsed `<details>`; the Ticket Tailor iframe sits in a bone frame; the checkout
 > aside copy is shorter. Nav wordmark/CTA, `.eyebrow`, `.signup__eyebrow` and `.tier__flag` raised
-> to >=12px.
+> to >=12px. Second pass: phones get a 3:2 hero crop (`img1-mobile.jpg`; desktop `img1-new.jpg`
+> recompressed to ~500KB, original in git history); Substack iframes are `loading="lazy"` and the
+> home footer uses a plain "Subscribe on Substack" button instead of a second embed; every page has
+> a skip link and `<main id="main">`; nav/footer logos use `logo-white-128.png`; `/2026` speakers
+> are a centered flex grid (6 per row at desktop).
 > Sections below this note describe earlier eras.
 
 > **⚠️ As of 2026-10-01, `index.html` is a ticket-sale page for the 2027 summit, not a
@@ -129,6 +134,12 @@ The Sprint consists of six pillars:
   `#c2410c` (on bone, 4.9:1 contrast), `--bone` `#f4f1ec`. `--accent`/`--accent-soft`/`--accent-glow`/
   `--accent-faint` now derive from ember, so existing hairline/glow usages changed color
   automatically. CTAs stay white-on-black; `.btn--ember` is the one colored button (ticket band).
+- **Palette lock (2026-10-28), final: black, bone, one ember flame.** Grounds are `--ink`/`--black`
+  and `--bone`. The only hue is the ember family (`--ember`, `--ember-deep` for small text on bone,
+  `--ember-hi` amber for highlights and gradient ends). Text/caption grays stay warm (`--text*`).
+  No second accent: blue was tried on `/community` and retired. New components, canvas effects
+  and one-off sections must pull from these tokens (canvas colors are ember `255,106,43` through
+  amber `255,179,71`), not introduce new hues. Photos supply all other color.
 - **Alternating sections.** Add `.theme-bone` to a section to make it light: it re-maps
   `--white`/`--text*`/`--line*`/`--accent*` locally so existing components just work. Don't put
   `.btn--solid` inside one. Currently bone: `#about`, `#gallery`, `#founder`. Dark: nav, hero,

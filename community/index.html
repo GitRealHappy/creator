@@ -29,12 +29,13 @@
   <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
   <!-- ===================== NAV (shared) ===================== -->
   <header class="nav" id="top">
     <div class="nav__inner">
       <a class="nav__brand" href="/" aria-label="The Living Internet Alliance, home">
-        <img src="/assets/images/graphics/logo-white.png" alt="" class="nav__logo" width="470" height="469" />
+        <img src="/assets/images/graphics/logo-white-128.png" alt="" class="nav__logo" width="128" height="128" />
         <span class="nav__wordmark">The Living Internet Alliance</span>
       </a>
       <nav class="nav__links" id="navLinks" aria-label="Primary">
@@ -48,7 +49,7 @@
     </div>
   </header>
 
-  <main>
+  <main id="main" tabindex="-1">
   <!-- ===================== 1 · HERO ===================== -->
   <section class="page-hero page-hero--dots" aria-labelledby="community-title">
     <canvas class="page-hero__dots" aria-hidden="true"></canvas>
@@ -310,7 +311,7 @@
   <footer class="footer" id="footer">
     <div class="footer__grid">
       <div class="footer__about">
-        <img src="/assets/images/graphics/logo-white.png" alt="" class="footer__logo" width="470" height="469" loading="lazy" />
+        <img src="/assets/images/graphics/logo-white-128.png" alt="" class="footer__logo" width="128" height="128" loading="lazy" />
         <p class="footer__brand">The Living Internet Alliance</p>
         <p class="footer__meta">Questions? <a href="mailto:jesse@thelivinginternet.com">jesse@thelivinginternet.com</a></p>
       </div>
@@ -336,7 +337,7 @@
           <p class="signup__eyebrow">The Living Internet Substack</p>
           <p class="signup__title">Hear it here first.</p>
           <div class="signup__frame">
-            <iframe src="https://livinginternet.substack.com/embed" width="480" height="320" style="border: 1px solid #EEE; background: white" frameborder="0" scrolling="no"></iframe>          </div>
+            <iframe src="https://livinginternet.substack.com/embed" title="Subscribe to The Living Internet Substack" loading="lazy" width="480" height="320" style="border: 1px solid #EEE; background: white" frameborder="0" scrolling="no"></iframe>          </div>
           <p class="signup__fallback">Form not loading? <a href="https://livinginternet.substack.com/subscribe" target="_blank" rel="noopener">Subscribe on Substack</a>.</p>
         </div>
       </div>
