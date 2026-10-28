@@ -2349,8 +2349,9 @@ a { color: inherit; text-decoration: none; }
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(1rem, 3vw, 2.5rem);
   width: 100%;
+  align-items: start;
 }
-.tickets__note { font-size: 0.95rem; line-height: 1.6; color: var(--text-dim); border-top: 1px solid var(--line-soft); padding-top: 0.9rem; }
+.tickets__note { font-size: 0.95rem; line-height: 1.6; color: var(--text-dim); }
 .tickets__note strong { color: var(--text); font-weight: 600; }
 .tickets__note-title {
   font-size: 0.8rem;
@@ -2362,18 +2363,24 @@ a { color: inherit; text-decoration: none; }
 }
 /* "Coming as a group" / "About sales" fold away until asked for */
 summary.tickets__note-title {
-  display: flex;
-  justify-content: space-between;
+  display: inline-flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.6rem;
   margin-bottom: 0;
+  padding: 0.6em 1.1em;
+  border: 1px solid var(--accent-soft);
+  border-radius: 999px;
   cursor: pointer;
   list-style: none;
+  transition: background .18s ease, border-color .18s ease;
 }
+summary.tickets__note-title:hover,
+details[open] > summary.tickets__note-title { background: var(--accent-faint); border-color: var(--accent); }
+summary.tickets__note-title:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 summary.tickets__note-title::-webkit-details-marker { display: none; }
-summary.tickets__note-title::after { content: "+"; font-size: 1.1rem; font-weight: 400; letter-spacing: 0; }
+summary.tickets__note-title::after { content: "+"; font-size: 1.1rem; font-weight: 400; line-height: 1; letter-spacing: 0; }
 details[open] > summary.tickets__note-title::after { content: "\2212"; }
-details.tickets__note[open] > summary.tickets__note-title { margin-bottom: 0.6rem; }
+details.tickets__note[open] > summary.tickets__note-title { margin-bottom: 0.8rem; }
 details.tickets__note > p + p { margin-top: 0.6rem; }
 @media (max-width: 760px) { .tickets__notes { grid-template-columns: 1fr; } }
 .checkout { width: 100%; display: grid; grid-template-columns: minmax(0, 640px) minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 3rem); align-items: start; }
