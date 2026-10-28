@@ -857,10 +857,11 @@ a { color: inherit; text-decoration: none; }
 .ticket-embed iframe {
   display: block;
   width: 100%;
-  height: 875px;
+  height: 1180px;   /* 875px left ~300px of inner scroll (2026-10-28) */
   border: 0;
   border-radius: 12px;
 }
+@media (max-width: 560px) { .ticket-embed iframe { height: 1300px; } }
 .ticket-embed__fallback {
   position: relative;
   z-index: 1;
@@ -1930,14 +1931,14 @@ a { color: inherit; text-decoration: none; }
   .page-hero--questions::after { background: rgba(0,0,0,0.5); }
 }
 
-/* Cursor twinkles (/2026 #speakers) and coins (/community #values): canvas
+/* Cursor twinkles (/2026 #speakers) and dollar signs (/community #values): canvas
    effects drawn behind the section content by site.js. */
 .section--twinkle,
-.section--coins { position: relative; overflow: hidden; }
+.section--dollars { position: relative; overflow: hidden; }
 .section--twinkle > .section__inner,
-.section--coins > .section__inner { position: relative; z-index: 1; }
+.section--dollars > .section__inner { position: relative; z-index: 1; }
 .twinkle-canvas,
-.coins-canvas {
+.dollars-canvas {
   position: absolute;
   inset: 0;
   width: 100%;

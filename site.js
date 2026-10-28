@@ -11,7 +11,7 @@
    - Question-mark hero (/faq)
    - Cursor twinkles (/2026 #speakers)
    - Sparkler (/2026 closing section)
-   - Ember coins (/community #values)
+   - Dollar signs (/community #values)
    - Rising embers (home #tickets)
    The early-bird / full-price switch is an inline script in each
    page's <head> so prices never flash the wrong value.
@@ -737,130 +737,126 @@
   if ('ResizeObserver' in window) new ResizeObserver(size).observe(section);
 })();
 
-/* ---------- Ember coins (/community #values, "Seek Your Treasure") ----------
-   While the mouse is in the section, little amber coins pop out of the
-   cursor, arc upward and tumble back down, flipping end over end as they
-   fall and fading out. Drawn behind the content. Mouse only; off under
-   reduced motion. */
+/* ---------- Dollar signs (/community #values, "Seek Your Treasure") ----------
+   Sibling of the /faq question marks: a loose scatter of faint italic "$"
+   glyphs behind the section that bob gently. Near the cursor (or a finger)
+   they straighten, grow and warm to ember; the closest ones turn amber,
+   treasure found. Drawn behind the content. Reduced motion: one static
+   frame. */
 (function () {
-  const section = document.querySelector('.section--coins');
-  const canvas = section && section.querySelector('.coins-canvas');
+  const section = document.querySelector('.section--dollars');
+  const canvas = section && section.querySelector('.dollars-canvas');
   if (!canvas || !canvas.getContext) return;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const ctx = canvas.getContext('2d');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  const RATE = 16;      // coins per second while the cursor is in
-  const GRAVITY = 900;  // px/s²
-  const MAX = 60;
+  const RADIUS = 190;    // cursor reach, in CSS px
+  const FOUND = 0.62;    // closeness at which a "$" turns amber
 
-  let w = 0, h = 0, dpr = 1, coins = [], raf = 0, last = 0, owed = 0;
-  const tip = { x: 0, y: 0, vx: 0, vy: 0, on: false };
+  let w = 0, h = 0, dpr = 1, marks = [];
+  const mouse = { x: 0, y: 0, active: false, strength: 0 };
+  let t = 0, last = 0, raf = 0, visible = true;
 
-  function size() {
+  function build() {
     const rect = section.getBoundingClientRect();
     w = rect.width; h = rect.height;
     dpr = Math.min(window.devicePixelRatio || 1, 2);
     canvas.width = Math.round(w * dpr);
     canvas.height = Math.round(h * dpr);
+    const spacing = w < 600 ? 56 : 68;
+    marks = [];
+    for (let y = spacing / 2; y < h + spacing; y += spacing) {
+      for (let x = spacing / 2; x < w + spacing; x += spacing) {
+        marks.push({
+          x: x + (Math.random() - 0.5) * spacing * 0.7,
+          y: y + (Math.random() - 0.5) * spacing * 0.7,
+          size: 16 + Math.random() * 14,
+          tilt: (Math.random() - 0.5) * 0.9,
+          phase: Math.random() * Math.PI * 2,
+          f: 0  // eased closeness to the cursor, 0..1
+        });
+      }
+    }
   }
 
-  function emit() {
-    if (coins.length >= MAX) coins.shift();
-    const ang = -Math.PI / 2 + (Math.random() - 0.5) * 1.4;
-    const speed = 260 + Math.random() * 260;
-    coins.push({
-      x: tip.x, y: tip.y,
-      vx: Math.cos(ang) * speed + tip.vx * 0.15,
-      vy: Math.sin(ang) * speed + tip.vy * 0.15,
-      r: 6 + Math.random() * 4,
-      flip: Math.random() * Math.PI * 2,          // rotation about the coin's own axis
-      flipSpeed: (8 + Math.random() * 8) * (Math.random() < 0.5 ? -1 : 1),
-      tilt: (Math.random() - 0.5) * 1.2,          // which way that axis leans
-      tiltSpeed: (Math.random() - 0.5) * 3,
-      age: 0,
-      life: 1.1 + Math.random() * 0.6
-    });
-  }
-
-  function drawCoin(c, alpha) {
-    const squash = Math.cos(c.flip);           // 1 = face on, 0 = edge on
-    const sx = Math.max(Math.abs(squash), 0.08);
-    const front = squash >= 0;
-    ctx.save();
-    ctx.translate(c.x, c.y);
-    ctx.rotate(c.tilt);
-    ctx.globalAlpha = alpha;
-    // Rim: a darker gold that shows as the coin turns edge-on
-    ctx.fillStyle = '#9a3c0c';
-    ctx.beginPath();
-    ctx.ellipse(c.r * 0.12 * (1 - sx) * (front ? 1 : -1), 0, c.r * sx + 1, c.r, 0, 0, Math.PI * 2);
-    ctx.fill();
-    // Face, lit differently on each side so the flip reads
-    const face = ctx.createLinearGradient(-c.r * sx, -c.r, c.r * sx, c.r);
-    if (front) { face.addColorStop(0, '#ffe2b8'); face.addColorStop(0.45, '#ffb347'); face.addColorStop(1, '#e2631a'); }
-    else       { face.addColorStop(0, '#f5a64a'); face.addColorStop(0.5, '#e07a22'); face.addColorStop(1, '#a8430f'); }
-    ctx.fillStyle = face;
-    ctx.beginPath();
-    ctx.ellipse(0, 0, c.r * sx, c.r, 0, 0, Math.PI * 2);
-    ctx.fill();
-    // Inner ring, like a stamped edge
-    if (sx > 0.3) {
-      ctx.strokeStyle = 'rgba(140,50,10,0.7)';
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.ellipse(0, 0, c.r * sx * 0.68, c.r * 0.68, 0, 0, Math.PI * 2);
-      ctx.stroke();
+  function draw() {
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    const s = mouse.strength;
+    for (let i = 0; i < marks.length; i++) {
+      const m = marks[i];
+      const bob = Math.sin(t * 0.6 + m.phase);
+      const x = m.x, y = m.y + bob * 4;
+      let target = 0;
+      if (s > 0.001) {
+        const d = Math.hypot(x - mouse.x, y - mouse.y);
+        if (d < RADIUS) { target = 1 - d / RADIUS; target = target * target * (3 - 2 * target) * s; }
+      }
+      m.f += (target - m.f) * 0.1;
+      const f = m.f;
+      // Faint bone at rest, ember as the cursor nears, amber at the centre
+      const hot = f > FOUND ? (f - FOUND) / (1 - FOUND) : 0;
+      const r = Math.round(244 + (255 - 244) * Math.min(f * 1.6, 1));
+      const g = Math.round(241 + (106 - 241) * Math.min(f * 1.6, 1) + (179 - 106) * hot);
+      const b = Math.round(236 + (43 - 236) * Math.min(f * 1.6, 1) + (71 - 43) * hot);
+      const a = 0.09 + f * 0.42;
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate((m.tilt + bob * 0.06) * (1 - f));
+      ctx.font = 'italic 400 ' + (m.size * (1 + f * 0.55)).toFixed(1) + 'px "EB Garamond", Georgia, serif';
+      ctx.fillStyle = 'rgba(' + r + ',' + g + ',' + b + ',' + a.toFixed(3) + ')';
+      ctx.fillText('$', 0, 0);
+      ctx.restore();
     }
-    // A glint when it catches the light, face on
-    if (Math.abs(squash) > 0.92) {
-      ctx.fillStyle = 'rgba(255,255,240,' + ((Math.abs(squash) - 0.92) * 10).toFixed(3) + ')';
-      ctx.beginPath();
-      ctx.ellipse(-c.r * sx * 0.3, -c.r * 0.35, c.r * sx * 0.25, c.r * 0.15, -0.6, 0, Math.PI * 2);
-      ctx.fill();
-    }
-    ctx.restore();
   }
 
   function frame(now) {
-    const dt = last ? Math.min((now - last) / 1000, 0.05) : 0.016;
+    const dt = last ? Math.min((now - last) / 1000, 0.05) : 0;
     last = now;
-    if (tip.on) {
-      owed += RATE * dt;
-      while (owed >= 1) { emit(); owed -= 1; }
-    }
-    tip.vx *= 0.85; tip.vy *= 0.85;
-
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    ctx.clearRect(0, 0, w, h);
-    coins = coins.filter(function (c) {
-      c.age += dt;
-      if (c.age >= c.life || c.y > h + 20) return false;
-      c.vx *= 1 - 0.8 * dt;
-      c.vy += GRAVITY * dt;
-      c.x += c.vx * dt; c.y += c.vy * dt;
-      c.flip += c.flipSpeed * dt;
-      c.tilt += c.tiltSpeed * dt;
-      const p = c.age / c.life;
-      drawCoin(c, p < 0.7 ? 1 : 1 - (p - 0.7) / 0.3);
-      return true;
-    });
-
-    if (tip.on || coins.length) raf = requestAnimationFrame(frame);
-    else { raf = 0; last = 0; ctx.clearRect(0, 0, w, h); }
+    t += dt;
+    mouse.strength += ((mouse.active ? 1 : 0) - mouse.strength) * 0.08;
+    draw();
+    raf = requestAnimationFrame(frame);
   }
 
-  section.addEventListener('pointermove', function (e) {
-    if (e.pointerType !== 'mouse') return;
-    const rect = section.getBoundingClientRect();
-    const x = e.clientX - rect.left, y = e.clientY - rect.top;
-    if (tip.on) { tip.vx = (x - tip.x) * 30; tip.vy = (y - tip.y) * 30; }
-    tip.x = x; tip.y = y; tip.on = true;
-    if (!raf) raf = requestAnimationFrame(frame);
-  });
-  section.addEventListener('pointerleave', function () { tip.on = false; });
+  function start() {
+    if (reduceMotion || raf || !visible || document.hidden) return;
+    last = 0;
+    raf = requestAnimationFrame(frame);
+  }
+  function stop() { cancelAnimationFrame(raf); raf = 0; }
 
-  size();
-  if ('ResizeObserver' in window) new ResizeObserver(size).observe(section);
+  function track(e) {
+    const rect = section.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left;
+    mouse.y = e.clientY - rect.top;
+    mouse.active = true;
+  }
+  if (!reduceMotion) {
+    section.addEventListener('pointermove', track);
+    section.addEventListener('pointerdown', track);
+    section.addEventListener('pointerleave', function () { mouse.active = false; });
+    section.addEventListener('pointerup', function (e) { if (e.pointerType !== 'mouse') mouse.active = false; });
+    section.addEventListener('pointercancel', function () { mouse.active = false; });
+  }
+
+  build();
+  draw();
+  // Redraw once EB Garamond has loaded so the glyphs aren't stuck in the fallback serif
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
+  if ('ResizeObserver' in window) {
+    new ResizeObserver(function () { build(); draw(); }).observe(section);
+  }
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      visible = entries[0].isIntersecting;
+      visible ? start() : stop();
+    }).observe(section);
+  }
+  document.addEventListener('visibilitychange', function () { document.hidden ? stop() : start(); });
+  start();
 })();
 
 /* ---------- Rising embers (home #tickets) ----------
