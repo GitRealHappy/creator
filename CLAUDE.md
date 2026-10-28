@@ -39,6 +39,11 @@ Project context for any Claude session working in this repository. Read this fir
 > Home `#tickets` ("Choose how you're coming.") dropped its blurred ember radial glow for plain black
 > with a canvas of small embers drifting up on their own (no cursor; works on phones; still frame
 > under reduced motion).
+> **2026-10-28 (design pass):** home `#tickets` on phones (<=900px) is now a swipeable scroll-snap
+> row of tiers, General Admission first (was VIP first, stacked); "Coming as a group" / "About
+> sales" are collapsed `<details>`; the Ticket Tailor iframe sits in a bone frame; the checkout
+> aside copy is shorter. Nav wordmark/CTA, `.eyebrow`, `.signup__eyebrow` and `.tier__flag` raised
+> to >=12px.
 > Sections below this note describe earlier eras.
 
 > **⚠️ As of 2026-10-01, `index.html` is a ticket-sale page for the 2027 summit, not a
