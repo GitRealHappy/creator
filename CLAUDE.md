@@ -30,6 +30,10 @@ Project context for any Claude session working in this repository. Read this fir
 > A left-side darkening overlay (`::after`) keeps the copy legible. Same day, `/faq`'s hero became
 > `.page-hero--questions`: black, with faint drifting italic Garamond "?" glyphs on a canvas that
 > straighten, warm to ember and flip to "!" near the cursor (also in `site.js`, same left overlay).
+> `/2026` `#speakers` (`.section--twinkle`) spawns small bone/amber four-point stars behind the content
+> along the cursor's path (one per 22px of travel, ~1.1s life, soft glow; mouse only, off under reduced
+> motion). `/2026`'s closing "Come to the 2027 summit." section (`.final--sparkler`, only on that page)
+> turns the cursor into a sparkler tip throwing sparks that arc up and fall as they cool to ember.
 > Sections below this note describe earlier eras.
 
 > **⚠️ As of 2026-10-01, `index.html` is a ticket-sale page for the 2027 summit, not a

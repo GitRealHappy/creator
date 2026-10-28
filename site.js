@@ -9,6 +9,8 @@
    - "Read more testimonials" reveal (/2026 #wall)
    - Dot-field hero (/community)
    - Question-mark hero (/faq)
+   - Cursor twinkles (/2026 #speakers)
+   - Sparkler (/2026 closing section)
    The early-bird / full-price switch is an inline script in each
    page's <head> so prices never flash the wrong value.
    ============================================================ */
@@ -532,4 +534,203 @@
   }
   document.addEventListener('visibilitychange', function () { document.hidden ? stop() : start(); });
   start();
+})();
+
+/* ---------- Cursor twinkles (/2026 #speakers) ----------
+   As the cursor moves through the section, small four-point stars pop in
+   near it, flicker and fade within about a second. Spawned by distance
+   travelled, so a still cursor makes none. Off under reduced motion and
+   on touch (there's no cursor to follow). */
+(function () {
+  const section = document.querySelector('.section--twinkle');
+  const canvas = section && section.querySelector('.twinkle-canvas');
+  if (!canvas || !canvas.getContext) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const ctx = canvas.getContext('2d');
+
+  const STEP = 22;        // px of cursor travel per new star
+  const LIFE = 1100;       // ms each star lives
+  const MAX = 70;         // cap on stars alive at once
+  const COLORS = ['244,241,236', '244,241,236', '255,179,71']; // mostly bone, some amber
+
+  let w = 0, h = 0, dpr = 1, stars = [], raf = 0;
+  let lastX = null, lastY = null, travel = 0;
+
+  function size() {
+    const rect = section.getBoundingClientRect();
+    w = rect.width; h = rect.height;
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(w * dpr);
+    canvas.height = Math.round(h * dpr);
+  }
+
+  function spawn(x, y) {
+    if (stars.length >= MAX) stars.shift();
+    const a = Math.random() * Math.PI * 2, r = 10 + Math.random() * 34;
+    stars.push({
+      x: x + Math.cos(a) * r,
+      y: y + Math.sin(a) * r,
+      size: 4 + Math.random() * 8,
+      spin: (Math.random() - 0.5) * 1.2,
+      color: COLORS[Math.floor(Math.random() * COLORS.length)],
+      born: performance.now()
+    });
+    if (!raf) raf = requestAnimationFrame(frame);
+  }
+
+  // A thin four-point star, like a glint
+  function star(x, y, s, rot) {
+    const inner = s * 0.22;
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(rot);
+    ctx.beginPath();
+    for (let i = 0; i < 8; i++) {
+      const rad = i % 2 ? inner : s;
+      const ang = (i * Math.PI) / 4;
+      ctx.lineTo(Math.cos(ang) * rad, Math.sin(ang) * rad);
+    }
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function frame(now) {
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+    stars = stars.filter(function (s) { return now - s.born < LIFE; });
+    ctx.shadowBlur = 10;
+    stars.forEach(function (s) {
+      const p = (now - s.born) / LIFE;          // 0..1 through its life
+      const pop = Math.sin(p * Math.PI);        // grows in, then shrinks out
+      const flicker = 0.75 + 0.25 * Math.sin(p * 28);
+      ctx.fillStyle = 'rgba(' + s.color + ',' + (pop * flicker).toFixed(3) + ')';
+      ctx.shadowColor = 'rgba(' + s.color + ',' + (0.8 * pop).toFixed(3) + ')';
+      star(s.x, s.y - p * 10, s.size * pop, s.spin * p);
+    });
+    raf = stars.length ? requestAnimationFrame(frame) : 0;
+    if (!raf) ctx.clearRect(0, 0, w, h);
+  }
+
+  section.addEventListener('pointermove', function (e) {
+    if (e.pointerType !== 'mouse') return;
+    const rect = section.getBoundingClientRect();
+    const x = e.clientX - rect.left, y = e.clientY - rect.top;
+    if (lastX !== null) travel += Math.hypot(x - lastX, y - lastY);
+    lastX = x; lastY = y;
+    if (travel >= STEP) { travel = 0; spawn(x, y); }
+  });
+  section.addEventListener('pointerleave', function () { lastX = lastY = null; travel = 0; });
+
+  size();
+  if ('ResizeObserver' in window) new ResizeObserver(size).observe(section);
+})();
+
+/* ---------- Sparkler (/2026 closing section) ----------
+   While the mouse is in the section, its tip throws a steady stream of
+   sparks. Each launches upward in a spread, slows, and falls back in a
+   steep arc, cooling from white-gold to ember as it burns out. Drawn
+   behind the content. Mouse only; off under reduced motion. */
+(function () {
+  const section = document.querySelector('.final--sparkler');
+  const canvas = section && section.querySelector('.sparkler-canvas');
+  if (!canvas || !canvas.getContext) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const ctx = canvas.getContext('2d');
+
+  const RATE = 110;      // sparks per second while the cursor is in
+  const GRAVITY = 1100;  // px/s², pulls sparks back down
+  const MAX = 260;
+
+  let w = 0, h = 0, dpr = 1, sparks = [], raf = 0, last = 0, owed = 0;
+  const tip = { x: 0, y: 0, vx: 0, vy: 0, on: false };
+
+  function size() {
+    const rect = section.getBoundingClientRect();
+    w = rect.width; h = rect.height;
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(w * dpr);
+    canvas.height = Math.round(h * dpr);
+  }
+
+  function emit() {
+    if (sparks.length >= MAX) sparks.shift();
+    const ang = -Math.PI / 2 + (Math.random() - 0.5) * 1.3;  // mostly upward
+    const speed = 220 + Math.random() * 300;
+    sparks.push({
+      x: tip.x, y: tip.y, px: tip.x, py: tip.y,
+      vx: Math.cos(ang) * speed + tip.vx * 0.15,
+      vy: Math.sin(ang) * speed + tip.vy * 0.15,
+      age: 0,
+      life: 0.45 + Math.random() * 0.6
+    });
+  }
+
+  // Hot white-gold, through amber, to ember as a spark ages (p: 0..1)
+  function color(p, a) {
+    const g = p < 0.5 ? 240 - (240 - 179) * (p / 0.5) : 179 - (179 - 106) * ((p - 0.5) / 0.5);
+    const b = p < 0.5 ? 200 - (200 - 71) * (p / 0.5) : 71 - (71 - 43) * ((p - 0.5) / 0.5);
+    return 'rgba(255,' + Math.round(g) + ',' + Math.round(b) + ',' + a.toFixed(3) + ')';
+  }
+
+  function frame(now) {
+    const dt = last ? Math.min((now - last) / 1000, 0.05) : 0.016;
+    last = now;
+    if (tip.on) {
+      owed += RATE * dt;
+      while (owed >= 1) { emit(); owed -= 1; }
+    }
+    tip.vx *= 0.85; tip.vy *= 0.85;
+
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+    ctx.globalCompositeOperation = 'lighter';
+    ctx.lineCap = 'round';
+    sparks = sparks.filter(function (s) {
+      s.age += dt;
+      if (s.age >= s.life) return false;
+      s.px = s.x; s.py = s.y;
+      s.vx *= 1 - 1.4 * dt;           // air drag
+      s.vy += GRAVITY * dt;
+      s.x += s.vx * dt; s.y += s.vy * dt;
+      const p = s.age / s.life;
+      ctx.strokeStyle = color(p, 1 - p * p);
+      ctx.lineWidth = 1.8 * (1 - p) + 0.4;
+      ctx.beginPath();
+      // Streak from a little behind the last position, so fast sparks read as trails
+      ctx.moveTo(s.px - (s.x - s.px) * 1.5, s.py - (s.y - s.py) * 1.5);
+      ctx.lineTo(s.x, s.y);
+      ctx.stroke();
+      return true;
+    });
+    // The burning tip itself: a small flickering glow
+    if (tip.on) {
+      const r = 10 + Math.random() * 6;
+      const glow = ctx.createRadialGradient(tip.x, tip.y, 0, tip.x, tip.y, r);
+      glow.addColorStop(0, 'rgba(255,245,220,0.95)');
+      glow.addColorStop(0.4, 'rgba(255,179,71,0.5)');
+      glow.addColorStop(1, 'rgba(255,106,43,0)');
+      ctx.fillStyle = glow;
+      ctx.beginPath();
+      ctx.arc(tip.x, tip.y, r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalCompositeOperation = 'source-over';
+
+    if (tip.on || sparks.length) raf = requestAnimationFrame(frame);
+    else { raf = 0; last = 0; ctx.clearRect(0, 0, w, h); }
+  }
+
+  section.addEventListener('pointermove', function (e) {
+    if (e.pointerType !== 'mouse') return;
+    const rect = section.getBoundingClientRect();
+    const x = e.clientX - rect.left, y = e.clientY - rect.top;
+    if (tip.on) { tip.vx = (x - tip.x) * 30; tip.vy = (y - tip.y) * 30; }
+    tip.x = x; tip.y = y; tip.on = true;
+    if (!raf) raf = requestAnimationFrame(frame);
+  });
+  section.addEventListener('pointerleave', function () { tip.on = false; });
+
+  size();
+  if ('ResizeObserver' in window) new ResizeObserver(size).observe(section);
 })();
