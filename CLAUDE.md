@@ -9,7 +9,7 @@ Project context for any Claude session working in this repository. Read this fir
 > `creator-sprint-landing-plan.md` (lived in the session scratchpad, not in this repo).
 
 > **🔁 2026-10-25: multi-page rebuild (per `siteplan.md`, which is gitignored: it holds the
-> private ALLIANCE15 code).** The single long page became four: `/` (Summit 2027, sells the
+> private ALLIANCE10 code).** The single long page became four: `/` (Summit 2027, sells the
 > ticket), `/community/` (the Alliance, $3/mo or $15/yr, buttons go to Eden checkout
 > `jesse.eden.so/the-living-internet-alliance`), `/2026/` (all the proof: story, 17 speakers,
 > every testimonial transcribed as text, full gallery) and `/faq/`. `/membership/` now
