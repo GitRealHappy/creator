@@ -828,6 +828,17 @@ a { color: inherit; text-decoration: none; }
    embedded checkout form (below) gets the section's full width to grow
    into rather than sharing a row with the text block. */
 .member-band--tickets .member-band__inner { flex-direction: column; align-items: flex-start; }
+/* Rising embers behind the ticket band (home #tickets). Drawn by site.js. */
+.member-band--tickets { background: var(--black); }
+.member-band--tickets::before { display: none; }
+.embers-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
 
 /* Embedded Ticket Tailor checkout widget (2027 ticket band). Wrapped in a
    light card because the widget renders in Ticket Tailor's own light

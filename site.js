@@ -12,6 +12,7 @@
    - Cursor twinkles (/2026 #speakers)
    - Sparkler (/2026 closing section)
    - Gold coins (/community #values)
+   - Rising embers (home #tickets)
    The early-bird / full-price switch is an inline script in each
    page's <head> so prices never flash the wrong value.
    ============================================================ */
@@ -860,4 +861,111 @@
 
   size();
   if ('ResizeObserver' in window) new ResizeObserver(size).observe(section);
+})();
+
+/* ---------- Rising embers (home #tickets) ----------
+   Small embers drift upward through the ticket band on their own,
+   swaying a little, flickering and dimming as they rise, like the last glow
+   of a fire at night. No cursor needed, so it works on phones too. Pauses
+   off screen; reduced motion gets one still frame. */
+(function () {
+  const section = document.querySelector('.member-band--tickets');
+  const canvas = section && section.querySelector('.embers-canvas');
+  if (!canvas || !canvas.getContext) return;
+  const ctx = canvas.getContext('2d');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  let w = 0, h = 0, dpr = 1, embers = [], raf = 0, last = 0, visible = true;
+
+  // Roughly one ember per 8,000 px² of band, capped so tall bands stay calm
+  function count() { return Math.min(220, Math.round((w * h) / 8000)); }
+
+  // Embers start anywhere in the band (it's tall) and each burns out after
+  // climbing its own distance, fading in at the start and out at the end.
+  function make(midway) {
+    const climb = 220 + Math.random() * 480;
+    return {
+      x: Math.random() * w,
+      y: Math.random() * (h + climb * 0.5),
+      climb: climb,
+      done: midway ? Math.random() * climb : 0,
+      r: 0.8 + Math.random() * 1.8,
+      rise: 18 + Math.random() * 38,          // px/s upward
+      sway: 10 + Math.random() * 22,          // px of side-to-side drift
+      swaySpeed: 0.4 + Math.random() * 0.9,
+      phase: Math.random() * Math.PI * 2,
+      flicker: 3 + Math.random() * 6,
+      heat: Math.random()                     // 0 = deep ember, 1 = amber
+    };
+  }
+
+  function size() {
+    const rect = section.getBoundingClientRect();
+    w = rect.width; h = rect.height;
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(w * dpr);
+    canvas.height = Math.round(h * dpr);
+    const n = count();
+    embers = [];
+    for (let i = 0; i < n; i++) embers.push(make(true));
+  }
+
+  function draw(t) {
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+    ctx.globalCompositeOperation = 'lighter';
+    for (let i = 0; i < embers.length; i++) {
+      const e = embers[i];
+      const x = e.x + Math.sin(t * e.swaySpeed + e.phase) * e.sway;
+      const p = e.done / e.climb;
+      const fade = Math.min(1, p / 0.15) * Math.min(1, (1 - p) / 0.4);
+      const a = fade * (0.55 + 0.45 * Math.sin(t * e.flicker + e.phase));
+      if (a <= 0.01) continue;
+      const g = Math.round(106 + (179 - 106) * e.heat);
+      const b = Math.round(43 + (71 - 43) * e.heat);
+      const glow = ctx.createRadialGradient(x, e.y, 0, x, e.y, e.r * 5);
+      glow.addColorStop(0, 'rgba(255,' + g + ',' + b + ',' + (a * 0.9).toFixed(3) + ')');
+      glow.addColorStop(0.25, 'rgba(255,' + g + ',' + b + ',' + (a * 0.35).toFixed(3) + ')');
+      glow.addColorStop(1, 'rgba(255,' + g + ',' + b + ',0)');
+      ctx.fillStyle = glow;
+      ctx.beginPath();
+      ctx.arc(x, e.y, e.r * 5, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalCompositeOperation = 'source-over';
+  }
+
+  function frame(now) {
+    const dt = last ? Math.min((now - last) / 1000, 0.05) : 0;
+    last = now;
+    for (let i = 0; i < embers.length; i++) {
+      const e = embers[i];
+      e.y -= e.rise * dt;
+      e.done += e.rise * dt;
+      if (e.done >= e.climb || e.y < -20) embers[i] = make(false);
+    }
+    draw(now / 1000);
+    raf = requestAnimationFrame(frame);
+  }
+
+  function start() {
+    if (reduceMotion || raf || !visible || document.hidden) return;
+    last = 0;
+    raf = requestAnimationFrame(frame);
+  }
+  function stop() { cancelAnimationFrame(raf); raf = 0; }
+
+  size();
+  draw(0);
+  if ('ResizeObserver' in window) {
+    new ResizeObserver(function () { size(); draw(performance.now() / 1000); }).observe(section);
+  }
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      visible = entries[0].isIntersecting;
+      visible ? start() : stop();
+    }).observe(section);
+  }
+  document.addEventListener('visibilitychange', function () { document.hidden ? stop() : start(); });
+  start();
 })();

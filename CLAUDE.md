@@ -36,6 +36,9 @@ Project context for any Claude session working in this repository. Read this fir
 > turns the cursor into a sparkler tip throwing sparks that arc up and fall as they cool to ember.
 > `/community` `#values` ("Seek Your Treasure", `.section--coins`) does the same with little gold coins
 > that pop out of the cursor and flip as they fall (16/s, mouse only, off under reduced motion).
+> Home `#tickets` ("Choose how you're coming.") dropped its blurred ember radial glow for plain black
+> with a canvas of small embers drifting up on their own (no cursor; works on phones; still frame
+> under reduced motion).
 > Sections below this note describe earlier eras.
 
 > **⚠️ As of 2026-10-01, `index.html` is a ticket-sale page for the 2027 summit, not a
