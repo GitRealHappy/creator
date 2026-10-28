@@ -11,6 +11,7 @@
    - Question-mark hero (/faq)
    - Cursor twinkles (/2026 #speakers)
    - Sparkler (/2026 closing section)
+   - Gold coins (/community #values)
    The early-bird / full-price switch is an inline script in each
    page's <head> so prices never flash the wrong value.
    ============================================================ */
@@ -718,6 +719,132 @@
     ctx.globalCompositeOperation = 'source-over';
 
     if (tip.on || sparks.length) raf = requestAnimationFrame(frame);
+    else { raf = 0; last = 0; ctx.clearRect(0, 0, w, h); }
+  }
+
+  section.addEventListener('pointermove', function (e) {
+    if (e.pointerType !== 'mouse') return;
+    const rect = section.getBoundingClientRect();
+    const x = e.clientX - rect.left, y = e.clientY - rect.top;
+    if (tip.on) { tip.vx = (x - tip.x) * 30; tip.vy = (y - tip.y) * 30; }
+    tip.x = x; tip.y = y; tip.on = true;
+    if (!raf) raf = requestAnimationFrame(frame);
+  });
+  section.addEventListener('pointerleave', function () { tip.on = false; });
+
+  size();
+  if ('ResizeObserver' in window) new ResizeObserver(size).observe(section);
+})();
+
+/* ---------- Gold coins (/community #values, "Seek Your Treasure") ----------
+   While the mouse is in the section, little gold coins pop out of the
+   cursor, arc upward and tumble back down, flipping end over end as they
+   fall and fading out. Drawn behind the content. Mouse only; off under
+   reduced motion. */
+(function () {
+  const section = document.querySelector('.section--coins');
+  const canvas = section && section.querySelector('.coins-canvas');
+  if (!canvas || !canvas.getContext) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const ctx = canvas.getContext('2d');
+
+  const RATE = 16;      // coins per second while the cursor is in
+  const GRAVITY = 900;  // px/s²
+  const MAX = 60;
+
+  let w = 0, h = 0, dpr = 1, coins = [], raf = 0, last = 0, owed = 0;
+  const tip = { x: 0, y: 0, vx: 0, vy: 0, on: false };
+
+  function size() {
+    const rect = section.getBoundingClientRect();
+    w = rect.width; h = rect.height;
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(w * dpr);
+    canvas.height = Math.round(h * dpr);
+  }
+
+  function emit() {
+    if (coins.length >= MAX) coins.shift();
+    const ang = -Math.PI / 2 + (Math.random() - 0.5) * 1.4;
+    const speed = 260 + Math.random() * 260;
+    coins.push({
+      x: tip.x, y: tip.y,
+      vx: Math.cos(ang) * speed + tip.vx * 0.15,
+      vy: Math.sin(ang) * speed + tip.vy * 0.15,
+      r: 6 + Math.random() * 4,
+      flip: Math.random() * Math.PI * 2,          // rotation about the coin's own axis
+      flipSpeed: (8 + Math.random() * 8) * (Math.random() < 0.5 ? -1 : 1),
+      tilt: (Math.random() - 0.5) * 1.2,          // which way that axis leans
+      tiltSpeed: (Math.random() - 0.5) * 3,
+      age: 0,
+      life: 1.1 + Math.random() * 0.6
+    });
+  }
+
+  function drawCoin(c, alpha) {
+    const squash = Math.cos(c.flip);           // 1 = face on, 0 = edge on
+    const sx = Math.max(Math.abs(squash), 0.08);
+    const front = squash >= 0;
+    ctx.save();
+    ctx.translate(c.x, c.y);
+    ctx.rotate(c.tilt);
+    ctx.globalAlpha = alpha;
+    // Rim: a darker gold that shows as the coin turns edge-on
+    ctx.fillStyle = '#9a6a12';
+    ctx.beginPath();
+    ctx.ellipse(c.r * 0.12 * (1 - sx) * (front ? 1 : -1), 0, c.r * sx + 1, c.r, 0, 0, Math.PI * 2);
+    ctx.fill();
+    // Face, lit differently on each side so the flip reads
+    const face = ctx.createLinearGradient(-c.r * sx, -c.r, c.r * sx, c.r);
+    if (front) { face.addColorStop(0, '#fff1b8'); face.addColorStop(0.45, '#ffcb47'); face.addColorStop(1, '#d9930f'); }
+    else       { face.addColorStop(0, '#f2c14a'); face.addColorStop(0.5, '#d9a024'); face.addColorStop(1, '#a8720f'); }
+    ctx.fillStyle = face;
+    ctx.beginPath();
+    ctx.ellipse(0, 0, c.r * sx, c.r, 0, 0, Math.PI * 2);
+    ctx.fill();
+    // Inner ring, like a stamped edge
+    if (sx > 0.3) {
+      ctx.strokeStyle = 'rgba(150,95,10,0.7)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.ellipse(0, 0, c.r * sx * 0.68, c.r * 0.68, 0, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+    // A glint when it catches the light, face on
+    if (Math.abs(squash) > 0.92) {
+      ctx.fillStyle = 'rgba(255,255,240,' + ((Math.abs(squash) - 0.92) * 10).toFixed(3) + ')';
+      ctx.beginPath();
+      ctx.ellipse(-c.r * sx * 0.3, -c.r * 0.35, c.r * sx * 0.25, c.r * 0.15, -0.6, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  function frame(now) {
+    const dt = last ? Math.min((now - last) / 1000, 0.05) : 0.016;
+    last = now;
+    if (tip.on) {
+      owed += RATE * dt;
+      while (owed >= 1) { emit(); owed -= 1; }
+    }
+    tip.vx *= 0.85; tip.vy *= 0.85;
+
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+    coins = coins.filter(function (c) {
+      c.age += dt;
+      if (c.age >= c.life || c.y > h + 20) return false;
+      c.vx *= 1 - 0.8 * dt;
+      c.vy += GRAVITY * dt;
+      c.x += c.vx * dt; c.y += c.vy * dt;
+      c.flip += c.flipSpeed * dt;
+      c.tilt += c.tiltSpeed * dt;
+      const p = c.age / c.life;
+      drawCoin(c, p < 0.7 ? 1 : 1 - (p - 0.7) / 0.3);
+      return true;
+    });
+
+    if (tip.on || coins.length) raf = requestAnimationFrame(frame);
     else { raf = 0; last = 0; ctx.clearRect(0, 0, w, h); }
   }
 

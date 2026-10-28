@@ -34,6 +34,8 @@ Project context for any Claude session working in this repository. Read this fir
 > along the cursor's path (one per 22px of travel, ~1.1s life, soft glow; mouse only, off under reduced
 > motion). `/2026`'s closing "Come to the 2027 summit." section (`.final--sparkler`, only on that page)
 > turns the cursor into a sparkler tip throwing sparks that arc up and fall as they cool to ember.
+> `/community` `#values` ("Seek Your Treasure", `.section--coins`) does the same with little gold coins
+> that pop out of the cursor and flip as they fall (16/s, mouse only, off under reduced motion).
 > Sections below this note describe earlier eras.
 
 > **⚠️ As of 2026-10-01, `index.html` is a ticket-sale page for the 2027 summit, not a

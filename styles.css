@@ -1910,11 +1910,14 @@ a { color: inherit; text-decoration: none; }
   .page-hero--questions::after { background: rgba(0,0,0,0.5); }
 }
 
-/* Cursor twinkles (/2026 #speakers): small stars that flicker in behind the
-   content wherever the cursor moves. Drawn by site.js. */
-.section--twinkle { position: relative; overflow: hidden; }
-.section--twinkle > .section__inner { position: relative; z-index: 1; }
-.twinkle-canvas {
+/* Cursor twinkles (/2026 #speakers) and coins (/community #values): canvas
+   effects drawn behind the section content by site.js. */
+.section--twinkle,
+.section--coins { position: relative; overflow: hidden; }
+.section--twinkle > .section__inner,
+.section--coins > .section__inner { position: relative; z-index: 1; }
+.twinkle-canvas,
+.coins-canvas {
   position: absolute;
   inset: 0;
   width: 100%;
