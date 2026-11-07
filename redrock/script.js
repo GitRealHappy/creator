@@ -14,6 +14,10 @@
  * The ticket is encrypted with that code, so it only exists for his link.
  * It shows his complimentary ticket and greys out the deposit / pay-in-full cards.
  *
+ * Layout: the page is a book of spreads (see book() below). Turn with the side arrows,
+ * the contents bar, the arrow keys, a swipe, or the scroll wheel. #reserve, #house etc.
+ * open that spread directly.
+ *
  * The published page is encrypted (see build.mjs). Typing the shared password
  * decrypts it in the browser. On this source copy (no vault) it simply opens.
  */
@@ -73,60 +77,288 @@
     });
   }
 
-  function reveal() {
-    var items = document.querySelectorAll('.reveal');
-    if (!('IntersectionObserver' in window)) {
-      items.forEach(function (el) { el.classList.add('is-in'); });
-      return;
+  /* ---------- The book ----------
+   * Each .spread in [data-book] is one opening. On wide screens a spread is one "leaf";
+   * on phones each .page inside it is its own leaf (unless the spread has data-single).
+   * Turning: side arrows, the contents bar, ← → / PageUp / PageDown / Home / End,
+   * a horizontal swipe, or the scroll wheel once a page has been read to its end.
+   */
+  var bookReady = false;
+  function book() {
+    var root = document.querySelector('[data-book]');
+    if (!root || bookReady) return;
+    bookReady = true;
+
+    var html = document.documentElement;
+    var spreads = Array.prototype.slice.call(root.querySelectorAll('.spread'));
+    var narrow = window.matchMedia('(max-width: 899px)');
+    var still = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var bar = document.querySelector('.book-bar');
+    var contents = document.querySelector('[data-contents]');
+    var menuBtn = document.querySelector('[data-contents-toggle]');
+    var barTitle = document.querySelector('[data-bar-title]');
+    var barCount = document.querySelector('[data-bar-count]');
+    var hint = document.querySelector('[data-book-hint]');
+    var prevBtns = document.querySelectorAll('[data-turn="prev"]');
+    var nextBtns = document.querySelectorAll('[data-turn="next"]');
+    var TURN_MS = 840;
+
+    var leaves = [];      // [{ el, spread }]
+    var current = 0;
+    var busy = false;
+
+    function pagesOf(spread) {
+      return Array.prototype.filter.call(spread.children, function (c) { return c.classList.contains('page'); });
     }
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-in');
-          io.unobserve(entry.target);
+
+    function layout() {
+      leaves = [];
+      spreads.forEach(function (s) {
+        var pages = pagesOf(s);
+        if (narrow.matches && !s.hasAttribute('data-single') && pages.length > 1) {
+          pages.forEach(function (p) { leaves.push({ el: p, spread: s }); });
+        } else {
+          leaves.push({ el: s, spread: s });
         }
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-    items.forEach(function (el, i) {
-      el.style.transitionDelay = (i % 4) * 90 + 'ms';
-      io.observe(el);
-    });
-  }
-
-  function sectionDots() {
-    var nav = document.querySelector('.dots');
-    if (!nav || !('IntersectionObserver' in window)) return;
-    var links = {};
-    nav.querySelectorAll('[data-dot]').forEach(function (a) { links[a.getAttribute('data-dot')] = a; });
-    var ids = Object.keys(links);
-    var visible = {};
-
-    function update() {
-      var best = null, bestRatio = 0;
-      ids.forEach(function (id) {
-        if ((visible[id] || 0) > bestRatio) { bestRatio = visible[id]; best = id; }
-      });
-      ids.forEach(function (id) { links[id].classList.toggle('is-active', id === best); });
-      if (best) {
-        links[best].setAttribute('aria-current', 'true');
-      }
-      ids.forEach(function (id) { if (id !== best) links[id].removeAttribute('aria-current'); });
+      leaves.forEach(function (l) { l.el.setAttribute('data-leaf', ''); l.el.setAttribute('tabindex', '-1'); });
     }
 
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) { visible[e.target.id] = e.isIntersecting ? e.intersectionRatio : 0; });
-      update();
-    }, { threshold: [0, 0.1, 0.25, 0.5, 0.75, 1], rootMargin: '-30% 0px -30% 0px' });
-    ids.forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
+    function indexOfSpread(spread) {
+      for (var i = 0; i < leaves.length; i++) if (leaves[i].spread === spread) return i;
+      return 0;
+    }
+    function indexOfElement(el) {
+      for (var i = 0; i < leaves.length; i++) if (leaves[i].el === el || leaves[i].el.contains(el)) return i;
+      // A page inside a spread that is now one leaf (or the reverse)
+      var spread = el.closest ? el.closest('.spread') : null;
+      return spread ? indexOfSpread(spread) : 0;
+    }
 
-    // Show the dots only once the reader is past the hero
-    var hero = document.querySelector('.hero');
-    if (hero) {
-      new IntersectionObserver(function (entries) {
-        nav.classList.toggle('is-visible', !entries[0].isIntersecting);
-      }, { threshold: 0.15 }).observe(hero);
-    } else {
-      nav.classList.add('is-visible');
+    // Contents bar
+    var tabs = spreads.map(function (s, i) {
+      var li = document.createElement('li');
+      var b = document.createElement('button');
+      b.type = 'button';
+      var no = s.getAttribute('data-no');
+      b.innerHTML = (no ? '<span class="bar-no">' + no + '</span>' : '') + s.getAttribute('data-title');
+      b.addEventListener('click', function () { closeMenu(); go(indexOfSpread(s)); });
+      li.appendChild(b);
+      contents.appendChild(li);
+      return b;
+    });
+
+    function closeMenu() {
+      bar.classList.remove('is-open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    }
+    menuBtn.addEventListener('click', function () {
+      var open = !bar.classList.contains('is-open');
+      bar.classList.toggle('is-open', open);
+      menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    document.addEventListener('click', function (e) {
+      if (bar.classList.contains('is-open') && !bar.contains(e.target)) closeMenu();
+    });
+
+    function clearStates(el) {
+      el.classList.remove('is-current', 'is-turning-out', 'is-turning-in', 'is-under', 'is-under-out', 'is-arriving');
+    }
+
+    function render() {
+      spreads.forEach(function (s) { clearStates(s); pagesOf(s).forEach(clearStates); });
+      var leaf = leaves[current];
+      leaf.el.classList.add('is-current');
+      var si = spreads.indexOf(leaf.spread);
+      tabs.forEach(function (t, i) {
+        if (i === si) t.setAttribute('aria-current', 'page'); else t.removeAttribute('aria-current');
+      });
+      barTitle.textContent = leaf.spread.getAttribute('data-title');
+      barCount.textContent = (current + 1) + ' / ' + leaves.length;
+      bar.style.setProperty('--progress', (leaves.length > 1 ? current / (leaves.length - 1) * 100 : 100) + '%');
+      prevBtns.forEach(function (b) { if (b.closest('.cover-body')) return; b.disabled = current === 0; });
+      nextBtns.forEach(function (b) { if (b.closest('.cover-body')) return; b.disabled = current === leaves.length - 1; });
+      // Keep the address pointing at the open spread (keeps ?to= etc.)
+      var id = leaf.spread.id;
+      var hash = id && id !== 'top' ? '#' + id : '';
+      if (window.location.hash !== hash) {
+        history.replaceState(null, '', window.location.pathname + window.location.search + hash);
+      }
+    }
+
+    function resetScroll(el) {
+      el.scrollTop = 0;
+      el.querySelectorAll('.page').forEach(function (p) { p.scrollTop = 0; });
+    }
+
+    function go(i, opts) {
+      opts = opts || {};
+      if (i < 0 || i >= leaves.length || i === current || busy) return;
+      var from = leaves[current].el;
+      var to = leaves[i].el;
+      var forward = i > current;
+      hideHint();
+      resetScroll(to);
+
+      if (opts.instant) {
+        current = i;
+        render();
+        return;
+      }
+
+      busy = true;
+      if (forward) {
+        from.classList.add('is-turning-out');
+        to.classList.add('is-current', 'is-under');
+      } else {
+        to.classList.add('is-current', 'is-turning-in');
+        from.classList.add('is-under-out');
+      }
+      to.classList.add('is-arriving');
+      var done = false;
+      function finish() {
+        if (done) return;
+        done = true;
+        current = i;
+        render();
+        to.classList.add('is-arriving');
+        setTimeout(function () { to.classList.remove('is-arriving'); }, 900);
+        busy = false;
+        if (opts.focus !== false) to.focus({ preventScroll: true });
+      }
+      setTimeout(finish, still.matches ? 320 : TURN_MS);
+    }
+    function next() { go(current + 1); }
+    function prev() { go(current - 1); }
+
+    prevBtns.forEach(function (b) { b.addEventListener('click', prev); });
+    nextBtns.forEach(function (b) { b.addEventListener('click', next); });
+
+    // In-page links (#reserve, #house…) open their spread
+    function goToHash(hash, instant) {
+      if (!hash || hash === '#') return false;
+      var target = null;
+      try { target = document.querySelector(hash); } catch (e) { return false; }
+      if (!target || !root.contains(target)) return false;
+      go(indexOfElement(target), { instant: instant });
+      return true;
+    }
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a[href^="#"]');
+      if (!a) return;
+      if (goToHash(a.getAttribute('href'))) { e.preventDefault(); closeMenu(); }
+    });
+
+    function overlayOpen() {
+      return html.classList.contains('ticket-open') || html.classList.contains('photos-open') || !!document.getElementById('lock');
+    }
+
+    // Keyboard
+    document.addEventListener('keydown', function (e) {
+      if (overlayOpen() || e.altKey || e.ctrlKey || e.metaKey) return;
+      var t = e.target;
+      if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
+      if (e.key === 'Escape') { closeMenu(); return; }
+      var k = e.key;
+      if (k === 'ArrowRight' || k === 'PageDown') { e.preventDefault(); next(); }
+      else if (k === 'ArrowLeft' || k === 'PageUp') { e.preventDefault(); prev(); }
+      else if (k === 'Home') { e.preventDefault(); go(0); }
+      else if (k === 'End') { e.preventDefault(); go(leaves.length - 1); }
+    });
+
+    // Swipe (touch)
+    var tx = 0, ty = 0, tt = 0, tracking = false;
+    root.addEventListener('touchstart', function (e) {
+      if (e.touches.length !== 1) { tracking = false; return; }
+      tracking = true;
+      tx = e.touches[0].clientX; ty = e.touches[0].clientY; tt = Date.now();
+    }, { passive: true });
+    root.addEventListener('touchend', function (e) {
+      if (!tracking || overlayOpen()) return;
+      tracking = false;
+      var dx = e.changedTouches[0].clientX - tx;
+      var dy = e.changedTouches[0].clientY - ty;
+      if (Date.now() - tt > 900) return;
+      if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.4) {
+        if (dx < 0) next(); else prev();
+      }
+    }, { passive: true });
+
+    // Scroll wheel / trackpad: read the page first, then a further push turns it.
+    // A quiet gap is required between turns so trackpad momentum can't flip twice.
+    var acc = 0, accTimer = null, lockUntil = 0;
+    function scrollerFor(node, leafEl) {
+      while (node && node !== leafEl.parentNode) {
+        if (node.nodeType === 1 && node.scrollHeight > node.clientHeight + 2) {
+          var oy = getComputedStyle(node).overflowY;
+          if (oy === 'auto' || oy === 'scroll') return node;
+        }
+        if (node === leafEl) break;
+        node = node.parentNode;
+      }
+      return null;
+    }
+    root.addEventListener('wheel', function (e) {
+      if (overlayOpen()) return;
+      var now = Date.now();
+      if (busy || now < lockUntil) { lockUntil = Math.max(lockUntil, now + 220); return; }
+      var horizontal = Math.abs(e.deltaX) > Math.abs(e.deltaY);
+      var d = horizontal ? e.deltaX : e.deltaY;
+      if (!d) return;
+      if (!horizontal) {
+        var sc = scrollerFor(e.target, leaves[current].el);
+        if (sc) {
+          var atTop = sc.scrollTop <= 1;
+          var atEnd = sc.scrollTop + sc.clientHeight >= sc.scrollHeight - 2;
+          if ((d > 0 && !atEnd) || (d < 0 && !atTop)) { acc = 0; return; }
+        }
+      }
+      acc += d;
+      clearTimeout(accTimer);
+      accTimer = setTimeout(function () { acc = 0; }, 260);
+      if (Math.abs(acc) > 90) {
+        var dir = acc > 0 ? 1 : -1;
+        acc = 0;
+        lockUntil = now + 900;
+        go(current + dir);
+      }
+    }, { passive: true });
+
+    // Hint on the cover for first-time readers
+    var hintTimer = null;
+    function hideHint() { if (hint) hint.classList.remove('is-shown'); clearTimeout(hintTimer); }
+    function showHint() {
+      if (!hint || current !== 0) return;
+      var touch = window.matchMedia('(hover: none)').matches;
+      hint.innerHTML = touch
+        ? 'Swipe to turn the page'
+        : 'Turn the page with <kbd>←</kbd> <kbd>→</kbd>, the arrows, or a scroll';
+      setTimeout(function () { if (current === 0 && !overlayOpen()) hint.classList.add('is-shown'); }, 1600);
+      hintTimer = setTimeout(hideHint, 9000);
+    }
+
+    // Switching between phone and desktop layouts keeps your place
+    function relayout() {
+      var el = leaves[current] ? leaves[current].el : spreads[0];
+      layout();
+      current = indexOfElement(el);
+      render();
+    }
+    if (narrow.addEventListener) narrow.addEventListener('change', relayout);
+    else if (narrow.addListener) narrow.addListener(relayout);
+
+    window.addEventListener('hashchange', function () { goToHash(window.location.hash); });
+
+    var startHash = window.location.hash;   // read before render() rewrites the address
+    layout();
+    render();
+    goToHash(startHash, true);
+    if (!document.getElementById('lock')) showHint();
+    else {
+      // Published page: show the hint once the lock screen has gone
+      var waitLock = setInterval(function () {
+        if (!document.getElementById('lock')) { clearInterval(waitLock); showHint(); }
+      }, 400);
     }
   }
 
@@ -232,8 +464,7 @@
 
   function initPage() {
     personalise();
-    reveal();
-    sectionDots();
+    book();
     protectImages();
     photoWall();
     showTicket();
@@ -277,14 +508,9 @@
         if (!cards) return;
         cards.insertAdjacentHTML('afterbegin', compHtml);
         cards.querySelectorAll('[data-name]').forEach(function (el) { el.textContent = NAME; });
-        cards.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('is-in'); });
         protectImages();
         applyComp();
       }, function () { /* not the comp code: show the normal page */ });
-    }
-    if (window.location.hash) {
-      var target = document.querySelector(window.location.hash);
-      if (target) target.scrollIntoView();
     }
   }
 
