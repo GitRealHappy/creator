@@ -14,9 +14,9 @@
  * The ticket is encrypted with that code, so it only exists for his link.
  * It shows his complimentary ticket and greys out the deposit / pay-in-full cards.
  *
- * Layout: one scrolling page. Three candidate houses ("versions" of the weekend) are
- * switched with venues() below; #haven / #vista / #elara in the address opens one directly.
- * (The earlier book-of-spreads version is backed up as *-book-2026-11-09.* in the source folder.)
+ * Layout: one scrolling page about the chosen house (The Vista).
+ * Earlier versions are backed up in the source folder: *-book-2026-11-09.* (book of spreads)
+ * and index-three-houses-2026-11-09.html (three-house toggle; its script lived in this file).
  *
  * The published page is encrypted (see build.mjs). Typing the shared password
  * decrypts it in the browser. On this source copy (no vault) it simply opens.
@@ -75,144 +75,6 @@
         a.setAttribute('aria-disabled', 'true');
       });
     });
-  }
-
-  /* ---------- The three houses ----------
-   * Buttons with [data-venue-btn] switch the version shown: the matching [data-panel]
-   * gets .is-active, <html data-venue> drives the accent colour, and compare-table
-   * cells with a matching [data-col] get .is-current. The address bar carries
-   * #haven / #vista / #elara so a link can open one version directly. Other in-page
-   * links (#reserve etc.) scroll without replacing that hash.
-   */
-  var VENUES = ['haven', 'vista', 'elara'];
-  var VENUE_NAMES = { haven: 'The Haven', vista: 'The Vista', elara: 'Elara' };
-  var venuesReady = false;
-  function venues() {
-    var stage = document.querySelector('[data-stage]');
-    var switchEl = document.querySelector('[data-switch]');
-    if (!stage || !switchEl || venuesReady) return;
-    venuesReady = true;
-
-    var root = document.documentElement;
-    var announce = document.querySelector('[data-announce]');
-    var still = window.matchMedia('(prefers-reduced-motion: reduce)');
-    var FADE = 140;   // out + in stays under 300ms
-    var current = null;
-    var timer = null;
-
-    function fromHash() {
-      var h = window.location.hash.replace('#', '').toLowerCase();
-      return VENUES.indexOf(h) > -1 ? h : null;
-    }
-    function apply(v) {
-      root.setAttribute('data-venue', v);
-      document.querySelectorAll('[data-venue-btn]').forEach(function (b) {
-        b.setAttribute('aria-pressed', b.getAttribute('data-venue-btn') === v ? 'true' : 'false');
-      });
-      document.querySelectorAll('[data-panel]').forEach(function (p) {
-        p.classList.toggle('is-active', p.getAttribute('data-panel') === v);
-      });
-      document.querySelectorAll('[data-col]').forEach(function (c) {
-        c.classList.toggle('is-current', c.getAttribute('data-col') === v);
-      });
-    }
-    function select(v, opts) {
-      opts = opts || {};
-      if (VENUES.indexOf(v) < 0 || v === current) return;
-      var first = current === null;
-      current = v;
-      if (opts.updateHash !== false) {
-        history.replaceState(null, '', window.location.pathname + window.location.search + '#' + v);
-      }
-      if (!first && announce) announce.textContent = 'Showing ' + VENUE_NAMES[v];
-      clearTimeout(timer);
-      if (first || still.matches) { apply(v); stage.classList.remove('is-fading'); return; }
-      stage.classList.add('is-fading');
-      timer = setTimeout(function () { apply(v); stage.classList.remove('is-fading'); }, FADE);
-    }
-
-    document.querySelectorAll('[data-venue-btn]').forEach(function (b) {
-      b.addEventListener('click', function () {
-        select(b.getAttribute('data-venue-btn'));
-        if (b.closest('.compare')) {
-          document.getElementById('venues').scrollIntoView({ behavior: still.matches ? 'auto' : 'smooth' });
-        }
-      });
-    });
-
-    // Arrow keys / Home / End move between the three switch buttons
-    switchEl.addEventListener('keydown', function (e) {
-      if (['ArrowRight', 'ArrowLeft', 'Home', 'End'].indexOf(e.key) < 0) return;
-      var btns = Array.prototype.slice.call(switchEl.querySelectorAll('button'));
-      var i = btns.indexOf(document.activeElement);
-      if (i < 0) return;
-      e.preventDefault();
-      if (e.key === 'ArrowRight') i = (i + 1) % btns.length;
-      if (e.key === 'ArrowLeft') i = (i - 1 + btns.length) % btns.length;
-      if (e.key === 'Home') i = 0;
-      if (e.key === 'End') i = btns.length - 1;
-      btns[i].focus();
-      select(btns[i].getAttribute('data-venue-btn'));
-    });
-
-    window.addEventListener('hashchange', function () {
-      var v = fromHash();
-      if (v) select(v, { updateHash: false });
-    });
-
-    document.addEventListener('click', function (e) {
-      var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
-      if (!a) return;
-      var id = a.getAttribute('href').slice(1);
-      if (!id || VENUES.indexOf(id) > -1) return;
-      var target = document.getElementById(id);
-      if (!target) return;
-      e.preventDefault();
-      target.scrollIntoView({ behavior: still.matches ? 'auto' : 'smooth' });
-      target.setAttribute('tabindex', '-1');
-      target.focus({ preventScroll: true });
-    });
-
-    var start = fromHash();
-    select(start || 'haven', { updateHash: !!start });
-    if (start) requestAnimationFrame(function () { document.getElementById('venues').scrollIntoView(); });
-  }
-
-  /* ---------- "Which version would you choose?" ----------
-   * Counted in memory only: nothing is saved or sent, so each visitor sees just their own vote.
-   */
-  function poll() {
-    var buttons = document.querySelectorAll('[data-vote]');
-    if (!buttons.length) return;
-    var counts = { haven: 0, vista: 0, elara: 0 };
-    var mine = null;
-    var status = document.querySelector('[data-poll-status]');
-    function render() {
-      var total = counts.haven + counts.vista + counts.elara;
-      VENUES.forEach(function (v) {
-        var n = counts[v];
-        var c = document.querySelector('[data-count="' + v + '"]');
-        var bar = document.querySelector('[data-bar="' + v + '"]');
-        var b = document.querySelector('[data-vote="' + v + '"]');
-        if (c) c.textContent = n + (n === 1 ? ' vote' : ' votes');
-        if (bar) bar.style.width = total ? (n / total * 100) + '%' : '0';
-        if (b) b.setAttribute('aria-pressed', v === mine ? 'true' : 'false');
-      });
-    }
-    function vote(v) {
-      if (v === mine) return;
-      if (mine) counts[mine] -= 1;
-      counts[v] += 1;
-      mine = v;
-      render();
-      if (status) status.textContent = 'Thank you. You chose ' + VENUE_NAMES[v] + '.';
-      // POLL HOOK: send the vote to a real form here, e.g.
-      // fetch('[TBD: form endpoint]', { method: 'POST', body: new URLSearchParams({ venue: v, name: NAME }) });
-    }
-    buttons.forEach(function (b) {
-      b.addEventListener('click', function () { vote(b.getAttribute('data-vote')); });
-    });
-    render();
   }
 
   var protectedOnce = false;
@@ -317,8 +179,6 @@
 
   function initPage() {
     personalise();
-    venues();
-    poll();
     protectImages();
     photoWall();
     showTicket();
