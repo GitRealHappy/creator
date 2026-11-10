@@ -77,6 +77,21 @@
     });
   }
 
+  /* Optional photos: an <img data-optional> that fails to load removes its <figure>,
+   * and a [data-gallery] with nothing left hides itself. */
+  function optionalPhotos() {
+    function drop(img) {
+      var fig = img.closest('figure') || img;
+      var gallery = img.closest('[data-gallery]');
+      fig.remove();
+      if (gallery && !gallery.querySelector('img')) gallery.hidden = true;
+    }
+    document.querySelectorAll('img[data-optional]').forEach(function (img) {
+      if (img.complete && img.naturalWidth === 0) { drop(img); return; }
+      img.addEventListener('error', function () { drop(img); });
+    });
+  }
+
   var protectedOnce = false;
   function protectImages() {
     document.querySelectorAll('img').forEach(function (img) { img.setAttribute('draggable', 'false'); });
@@ -179,6 +194,7 @@
 
   function initPage() {
     personalise();
+    optionalPhotos();
     protectImages();
     photoWall();
     showTicket();
