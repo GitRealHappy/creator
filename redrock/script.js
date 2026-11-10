@@ -1,10 +1,10 @@
-/* Red Rock Rendezvous
+/* The Arizona Mastermind (served at /redrock/)
  *
  * Personalised links: add ?to=Full%20Name&no=4 to the address, e.g.
  *   https://www.thelivinginternet.com/redrock/?to=Jane%20Doe&no=4
  * The lock screen shows "Name: Jane", and once unlocked the page says
  * "This invitation is for Jane Doe" and the letter opens "Jane,". The &no= number is
- * no longer shown on the page; it only numbers the receipt/invoice (RRR-2027-NN-D/F).
+ * no longer shown on the page; it only numbers the receipt/invoice (AZM-2027-NN-D/F).
  *
  * After payment: Stripe redirects to /redrock/?paid=deposit or /redrock/?paid=full,
  * which opens a ticket view. The guest's name comes from their earlier personal link
@@ -18,12 +18,12 @@
  * Earlier versions are backed up in the source folder: *-book-2026-11-09.* (book of spreads)
  * and index-three-houses-2026-11-09.html (three-house toggle; its script lived in this file).
  *
- * The published page is encrypted (see build.mjs). Typing the shared password
- * decrypts it in the browser. On this source copy (no vault) it simply opens.
+ * The page is open (no password since 2026-11-10). Only the complimentary card is
+ * encrypted, in the #vault JSON, and decrypts with the &seat= code from that guest's link.
+ * On this source copy (no vault) any &seat= value shows the card, for previewing.
  */
 
 (function () {
-    var STORE = 'rrr-pass';
 
   var params = new URLSearchParams(window.location.search);
   var SEAT = (params.get('seat') || '').trim();
@@ -53,9 +53,9 @@
       document.querySelectorAll('[data-name]').forEach(function (el) { el.textContent = NAME; });
       document.querySelectorAll('[data-first]').forEach(function (el) { el.textContent = FIRST; });
       document.querySelectorAll('[data-prepared], [data-greeting]').forEach(function (el) { el.hidden = false; });
-      document.title = 'For ' + NAME + ' · Red Rock Rendezvous';
+      document.title = 'For ' + NAME + ' · The Arizona Mastermind';
     } else {
-      document.title = 'Red Rock Rendezvous · Sedona, January 2027';
+      document.title = 'The Arizona Mastermind · Sedona, January 2027';
     }
   }
 
@@ -115,13 +115,13 @@
     view.querySelectorAll('[data-ticket-status]').forEach(function (el) {
       el.textContent = PAID === 'full'
         ? 'Paid in full'
-        : 'Deposit received · balance of $2,000 due December 15, 2026';
+        : 'Deposit received · balance of $2,000 due January 1, 2027';
     });
 
     // Print-only receipt
     var now = new Date();
     var pad = function (n) { return (n < 10 ? '0' : '') + n; };
-    var invNo = 'RRR-2027-' + (NO >= 1 ? pad(NO) : pad(now.getMonth() + 1) + pad(now.getDate())) + '-' + (PAID === 'full' ? 'F' : 'D');
+    var invNo = 'AZM-2027-' + (NO >= 1 ? pad(NO) : pad(now.getMonth() + 1) + pad(now.getDate())) + '-' + (PAID === 'full' ? 'F' : 'D');
     var fill = function (sel, text) { view.querySelectorAll(sel).forEach(function (el) { el.textContent = text; }); };
     fill('[data-inv-no]', invNo);
     fill('[data-inv-date]', now.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }));
@@ -135,14 +135,14 @@
     } else {
       fill('[data-inv-paid-label]', 'Amount paid · deposit');
       fill('[data-inv-paid]', '$2,000.00');
-      fill('[data-inv-due-label]', 'Balance due by December 15, 2026');
+      fill('[data-inv-due-label]', 'Balance due by January 1, 2027');
       fill('[data-inv-due]', '$2,000.00');
       fill('[data-inv-stamp]', 'Deposit paid');
     }
 
     view.hidden = false;
     document.documentElement.classList.add('ticket-open');
-    document.title = 'Your ticket · Red Rock Rendezvous';
+    document.title = 'Your ticket · The Arizona Mastermind';
 
     view.querySelector('[data-ticket-print]').addEventListener('click', function () { window.print(); });
     view.querySelector('[data-ticket-close]').addEventListener('click', function () {
@@ -192,15 +192,99 @@
     });
   }
 
+  /* Video invitation: the section stays hidden until data-video-src is set in index.html.
+   * Accepts a YouTube or Vimeo link (unlisted is fine) or an .mp4 path. Click to load,
+   * so nothing from YouTube/Vimeo loads until the guest presses play. */
+  function videoInvite() {
+    var box = document.querySelector('[data-video]');
+    if (!box) return;
+    var src = (box.getAttribute('data-video-src') || '').trim();
+    if (!src) { box.hidden = true; return; }
+    var embed = null, poster = (box.getAttribute('data-video-poster') || '').trim(), m;
+    if ((m = src.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/))([\w-]{11})/))) {
+      embed = 'https://www.youtube-nocookie.com/embed/' + m[1] + '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+      if (!poster) poster = 'https://i.ytimg.com/vi/' + m[1] + '/hqdefault.jpg';
+    } else if ((m = src.match(/vimeo\.com\/(?:video\/)?(\d+)(?:\/([\w]+))?/))) {
+      embed = 'https://player.vimeo.com/video/' + m[1] + '?autoplay=1&dnt=1' + (m[2] ? '&h=' + m[2] : '');
+    } else if (!/\.(mp4|m4v|webm|mov)(\?|#|$)/i.test(src)) {
+      box.hidden = true; return;          // not a link we know how to play
+    }
+    if (!poster) poster = 'assets/images/web/redrock-pano.jpg';
+
+    var frame = box.querySelector('[data-video-frame]');
+    var play = box.querySelector('[data-video-play]');
+    var img = box.querySelector('[data-video-poster-img]');
+    var fallback = box.querySelector('[data-video-fallback]');
+    var link = box.querySelector('[data-video-link]');
+    if (link) link.href = src;
+    function fail() { if (play) play.hidden = true; if (fallback) fallback.hidden = false; }
+    img.addEventListener('error', function () {
+      if (img.src.indexOf('redrock-pano') === -1) img.src = 'assets/images/web/redrock-pano.jpg';
+    });
+    img.src = poster;
+    box.hidden = false;
+
+    play.addEventListener('click', function () {
+      var el;
+      if (embed) {
+        el = document.createElement('iframe');
+        el.src = embed;
+        el.title = 'A short video from Jesse';
+        el.allow = 'autoplay; fullscreen; picture-in-picture; encrypted-media';
+        el.setAttribute('allowfullscreen', '');
+      } else {
+        el = document.createElement('video');
+        el.src = src;
+        el.controls = true;
+        el.autoplay = true;
+        el.setAttribute('playsinline', '');
+        el.poster = img.src;
+        el.addEventListener('error', fail);
+      }
+      el.className = 'iv-media';
+      play.replaceWith(el);
+      if (el.focus) el.focus();
+    }, { once: true });
+  }
+
+  /* Rooms: driven by the JSON block [data-rooms-config] in index.html.
+   * Shown only when its "show" is true. */
+  function roomsBlock() {
+    var cfgEl = document.querySelector('[data-rooms-config]');
+    var box = document.querySelector('[data-rooms]');
+    var list = document.querySelector('[data-rooms-list]');
+    if (!cfgEl || !box || !list) return;
+    var cfg;
+    try { cfg = JSON.parse(cfgEl.textContent); } catch (e) { return; }
+    if (!cfg || !cfg.show || !Array.isArray(cfg.rooms)) { box.hidden = true; return; }
+    list.textContent = '';
+    cfg.rooms.forEach(function (r) {
+      var taken = String(r.status || '').toLowerCase() === 'taken';
+      var li = document.createElement('li');
+      if (taken) li.className = 'is-taken';
+      var name = document.createElement('span');
+      name.className = 'r-name';
+      name.textContent = r.name || '';
+      var st = document.createElement('span');
+      st.className = 'r-status';
+      st.textContent = taken ? 'Taken' : 'Available';
+      li.appendChild(name); li.appendChild(st);
+      list.appendChild(li);
+    });
+    box.hidden = false;
+  }
+
   function initPage() {
     personalise();
+    videoInvite();
+    roomsBlock();
     optionalPhotos();
     protectImages();
     photoWall();
     showTicket();
   }
 
-  /* ---------- Lock ---------- */
+  /* ---------- Complimentary card (encrypted) ---------- */
 
   function b64(s) {
     var bin = atob(s), out = new Uint8Array(bin.length);
@@ -224,81 +308,26 @@
       .then(function (buf) { return new TextDecoder().decode(buf); });
   }
 
-  function openPage(html, vault) {
-    var page = document.getElementById('page');
-    var lock = document.getElementById('lock');
-    page.innerHTML = html;
-    page.hidden = false;
-    lock.classList.add('is-leaving');
-    setTimeout(function () { lock.remove(); }, 900);
-    initPage();
-    if (SEAT && vault && vault.comp) {
-      decrypt(vault.comp, SEAT).then(function (compHtml) {
-        var cards = document.querySelector('.cards');
-        if (!cards) return;
-        cards.insertAdjacentHTML('afterbegin', compHtml);
-        cards.querySelectorAll('[data-name]').forEach(function (el) { el.textContent = NAME; });
-        protectImages();
-        applyComp();
-      }, function () { /* not the comp code: show the normal page */ });
-    }
-  }
-
-  function setupLock(vault) {
-    var form = document.getElementById('lock-form');
-    var input = document.getElementById('lock-pass');
-    var error = document.getElementById('lock-error');
-    var btn = form.querySelector('button');
-
-    if (FIRST) {
-      document.querySelectorAll('[data-lock-first]').forEach(function (el) { el.textContent = FIRST; });
-      document.querySelectorAll('[data-lock-name]').forEach(function (el) { el.hidden = false; });
-      document.title = 'For ' + FIRST + ' · Red Rock Rendezvous';
-    } else {
-      // No personal link: tell visitors who weren't invited how to enquire.
-      document.querySelectorAll('[data-lock-inquire]').forEach(function (el) { el.hidden = false; });
-    }
-    protectImages();
-
-    var saved = null;
-    try { saved = localStorage.getItem(STORE); } catch (e) {}
-    if (saved) {
-      decrypt(vault.main, saved).then(function (html) { openPage(html, vault); }, function () {
-        try { localStorage.removeItem(STORE); } catch (e) {}
-      });
-    }
-
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var pass = input.value.trim().toLowerCase();
-      if (!pass) return;
-      btn.disabled = true;
-      error.textContent = '';
-      decrypt(vault.main, pass).then(function (html) {
-        try { localStorage.setItem(STORE, pass); } catch (e) {}
-        openPage(html, vault);
-      }, function (err) {
-        btn.disabled = false;
-        error.textContent = err && err.message === 'no-crypto'
-          ? 'Please open this link in a current browser over https.'
-          : 'That isn’t it. Try again.';
-        form.classList.remove('shake');
-        void form.offsetWidth;
-        form.classList.add('shake');
-        input.select();
-      });
-    });
-
-    setTimeout(function () { input.focus(); }, 300);
+  function showComp(vault) {
+    if (!SEAT) return;
+    if (!vault) { applyComp(); return; }          // source preview: no vault
+    if (!vault.comp) return;
+    decrypt(vault.comp, SEAT).then(function (compHtml) {
+      var cards = document.querySelector('.cards');
+      if (!cards) return;
+      cards.insertAdjacentHTML('afterbegin', compHtml);
+      cards.querySelectorAll('[data-name]').forEach(function (el) { el.textContent = NAME; });
+      protectImages();
+      applyComp();
+    }, function () { /* not the comp code: show the normal page */ });
   }
 
   document.addEventListener('DOMContentLoaded', function () {
+    try { localStorage.removeItem('rrr-pass'); } catch (e) {}   // left over from the old lock
+    initPage();
     var vaultEl = document.getElementById('vault');
-    if (vaultEl) {
-      setupLock(JSON.parse(vaultEl.textContent));
-    } else {
-      initPage();
-      if (SEAT) applyComp();
-    }
+    var vault = null;
+    if (vaultEl) { try { vault = JSON.parse(vaultEl.textContent); } catch (e) {} }
+    showComp(vault);
   });
 })();

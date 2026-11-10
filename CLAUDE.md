@@ -515,10 +515,12 @@ model exists.
 
 ---
 
-## /redrock — Red Rock Rendezvous invitation page (added 2026-10-06)
+## /redrock — The Arizona Mastermind invitation page (added 2026-10-06)
 
-Private, password-locked invitation page for a ten-seat think tank in Sedona, Jan 21–24, 2027,
-served at `www.thelivinginternet.com/redrock/`.
+Invitation page for a ten-seat mastermind in Sedona, Jan 21–24, 2027, served at
+`www.thelivinginternet.com/redrock/`. Renamed from "Red Rock Rendezvous" and **opened up (no password)
+on 2026-11-10**: the page is now plain HTML anyone with the link can read; only Nick's comp card is
+still encrypted.
 
 **`redrock/` in this repo is build output — never edit it by hand.** The readable source lives
 outside this repo in `/websites/redrock/`, which has its own **`CLAUDE.md` with the full guide**
@@ -527,10 +529,9 @@ Read that file before working on this page.
 
 Short version:
 1. Edit `/websites/redrock/` (index.html, styles.css, script.js, lock-template.html).
-2. From `/websites`: `node redrock/build.mjs` (or `--watch` to rebuild on save). It encrypts the
-   page body with the shared password and writes `livinginternet/redrock/`.
+2. From `/websites`: `node redrock/build.mjs` (or `--watch` to rebuild on save). It drops the
+   page body into `page-template.html` and writes `livinginternet/redrock/`.
 3. From here: `git add redrock && git commit -m "…" && git push` (confirm with Jesse first).
 
-Only the page body is encrypted; `redrock/styles.css`, `script.js`, `assets/` and the lock-screen
-`index.html` shell (title, og/twitter preview tags) are public. Keep guest names and private notes
-out of them. noindex/nofollow.
+Everything in `redrock/` is public now (only the comp card is encrypted). Keep guest names and
+private notes out of all of it. noindex/nofollow.

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>An invitation · Red Rock Rendezvous</title>
+  <title>An invitation · The Arizona Mastermind</title>
   <meta name="robots" content="noindex, nofollow">
   <meta name="description" content="By invitation. Three nights in Sedona, Arizona, January 21–24, 2027. From The Living Internet Alliance.">
   <link rel="icon" type="image/png" href="assets/graphics/logo-brass.png">
@@ -12,7 +12,7 @@
   <!-- Link previews (iMessage, WhatsApp, X, Slack, LinkedIn…) -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="The Living Internet Alliance">
-  <meta property="og:title" content="An invitation · Red Rock Rendezvous">
+  <meta property="og:title" content="An invitation · The Arizona Mastermind">
   <meta property="og:description" content="By invitation. Three nights in Sedona, Arizona, January 21–24, 2027.">
   <meta property="og:url" content="https://www.thelivinginternet.com/redrock/">
   <meta property="og:image" content="https://www.thelivinginternet.com/redrock/assets/images/web/og.jpg">
@@ -20,7 +20,7 @@
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="A long dinner table on a terrace at dusk, the red rocks of Sedona beyond">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="An invitation · Red Rock Rendezvous">
+  <meta name="twitter:title" content="An invitation · The Arizona Mastermind">
   <meta name="twitter:description" content="By invitation. Three nights in Sedona, Arizona, January 21–24, 2027.">
   <meta name="twitter:image" content="https://www.thelivinginternet.com/redrock/assets/images/web/og.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,33 +31,360 @@
   <script src="script.js" defer></script>
 </head>
 <body>
+  <!-- build.mjs puts the page body (index.html's <body>) here. Only Nick's complimentary card
+       stays encrypted, in the "vault" below; his link's &seat= code unlocks it. -->
+  <div id="page"><div class="rr">
+  <a class="skip" href="#house">Skip to the house</a>
 
-  <div class="lock pat-contour on-dark" id="lock">
-    <form class="lock-card" id="lock-form" autocomplete="off">
-      <img class="lock-logo" src="assets/graphics/logo-brass.png" alt="" width="44" height="44">
-      <p class="lock-title">Red Rock Rendezvous</p>
-      <p class="lock-sub">By invitation · Sedona · MMXXVII</p>
+  <header class="wrap topline">
+    <a class="brand" href="https://www.thelivinginternet.com/">
+      <img src="assets/graphics/logo-ink.png" alt="" width="28" height="28">
+      <span>The Living Internet Alliance</span>
+    </a>
+    <span class="label">By invitation</span>
+  </header>
 
-      <div class="lock-field" data-lock-name hidden>
-        <span class="lock-label">Name</span>
-        <span class="lock-name" data-lock-first></span>
+  <main id="main">
+
+    <!-- ===================== Hero ===================== -->
+    <section class="wrap hero" aria-labelledby="title">
+      <p class="prepared" data-prepared hidden>This invitation is for <span data-name></span><span data-comp-label hidden></span></p>
+      <h1 class="title" id="title">The Arizona <em>Mastermind</em></h1>
+      <p class="lede">For a small circle of wave makers to put their minds together and share an adventure.</p>
+      <p class="typeset">
+        <span>Ten seats</span><span>Three nights</span><span>January 21–24, 2027</span><span>Sedona, Arizona</span>
+      </p>
+      <div class="hero-actions">
+        <a class="btn" href="#reserve">Accept the invitation</a>
+        <a class="link-cta" href="#house">See the house</a>
       </div>
+      <p class="note-small" style="margin-top:1.25rem">The house is booked. The gathering runs once six guests have registered, and registration is open until December&nbsp;1.</p>
+    </section>
 
-      <label class="lock-field" for="lock-pass">
-        <span class="lock-label">Password</span>
-        <input id="lock-pass" name="password" type="password" autocomplete="off" autocapitalize="none" spellcheck="false" required>
-      </label>
+    <!-- ===================== Video invitation =====================
+         Hidden until a URL is set. Paste the link into data-video-src:
+           YouTube (unlisted):  https://youtu.be/VIDEO_ID  or  https://www.youtube.com/watch?v=VIDEO_ID
+           Vimeo (unlisted):    https://vimeo.com/123456789/abcdef1234
+           Self-hosted MP4:     assets/images/web/invite.mp4  (or any https URL ending in .mp4)
+         data-video-poster is optional (a YouTube link uses its own thumbnail; otherwise the red rock panorama). -->
+    <section class="wrap invite-video" aria-label="A short video from Jesse" data-video data-video-src="" data-video-poster="" hidden>
+      <div class="iv-frame" data-video-frame>
+        <button class="iv-play" type="button" data-video-play>
+          <img class="iv-poster" data-video-poster-img alt="" width="1872" height="840">
+          <span class="iv-btn" aria-hidden="true"></span>
+          <span class="sr-only">Play the video from Jesse</span>
+        </button>
+        <p class="iv-fallback" data-video-fallback hidden>The video didn’t load here. <a data-video-link href="#" target="_blank" rel="noopener">Watch it in a new tab</a>.</p>
+      </div>
+      <div class="iv-text">
+        <p class="label accent">A word from Jesse</p>
+        <p class="iv-line">This gathering is something you help create as much as experience. How you show up becomes part of what everyone else receives, and when each of us brings our gifts into the room, something emerges that none of us could plan.</p>
+      </div>
+    </section>
 
-      <button class="btn btn-brass lock-btn" type="submit">Enter</button>
-      <p class="lock-error" id="lock-error" role="alert" aria-live="polite"></p>
-      <p class="lock-inquire" data-lock-inquire hidden>If you haven’t been invited to Red Rock Rendezvous, but you’re seeking to network with a high level circle of creators, inquire by emailing Jesse at <a href="mailto:jesse@thelivinginternet.com">jesse@thelivinginternet.com</a></p>
-      <p class="lock-foot">The Living Internet Alliance</p>
-    </form>
-    <noscript><p class="lock-error">This invitation needs JavaScript turned on to open.</p></noscript>
+    <!-- ===================== The red rocks ===================== -->
+    <figure class="photo-wide">
+      <img src="assets/images/web/redrock-pano.jpg" alt="The red rock formations of Sedona rising above the valley" width="1872" height="840">
+      <figcaption class="label">The red rocks of Sedona</figcaption>
+    </figure>
+
+    <!-- ===================== The house ===================== -->
+    <section id="house" aria-label="The house">
+      <div class="wrap">
+        <article class="panel is-active" data-panel="vista" aria-labelledby="vista-name">
+          <div class="v-head">
+            <div>
+              <p class="label accent">The house · Space, light and the view</p>
+              <h2 class="v-name" id="vista-name">The Vista</h2>
+              <p class="label v-where">Chapel area · about 10 minutes to Uptown</p>
+            </div>
+            <p class="v-line">A brand-new house with floor-to-ceiling glass and red rock in every direction, with room for all twelve of us.</p>
+          </div>
+
+          <div class="v-body">
+            <div>
+              <h3>Your three days here</h3>
+              <ol class="days">
+                <li><span class="d">Thursday<small>Jan 21</small></span>
+                  <p>Lunch together in Phoenix for anyone who’d like to join. The vans leave Phoenix at <strong>1:00&nbsp;pm</strong> for the road trip up through the desert, and the house opens to us at <strong>4:00&nbsp;pm</strong>, the rocks toward Mammoth Rock and the Cathedral side filling the glass. Welcome dinner, then a short intro circle by the fireplace: who you are and what you came for.</p></li>
+                <li><span class="d">Friday<small>Jan 22</small></span>
+                  <p>Coffee on the wraparound deck and a slow desert morning. Late morning, the first mastermind session. Lunch, then a long block of nothing: your own projects, a walk alone, the sauna or the hot tub. Late afternoon, the second session. The chef cooks dinner.</p></li>
+                <li><span class="d">Saturday<small>Jan 23</small></span>
+                  <p>A big breakfast, then the third session, in a room full of light. In the afternoon, the Jeeps take us into the red rocks. Dinner, then the evening around the fire pit.</p></li>
+                <li><span class="d">Sunday<small>Jan 24</small></span>
+                  <p>A final breakfast and a closing circle with the morning light on the rocks. Check-out is at <strong>10:00&nbsp;am</strong>, and the drive back down to Phoenix begins around <strong>1:00&nbsp;pm</strong>.</p></li>
+              </ol>
+              <p class="note-small days-note">Indicative. Only the travel and check-in times are fixed; the full schedule follows by email.</p>
+            </div>
+
+            <div>
+              <h3>In the house</h3>
+              <ul class="amen">
+                <li>Panoramic red-rock views toward Mammoth Rock and the Cathedral side</li>
+                <li>Floor-to-ceiling windows</li>
+                <li>Wraparound deck</li>
+                <li>Fire pit and a living-room fireplace</li>
+                <li>Sauna</li>
+                <li>Hot tub</li>
+                <li>Pool table and a lounge with a wet bar</li>
+                <li>Brand new</li>
+              </ul>
+
+              <div class="sleep">
+                <h3>Where everyone sleeps</h3>
+                <dl>
+                  <dt>Eight bedrooms, four and a half baths</dt>
+                  <dd>Jesse will walk you through the rooms personally once your seat is reserved.</dd>
+                  <dt>First to register, first to choose</dt>
+                  <dd>The first four guests to register choose their rooms first, including a room to themselves.</dd>
+                  <dt>At twelve</dt>
+                  <dd>Some rooms are shared, and the sharing falls to those who register later.</dd>
+                </dl>
+              </div>
+
+              <div class="vibe">
+                <p>Open and clear-headed. Big glass, big sky and room to think. The view ends up in every conversation.</p>
+                <p class="words">Light · Space · Perspective</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Rooms: flip "show" to true once the first four have chosen. Status is "available" or "taken".
+               Rename rooms freely; the list renders in this order. Rebuild after editing. -->
+          <script type="application/json" data-rooms-config>
+          {
+            "show": false,
+            "rooms": [
+              { "name": "Bedroom one",   "status": "available" },
+              { "name": "Bedroom two",   "status": "available" },
+              { "name": "Bedroom three", "status": "available" },
+              { "name": "Bedroom four",  "status": "available" },
+              { "name": "Bedroom five",  "status": "available" },
+              { "name": "Bedroom six",   "status": "available" },
+              { "name": "Bedroom seven", "status": "available" },
+              { "name": "Bedroom eight", "status": "available" }
+            ]
+          }
+          </script>
+          <div class="rooms" data-rooms hidden>
+            <h3>The rooms</h3>
+            <p class="note-small">Rooms are chosen in the order seats are reserved.</p>
+            <ul class="rooms-list" data-rooms-list></ul>
+          </div>
+
+          <div class="listing">
+            <a class="btn btn-ghost" href="https://www.airbnb.ca/rooms/1396637046260623124" target="_blank" rel="noopener">See The Vista on Airbnb <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
+            <p class="note-small">Photos, every room and the reviews are on the full listing.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===================== Letter ===================== -->
+    <section class="section" id="letter" aria-label="A letter from Jesse">
+      <div class="wrap">
+        <div class="letter">
+          <p class="salute" data-greeting hidden><span data-first></span>,</p>
+          <p><em>To the ones who are crazy enough.</em></p>
+          <p>If you’re reading this, I see you as someone who is embracing the full power of your mind.</p>
+          <p>In June, a hundred creators gathered in Abbotsford, BC for the Future-Proof Creator Summit, and it was a profound experience for me. Something incredibly powerful happened in that room. I’ve seen the effects in people’s lives and in their businesses, and the collaborative energy has been magical to witness. I really believe that time together in person with great minds, fully immersed, amplifies all of our abilities, strengths and creative power.</p>
+          <p>For ten guests, with <span data-team>myself and strategist Nick Serpico</span> also at the table, to form a think tank together is the kind of mastermind that has a history of compounding into great futures.</p>
+          <p>And ultimately, I just want to enjoy time with really cool people.</p>
+          <p>Let’s make it happen.</p>
+          <p class="sign">Jesse James Carver<small>The Living Internet Alliance</small></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== Premise ===================== -->
+    <section class="section" id="premise" aria-labelledby="premise-title">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="no">I.</p>
+          <h2 id="premise-title">Room to Think</h2>
+          <p>On the first evening, we’ll all have the chance to introduce ourselves and voice our intentions for 2027, to whatever depth you like. Then Jesse leads three mastermind sessions. Each turn belongs to one person: you share what you’re building, and the rest of the circle sits with it and offers what they see. Across the three sessions, everyone gets nudged toward the clarity and ideas they came for. Between them is unhurried time: big dinners, the desert, and long conversations with like minds.</p>
+        </div>
+        <div class="cols">
+          <div><h3><span class="n">i</span>What happens in Sedona</h3><p>Business brainstorming with a close circle who can keep it confidential.</p></div>
+          <div><h3><span class="n">ii</span>Your plan, your way</h3><p>Present as much or as little as you like. No homework.</p></div>
+          <div><h3><span class="n">iii</span>Blocks of nothing</h3><p>Open time on purpose: work on your own projects, walk alone in the desert, sit in the hot tub, or do nothing at all. Every meal is taken care of in the house, so the time goes to each other and to the conversations that happen between sessions.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== The Adventure ===================== -->
+    <section class="section" id="adventure" aria-labelledby="sedona-title">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="no">II.</p>
+          <h2 id="sedona-title">The Adventure</h2>
+          <p>One afternoon, the table moves to the backcountry: Sedona’s canyons and vortex sites in a private Jeep expedition, with a guide who knows the land.</p>
+        </div>
+        <div class="photo-pair">
+          <figure><img src="assets/images/web/jeep1.jpg" alt="A Jeep climbing a red rock trail" width="1368" height="882" loading="lazy"></figure>
+          <figure><img src="assets/images/web/redrock2.jpg" alt="A red rock butte under a blue sky" width="1284" height="884" loading="lazy"></figure>
+        </div>
+        <div class="cols">
+          <div><h3>The desert at dawn</h3><p>A slow walk in the desert each morning, with a notebook if you like, before the day gets going.</p></div>
+          <div><h3>The dark sky</h3><p>Sedona protects its night sky. On a clear January night, the stars come right down to the rocks.</p></div>
+          <div><h3>The weather</h3><p>January days in Sedona are mild and bright; nights drop close to freezing. Fire, sauna and warmth are the point. Bring layers for the morning walks.</p></div>
+        </div>
+        <div class="included">
+          <p class="label">Included</p>
+          <p>Three nights’ lodging · Chef-prepared dinners · All meals · Time with the group focused on solving your business puzzles · Private Jeep expedition · Van ride from Phoenix and back</p>
+          <p class="note-small">Flights not included.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== Practicalities ===================== -->
+    <section class="section" id="practical" aria-labelledby="practical-title">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="label">Practicalities</p>
+          <h2 id="practical-title">Before you pack</h2>
+        </div>
+        <div class="cols">
+          <div><h3>Getting there</h3><p>Land at Phoenix Sky Harbor by about 11:30&nbsp;am on Thursday, January&nbsp;21, and book your flight home for after about 4:00&nbsp;pm on Sunday. Everyone is welcome at lunch in Phoenix on Thursday (we’ll send the spot by email). The vans leave Phoenix at 1:00&nbsp;pm for the two-hour drive through the desert; Jesse will likely be one of the drivers. Or make your own way, or fly into the small Sedona airport, and meet us at the house: check-in is at 4:00&nbsp;pm. On Sunday we check out at 10:00&nbsp;am and the drive back to Phoenix begins around 1:00&nbsp;pm. Jesse is around all day Sunday to visit and to drive people to the airport.</p></div>
+          <div><h3>The table</h3><p>A chef cooks dinner in the house, and every other meal is taken care of. Once your seat is reserved, we’ll ask about dietary needs by email.</p></div>
+          <div><h3>Waiver and ground rules</h3><p>Before the gathering, LIA will send each guest a liability waiver to sign, covering the Jeep, sauna, hot tub and the like. Nobody records or photographs another guest without their explicit consent, and LIA won’t publish content featuring any guest without their permission. Some conversations will ask you to join a circle of confidentiality. Basic respect for everyone at the table is expected.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== Your seat ===================== -->
+    <section class="section" id="reserve" aria-labelledby="reserve-title">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="no">III.</p>
+          <h2 id="reserve-title">The table is set for twelve.</h2>
+          <p>Ten seats, with Jesse and Nick Serpico making twelve. The house is booked. The gathering runs once six guests have registered, and registration is open until December&nbsp;1, 2026.</p>
+        </div>
+        <p class="seat-terms">Registration is open until December&nbsp;1, 2026. If six guests have registered by then, the gathering happens; if not, every payment is refunded in full. Apart from that, payments are non-refundable, though seats can be transferred to a guest you nominate, subject to our approval. Deposit balances are due by January&nbsp;1, 2027. If a balance has not been paid by then, the seat is forfeited and we refund half the deposit ($1,000) after the event. If we have to cancel the gathering ourselves, every guest is refunded in full within 30 days of the announcement.</p>
+
+        <div class="cards">
+          
+          <div class="card pay-card">
+            <div class="card-main">
+              <p class="label">Deposit</p>
+              <p class="price card-price">$2,000</p>
+              <p>Holds your seat. The balance of $2,000 is due by January&nbsp;1,&nbsp;2027. We’ll email you the payment link in mid-December, or any time you ask. If the balance isn’t paid by then, the seat is forfeited and half the deposit ($1,000) is refunded after the event.</p>
+              <a class="btn" href="https://buy.stripe.com/00wcMY1ByfqfaZb5pJ6oo0i" target="_blank" rel="noopener">Place deposit</a>
+            </div>
+          </div>
+          <div class="card pay-card">
+            <div class="card-main">
+              <p class="label">In full</p>
+              <p class="price card-price">$4,000</p>
+              <p>One payment, nothing further to arrange. All figures in USD.</p>
+              <a class="btn btn-ghost" href="https://buy.stripe.com/dRm00c3JGb9Z5ER8BV6oo0j" target="_blank" rel="noopener">Pay in full</a>
+            </div>
+          </div>
+        </div>
+        <p class="note-small" style="margin-top:1.5rem">Questions: <a href="mailto:jesse@thelivinginternet.com">jesse@thelivinginternet.com</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <span>The Living Internet Alliance · The Arizona Mastermind · Vol. I</span>
+      <span>34°48′46″ N, 111°49′50″ W</span>
+    </div>
+  </footer>
   </div>
 
-  <div id="page" hidden></div>
+  <!-- Ticket view: shown after payment (?paid=deposit or ?paid=full). Stripe redirects here. -->
+  <section class="ticket-view pat-contour on-dark" data-ticket hidden aria-label="Your ticket">
+    <div class="ticket-wrap">
+      <p class="eyebrow">Your seat is held</p>
+      <h2 class="ticket-heading">Thank you<span data-ticket-first></span>.</h2>
 
-  <script type="application/json" id="vault">{"v":2,"main":{"iter":250000,"salt":"WXmpRBhRc4Rc90vP+7yWsw==","iv":"2sDUx2WYKEZMZP4e","data":"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"},"comp":{"iter":250000,"salt":"JWBuc05PGOrThYNtfcJpTA==","iv":"eSW+oJoKziTd71Dy","data":"xnnOKL+oe69Wq/Q7IO4xUzaPBgFRb//ZvvEY+SsyjSg/DL1f2/tmXKQmsPLizS+FgADHO89gcSh8wju0UK+lVtBkUTLVKhc1O+f6Jlx/g9Ntj4Ly8ge3VtBPZMLmMUGxig6mVsNLAusZG0oaRiPk5Yu3j6ZEsc/+oCoT3RmMN+svcPFl0ixk+UrVHjhkZrcP99gfV1zi0LVJHDgHhjB1sPTtxX4s+9NLmMaYR+h7cKDnfHwOqKAj8AUBGA6zx70YxyEA0u47+De+Y2bqpYW8l7blXZ6rdPGD4DgM7VGdO+FE6yiFdJcCchQxQL1Z3DSG/KGrUpWJHcKft1137ACMzm6kfkj1fyyc6AKqg0xDwyIONt7ttmpB4ClLiY/OfwNcBiwAVYI+fbm0kIEC4hYsB8Hn8IOeINVFG4zvcMFXrsxbrtdSj56fhLqeiGvZ4QdidJRhcNjwc8TFzGtujEjr4LKNvWyRSIn7Dws9Tw6+nhLOtkTD6g2Ve23P05wCG91DCHPvqwOdb0IGT+Gd2iAzxhbCB9Vj1T7bY/MyDwBUfWba8X5jiP8fU/M+WIRMCHQPwjDfXJXdOljf1/1iBiyNc4MzZCcY4NNIYfhmIt6DvBLXvXr9LNlLIBzUOy4hxS5wZOkmp52cRCCjrr7DGpc3pea2isbjnaDjzQLbKmWOPBEOQhM9XistnjrQOz+U6lY="}}</script>
+      <div class="ticket">
+        <div class="ticket-main">
+          <div class="ticket-top">
+            <img src="assets/graphics/logo-ink.png" alt="" width="34" height="34">
+            <span class="ticket-org">The Living Internet Alliance</span>
+          </div>
+          <p class="ticket-title">The Arizona <em>Mastermind</em></p>
+          <dl class="ticket-rows">
+            <div><dt>Guest</dt><dd data-ticket-name>Reserved</dd></div>
+            <div><dt>Dates</dt><dd>Thursday to Sunday, January 21–24, 2027</dd></div>
+            <div><dt>Place</dt><dd>A private residence, Sedona, Arizona</dd></div>
+            <div><dt>Status</dt><dd data-ticket-status>Seat reserved</dd></div>
+          </dl>
+        </div>
+        <div class="ticket-stub" aria-hidden="true">
+          <span>Admit one</span>
+          <span class="stub-no" data-ticket-no>MMXXVII</span>
+          <span>Arizona</span>
+        </div>
+      </div>
+
+      <!-- Print-only receipt (shown when the guest saves or prints) -->
+      <div class="invoice" aria-hidden="true">
+        <header class="inv-head">
+          <div class="inv-brand">
+            <img src="assets/graphics/logo-ink.png" alt="" width="40" height="40">
+            <div>
+              <p class="inv-org">The Living Internet Alliance</p>
+              <p class="inv-org-sub">thelivinginternet.com · jesse@thelivinginternet.com</p>
+            </div>
+          </div>
+          <div class="inv-title">
+            <p class="inv-kind">Receipt</p>
+            <p class="inv-meta">No. <span data-inv-no></span></p>
+            <p class="inv-meta">Issued <span data-inv-date></span></p>
+          </div>
+        </header>
+
+        <div class="inv-parties">
+          <div>
+            <p class="inv-label">Billed to</p>
+            <p class="inv-value" data-inv-name>Guest</p>
+          </div>
+          <div>
+            <p class="inv-label">Event</p>
+            <p class="inv-value">The Arizona Mastermind</p>
+            <p class="inv-small">January 21–24, 2027 · A private residence, Sedona, Arizona</p>
+          </div>
+        </div>
+
+        <table class="inv-table">
+          <thead>
+            <tr><th>Description</th><th class="num">Qty</th><th class="num">Amount (USD)</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>The Arizona Mastermind: one seat</strong><br><span class="inv-small">Three nights’ lodging, all meals and chef-prepared dinners, private Jeep expedition, van ride from Phoenix</span></td>
+              <td class="num">1</td>
+              <td class="num">$4,000.00</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr><td colspan="2">Subtotal</td><td class="num">$4,000.00</td></tr>
+            <tr><td colspan="2" data-inv-paid-label>Amount paid</td><td class="num" data-inv-paid>$4,000.00</td></tr>
+            <tr class="inv-due"><td colspan="2" data-inv-due-label>Balance due</td><td class="num" data-inv-due>$0.00</td></tr>
+          </tfoot>
+        </table>
+
+        <div class="inv-stamp" data-inv-stamp>Paid</div>
+
+        <div class="inv-foot">
+          <p><strong>Payment:</strong> card, processed securely by Stripe. Stripe’s emailed receipt is the official record of this transaction.</p>
+          <p><strong>Terms:</strong> Registration is open until December&nbsp;1, 2026. If six guests have registered by then, the gathering happens; if not, every payment is refunded in full. Apart from that, payments are non-refundable, though seats can be transferred to a guest you nominate, subject to our approval. Deposit balances are due by January&nbsp;1, 2027. If a balance has not been paid by then, the seat is forfeited and we refund half the deposit ($1,000) after the event. If we have to cancel the gathering ourselves, every guest is refunded in full within 30 days of the announcement.</p>
+          <p class="inv-thanks">Thank you. We’ll see you in the red rocks.</p>
+        </div>
+      </div>
+
+      <p class="ticket-note">Your receipt is on its way from Stripe. Registration closes December&nbsp;1, 2026, and the gathering goes ahead once six guests have registered. We’ll be in touch by email about rooms, travel and dietary needs. Questions: <a href="mailto:jesse@thelivinginternet.com">jesse@thelivinginternet.com</a></p>
+      <div class="ticket-actions">
+        <button class="btn btn-brass" type="button" data-ticket-print>Save or print</button>
+        <button class="btn btn-ghost-light" type="button" data-ticket-close>Return to the invitation</button>
+      </div>
+    </div>
+  </section></div>
+
+  <script type="application/json" id="vault">{"v":3,"comp":{"iter":250000,"salt":"4UKmqRlKZL+Emn3q5EbN2g==","iv":"W9n8csX3UlPtxMwy","data":"Dsbd0BMB6+31kXGLf6WqdT1k/nzg8g0SyaDBNLU0KMVjUHOOu6CHpgmHYbNipOdEGB2phxyw6qYvg1zz0JbxdHcfszdsSdtzlB5U+CCc+jw5FXL5lZ2a3+wr3COsN1laj6FvesdBpcHoilQ5KpLyqoRDzqjOpkmOsIhln6qVJaB4CYGjHsgNyyJKjqe0nR2B9xYas7qKcKnPDUdeW1azf7h91Pq3csmnIGNGHULAeJ7En5L9bbi7HtPY4r/PdZTXsb4ju21KNX4UozLMNkRT/IRgF4TKrOxH0aY7OxPTEKrr2JemKMXtRECk1qL2xq0jNTcgxaF91mzNKDndI6IO/eaz4NwFPBAnkKCJo8ODmGNo4jYFL+3qxGIlYaR3Afs1ciH1oHj+OwUD1wAmgbPrJh4u5Jbm244e/mD2mF+gCF2mmxSQfre2Co5IzM6WmEs+tFq9Pyt9ockCIbYn/qxyDv1u/lJ2XXZF2kWrEnvsLqG13Fq+POYtl0a15Kn6gTckwcBSWgL8QfPgcatz+bfvCgzIYv4SvMalbLigSwZ6v4OSEzOujSy0C2+rspkksEg2UIaSBczvi/ajTHZYHemguIs5fMm7+cSe/O/Y622vRsBx3BxhRyVBBL7LHc1L71HDbVdoVviIFeR3LbEyx9/oP6X1Iq2M3fCB5EQzClWOF6bUFp8WFoDGeZRvBQxVF6g="}}</script>
 </body>
 </html>
