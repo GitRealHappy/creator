@@ -115,7 +115,7 @@
     view.querySelectorAll('[data-ticket-status]').forEach(function (el) {
       el.textContent = PAID === 'full'
         ? 'Paid in full'
-        : 'Deposit received · balance of $2,000 due January 1, 2027';
+        : 'Deposit received · balance of $1,500 due January 1, 2027';
     });
 
     // Print-only receipt
@@ -128,15 +128,15 @@
     fill('[data-inv-name]', NAME || 'Guest');
     if (PAID === 'full') {
       fill('[data-inv-paid-label]', 'Amount paid · in full');
-      fill('[data-inv-paid]', '$4,000.00');
+      fill('[data-inv-paid]', '$3,000.00');
       fill('[data-inv-due-label]', 'Balance due');
       fill('[data-inv-due]', '$0.00');
       fill('[data-inv-stamp]', 'Paid in full');
     } else {
       fill('[data-inv-paid-label]', 'Amount paid · deposit');
-      fill('[data-inv-paid]', '$2,000.00');
+      fill('[data-inv-paid]', '$1,500.00');
       fill('[data-inv-due-label]', 'Balance due by January 1, 2027');
-      fill('[data-inv-due]', '$2,000.00');
+      fill('[data-inv-due]', '$1,500.00');
       fill('[data-inv-stamp]', 'Deposit paid');
     }
 
