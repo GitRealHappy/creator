@@ -14,9 +14,9 @@
  * The ticket is encrypted with that code, so it only exists for his link.
  * It shows his complimentary ticket and greys out the deposit / pay-in-full cards.
  *
- * Layout: the page is a book of spreads (see book() below). Turn with the side arrows,
- * the contents bar, the arrow keys, a swipe, or the scroll wheel. #reserve, #house etc.
- * open that spread directly.
+ * Layout: one scrolling page. Three candidate houses ("versions" of the weekend) are
+ * switched with venues() below; #haven / #vista / #elara in the address opens one directly.
+ * (The earlier book-of-spreads version is backed up as *-book-2026-11-09.* in the source folder.)
  *
  * The published page is encrypted (see build.mjs). Typing the shared password
  * decrypts it in the browser. On this source copy (no vault) it simply opens.
@@ -77,289 +77,142 @@
     });
   }
 
-  /* ---------- The book ----------
-   * Each .spread in [data-book] is one opening. On wide screens a spread is one "leaf";
-   * on phones each .page inside it is its own leaf (unless the spread has data-single).
-   * Turning: side arrows, the contents bar, ← → / PageUp / PageDown / Home / End,
-   * a horizontal swipe, or the scroll wheel once a page has been read to its end.
+  /* ---------- The three houses ----------
+   * Buttons with [data-venue-btn] switch the version shown: the matching [data-panel]
+   * gets .is-active, <html data-venue> drives the accent colour, and compare-table
+   * cells with a matching [data-col] get .is-current. The address bar carries
+   * #haven / #vista / #elara so a link can open one version directly. Other in-page
+   * links (#reserve etc.) scroll without replacing that hash.
    */
-  var bookReady = false;
-  function book() {
-    var root = document.querySelector('[data-book]');
-    if (!root || bookReady) return;
-    bookReady = true;
+  var VENUES = ['haven', 'vista', 'elara'];
+  var VENUE_NAMES = { haven: 'The Haven', vista: 'The Vista', elara: 'Elara' };
+  var venuesReady = false;
+  function venues() {
+    var stage = document.querySelector('[data-stage]');
+    var switchEl = document.querySelector('[data-switch]');
+    if (!stage || !switchEl || venuesReady) return;
+    venuesReady = true;
 
-    var html = document.documentElement;
-    var spreads = Array.prototype.slice.call(root.querySelectorAll('.spread'));
-    var narrow = window.matchMedia('(max-width: 899px)');
+    var root = document.documentElement;
+    var announce = document.querySelector('[data-announce]');
     var still = window.matchMedia('(prefers-reduced-motion: reduce)');
-    var bar = document.querySelector('.book-bar');
-    var contents = document.querySelector('[data-contents]');
-    var menuBtn = document.querySelector('[data-contents-toggle]');
-    var barTitle = document.querySelector('[data-bar-title]');
-    var barCount = document.querySelector('[data-bar-count]');
-    var hint = document.querySelector('[data-book-hint]');
-    var prevBtns = document.querySelectorAll('[data-turn="prev"]');
-    var nextBtns = document.querySelectorAll('[data-turn="next"]');
-    var TURN_MS = 840;
+    var FADE = 140;   // out + in stays under 300ms
+    var current = null;
+    var timer = null;
 
-    var leaves = [];      // [{ el, spread }]
-    var current = 0;
-    var busy = false;
-
-    function pagesOf(spread) {
-      return Array.prototype.filter.call(spread.children, function (c) { return c.classList.contains('page'); });
+    function fromHash() {
+      var h = window.location.hash.replace('#', '').toLowerCase();
+      return VENUES.indexOf(h) > -1 ? h : null;
     }
-
-    function layout() {
-      leaves = [];
-      spreads.forEach(function (s) {
-        var pages = pagesOf(s);
-        if (narrow.matches && !s.hasAttribute('data-single') && pages.length > 1) {
-          pages.forEach(function (p) { leaves.push({ el: p, spread: s }); });
-        } else {
-          leaves.push({ el: s, spread: s });
-        }
+    function apply(v) {
+      root.setAttribute('data-venue', v);
+      document.querySelectorAll('[data-venue-btn]').forEach(function (b) {
+        b.setAttribute('aria-pressed', b.getAttribute('data-venue-btn') === v ? 'true' : 'false');
       });
-      leaves.forEach(function (l) { l.el.setAttribute('data-leaf', ''); l.el.setAttribute('tabindex', '-1'); });
-    }
-
-    function indexOfSpread(spread) {
-      for (var i = 0; i < leaves.length; i++) if (leaves[i].spread === spread) return i;
-      return 0;
-    }
-    function indexOfElement(el) {
-      for (var i = 0; i < leaves.length; i++) if (leaves[i].el === el || leaves[i].el.contains(el)) return i;
-      // A page inside a spread that is now one leaf (or the reverse)
-      var spread = el.closest ? el.closest('.spread') : null;
-      return spread ? indexOfSpread(spread) : 0;
-    }
-
-    // Contents bar
-    var tabs = spreads.map(function (s, i) {
-      var li = document.createElement('li');
-      var b = document.createElement('button');
-      b.type = 'button';
-      var no = s.getAttribute('data-no');
-      b.innerHTML = (no ? '<span class="bar-no">' + no + '</span>' : '') + s.getAttribute('data-title');
-      b.addEventListener('click', function () { closeMenu(); go(indexOfSpread(s)); });
-      li.appendChild(b);
-      contents.appendChild(li);
-      return b;
-    });
-
-    function closeMenu() {
-      bar.classList.remove('is-open');
-      menuBtn.setAttribute('aria-expanded', 'false');
-    }
-    menuBtn.addEventListener('click', function () {
-      var open = !bar.classList.contains('is-open');
-      bar.classList.toggle('is-open', open);
-      menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-    document.addEventListener('click', function (e) {
-      if (bar.classList.contains('is-open') && !bar.contains(e.target)) closeMenu();
-    });
-
-    function clearStates(el) {
-      el.classList.remove('is-current', 'is-turning-out', 'is-turning-in', 'is-under', 'is-under-out', 'is-arriving');
-    }
-
-    function render() {
-      spreads.forEach(function (s) { clearStates(s); pagesOf(s).forEach(clearStates); });
-      var leaf = leaves[current];
-      leaf.el.classList.add('is-current');
-      var si = spreads.indexOf(leaf.spread);
-      tabs.forEach(function (t, i) {
-        if (i === si) t.setAttribute('aria-current', 'page'); else t.removeAttribute('aria-current');
+      document.querySelectorAll('[data-panel]').forEach(function (p) {
+        p.classList.toggle('is-active', p.getAttribute('data-panel') === v);
       });
-      barTitle.textContent = leaf.spread.getAttribute('data-title');
-      barCount.textContent = (current + 1) + ' / ' + leaves.length;
-      bar.style.setProperty('--progress', (leaves.length > 1 ? current / (leaves.length - 1) * 100 : 100) + '%');
-      prevBtns.forEach(function (b) { if (b.closest('.cover-body')) return; b.disabled = current === 0; });
-      nextBtns.forEach(function (b) { if (b.closest('.cover-body')) return; b.disabled = current === leaves.length - 1; });
-      // Keep the address pointing at the open spread (keeps ?to= etc.)
-      var id = leaf.spread.id;
-      var hash = id && id !== 'top' ? '#' + id : '';
-      if (window.location.hash !== hash) {
-        history.replaceState(null, '', window.location.pathname + window.location.search + hash);
-      }
+      document.querySelectorAll('[data-col]').forEach(function (c) {
+        c.classList.toggle('is-current', c.getAttribute('data-col') === v);
+      });
     }
-
-    function resetScroll(el) {
-      el.scrollTop = 0;
-      el.querySelectorAll('.page').forEach(function (p) { p.scrollTop = 0; });
-    }
-
-    function go(i, opts) {
+    function select(v, opts) {
       opts = opts || {};
-      if (i < 0 || i >= leaves.length || i === current || busy) return;
-      var from = leaves[current].el;
-      var to = leaves[i].el;
-      var forward = i > current;
-      hideHint();
-      resetScroll(to);
-
-      if (opts.instant) {
-        current = i;
-        render();
-        return;
+      if (VENUES.indexOf(v) < 0 || v === current) return;
+      var first = current === null;
+      current = v;
+      if (opts.updateHash !== false) {
+        history.replaceState(null, '', window.location.pathname + window.location.search + '#' + v);
       }
-
-      busy = true;
-      if (forward) {
-        from.classList.add('is-turning-out');
-        to.classList.add('is-current', 'is-under');
-      } else {
-        to.classList.add('is-current', 'is-turning-in');
-        from.classList.add('is-under-out');
-      }
-      to.classList.add('is-arriving');
-      var done = false;
-      function finish() {
-        if (done) return;
-        done = true;
-        current = i;
-        render();
-        to.classList.add('is-arriving');
-        setTimeout(function () { to.classList.remove('is-arriving'); }, 900);
-        busy = false;
-        if (opts.focus !== false) to.focus({ preventScroll: true });
-      }
-      setTimeout(finish, still.matches ? 320 : TURN_MS);
+      if (!first && announce) announce.textContent = 'Showing ' + VENUE_NAMES[v];
+      clearTimeout(timer);
+      if (first || still.matches) { apply(v); stage.classList.remove('is-fading'); return; }
+      stage.classList.add('is-fading');
+      timer = setTimeout(function () { apply(v); stage.classList.remove('is-fading'); }, FADE);
     }
-    function next() { go(current + 1); }
-    function prev() { go(current - 1); }
 
-    prevBtns.forEach(function (b) { b.addEventListener('click', prev); });
-    nextBtns.forEach(function (b) { b.addEventListener('click', next); });
+    document.querySelectorAll('[data-venue-btn]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        select(b.getAttribute('data-venue-btn'));
+        if (b.closest('.compare')) {
+          document.getElementById('venues').scrollIntoView({ behavior: still.matches ? 'auto' : 'smooth' });
+        }
+      });
+    });
 
-    // In-page links (#reserve, #house…) open their spread
-    function goToHash(hash, instant) {
-      if (!hash || hash === '#') return false;
-      var target = null;
-      try { target = document.querySelector(hash); } catch (e) { return false; }
-      if (!target || !root.contains(target)) return false;
-      go(indexOfElement(target), { instant: instant });
-      return true;
-    }
+    // Arrow keys / Home / End move between the three switch buttons
+    switchEl.addEventListener('keydown', function (e) {
+      if (['ArrowRight', 'ArrowLeft', 'Home', 'End'].indexOf(e.key) < 0) return;
+      var btns = Array.prototype.slice.call(switchEl.querySelectorAll('button'));
+      var i = btns.indexOf(document.activeElement);
+      if (i < 0) return;
+      e.preventDefault();
+      if (e.key === 'ArrowRight') i = (i + 1) % btns.length;
+      if (e.key === 'ArrowLeft') i = (i - 1 + btns.length) % btns.length;
+      if (e.key === 'Home') i = 0;
+      if (e.key === 'End') i = btns.length - 1;
+      btns[i].focus();
+      select(btns[i].getAttribute('data-venue-btn'));
+    });
+
+    window.addEventListener('hashchange', function () {
+      var v = fromHash();
+      if (v) select(v, { updateHash: false });
+    });
+
     document.addEventListener('click', function (e) {
-      var a = e.target.closest && e.target.closest('a[href^="#"]');
+      var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
       if (!a) return;
-      if (goToHash(a.getAttribute('href'))) { e.preventDefault(); closeMenu(); }
+      var id = a.getAttribute('href').slice(1);
+      if (!id || VENUES.indexOf(id) > -1) return;
+      var target = document.getElementById(id);
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: still.matches ? 'auto' : 'smooth' });
+      target.setAttribute('tabindex', '-1');
+      target.focus({ preventScroll: true });
     });
 
-    function overlayOpen() {
-      return html.classList.contains('ticket-open') || html.classList.contains('photos-open') || !!document.getElementById('lock');
+    var start = fromHash();
+    select(start || 'haven', { updateHash: !!start });
+    if (start) requestAnimationFrame(function () { document.getElementById('venues').scrollIntoView(); });
+  }
+
+  /* ---------- "Which version would you choose?" ----------
+   * Counted in memory only: nothing is saved or sent, so each visitor sees just their own vote.
+   */
+  function poll() {
+    var buttons = document.querySelectorAll('[data-vote]');
+    if (!buttons.length) return;
+    var counts = { haven: 0, vista: 0, elara: 0 };
+    var mine = null;
+    var status = document.querySelector('[data-poll-status]');
+    function render() {
+      var total = counts.haven + counts.vista + counts.elara;
+      VENUES.forEach(function (v) {
+        var n = counts[v];
+        var c = document.querySelector('[data-count="' + v + '"]');
+        var bar = document.querySelector('[data-bar="' + v + '"]');
+        var b = document.querySelector('[data-vote="' + v + '"]');
+        if (c) c.textContent = n + (n === 1 ? ' vote' : ' votes');
+        if (bar) bar.style.width = total ? (n / total * 100) + '%' : '0';
+        if (b) b.setAttribute('aria-pressed', v === mine ? 'true' : 'false');
+      });
     }
-
-    // Keyboard
-    document.addEventListener('keydown', function (e) {
-      if (overlayOpen() || e.altKey || e.ctrlKey || e.metaKey) return;
-      var t = e.target;
-      if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
-      if (e.key === 'Escape') { closeMenu(); return; }
-      var k = e.key;
-      if (k === 'ArrowRight' || k === 'PageDown') { e.preventDefault(); next(); }
-      else if (k === 'ArrowLeft' || k === 'PageUp') { e.preventDefault(); prev(); }
-      else if (k === 'Home') { e.preventDefault(); go(0); }
-      else if (k === 'End') { e.preventDefault(); go(leaves.length - 1); }
-    });
-
-    // Swipe (touch)
-    var tx = 0, ty = 0, tt = 0, tracking = false;
-    root.addEventListener('touchstart', function (e) {
-      if (e.touches.length !== 1) { tracking = false; return; }
-      tracking = true;
-      tx = e.touches[0].clientX; ty = e.touches[0].clientY; tt = Date.now();
-    }, { passive: true });
-    root.addEventListener('touchend', function (e) {
-      if (!tracking || overlayOpen()) return;
-      tracking = false;
-      var dx = e.changedTouches[0].clientX - tx;
-      var dy = e.changedTouches[0].clientY - ty;
-      if (Date.now() - tt > 900) return;
-      if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.4) {
-        if (dx < 0) next(); else prev();
-      }
-    }, { passive: true });
-
-    // Scroll wheel / trackpad: read the page first, then a further push turns it.
-    // A quiet gap is required between turns so trackpad momentum can't flip twice.
-    var acc = 0, accTimer = null, lockUntil = 0;
-    function scrollerFor(node, leafEl) {
-      while (node && node !== leafEl.parentNode) {
-        if (node.nodeType === 1 && node.scrollHeight > node.clientHeight + 2) {
-          var oy = getComputedStyle(node).overflowY;
-          if (oy === 'auto' || oy === 'scroll') return node;
-        }
-        if (node === leafEl) break;
-        node = node.parentNode;
-      }
-      return null;
-    }
-    root.addEventListener('wheel', function (e) {
-      if (overlayOpen()) return;
-      var now = Date.now();
-      if (busy || now < lockUntil) { lockUntil = Math.max(lockUntil, now + 220); return; }
-      var horizontal = Math.abs(e.deltaX) > Math.abs(e.deltaY);
-      var d = horizontal ? e.deltaX : e.deltaY;
-      if (!d) return;
-      if (!horizontal) {
-        var sc = scrollerFor(e.target, leaves[current].el);
-        if (sc) {
-          var atTop = sc.scrollTop <= 1;
-          var atEnd = sc.scrollTop + sc.clientHeight >= sc.scrollHeight - 2;
-          if ((d > 0 && !atEnd) || (d < 0 && !atTop)) { acc = 0; return; }
-        }
-      }
-      acc += d;
-      clearTimeout(accTimer);
-      accTimer = setTimeout(function () { acc = 0; }, 260);
-      if (Math.abs(acc) > 90) {
-        var dir = acc > 0 ? 1 : -1;
-        acc = 0;
-        lockUntil = now + 900;
-        go(current + dir);
-      }
-    }, { passive: true });
-
-    // Hint on the cover for first-time readers
-    var hintTimer = null;
-    function hideHint() { if (hint) hint.classList.remove('is-shown'); clearTimeout(hintTimer); }
-    function showHint() {
-      if (!hint || current !== 0) return;
-      var touch = window.matchMedia('(hover: none)').matches;
-      hint.innerHTML = touch
-        ? 'Swipe to turn the page'
-        : 'Turn the page with <kbd>←</kbd> <kbd>→</kbd>, the arrows, or a scroll';
-      setTimeout(function () { if (current === 0 && !overlayOpen()) hint.classList.add('is-shown'); }, 1600);
-      hintTimer = setTimeout(hideHint, 9000);
-    }
-
-    // Switching between phone and desktop layouts keeps your place
-    function relayout() {
-      var el = leaves[current] ? leaves[current].el : spreads[0];
-      layout();
-      current = indexOfElement(el);
+    function vote(v) {
+      if (v === mine) return;
+      if (mine) counts[mine] -= 1;
+      counts[v] += 1;
+      mine = v;
       render();
+      if (status) status.textContent = 'Thank you. You chose ' + VENUE_NAMES[v] + '.';
+      // POLL HOOK: send the vote to a real form here, e.g.
+      // fetch('[TBD: form endpoint]', { method: 'POST', body: new URLSearchParams({ venue: v, name: NAME }) });
     }
-    if (narrow.addEventListener) narrow.addEventListener('change', relayout);
-    else if (narrow.addListener) narrow.addListener(relayout);
-
-    window.addEventListener('hashchange', function () { goToHash(window.location.hash); });
-
-    var startHash = window.location.hash;   // read before render() rewrites the address
-    layout();
+    buttons.forEach(function (b) {
+      b.addEventListener('click', function () { vote(b.getAttribute('data-vote')); });
+    });
     render();
-    goToHash(startHash, true);
-    if (!document.getElementById('lock')) showHint();
-    else {
-      // Published page: show the hint once the lock screen has gone
-      var waitLock = setInterval(function () {
-        if (!document.getElementById('lock')) { clearInterval(waitLock); showHint(); }
-      }, 400);
-    }
   }
 
   var protectedOnce = false;
@@ -464,7 +317,8 @@
 
   function initPage() {
     personalise();
-    book();
+    venues();
+    poll();
     protectImages();
     photoWall();
     showTicket();
