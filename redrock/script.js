@@ -1,26 +1,21 @@
 /* The Arizona Mastermind (served at /redrock/)
  *
- * Personalised links: add ?to=Full%20Name&no=4 to the address, e.g.
- *   https://www.thelivinginternet.com/redrock/?to=Jane%20Doe&no=4
- * The lock screen shows "Name: Jane", and once unlocked the page says
- * "This invitation is for Jane Doe" and the letter opens "Jane,". The &no= number is
- * no longer shown on the page; it only numbers the receipt/invoice (AZM-2027-NN-D/F).
+ * One invitation for everyone: since 2026-11-11 the page is no longer personalised
+ * (the old ?to= and &no= parameters are ignored, and their saved values are cleared).
  *
  * After payment: Stripe redirects to /redrock/?paid=deposit or /redrock/?paid=full,
- * which opens a ticket view. The guest's name comes from their earlier personal link
- * (remembered in this browser); otherwise the ticket reads "Seat reserved".
+ * which opens a ticket view with a print-only receipt. Stripe's emailed receipt is
+ * the real record; the ticket simply reads "Seat reserved".
  *
  * Complimentary seat: that guest's link carries a private code (see COMP_CODE in build.mjs).
- * The ticket is encrypted with that code, so it only exists for his link.
- * It shows his complimentary ticket and greys out the deposit / pay-in-full cards.
- *
- * Layout: one scrolling page about the chosen house (The Vista).
- * Earlier versions are backed up in the source folder: *-book-2026-11-09.* (book of spreads)
- * and index-three-houses-2026-11-09.html (three-house toggle; its script lived in this file).
- *
- * The page is open (no password since 2026-11-10). Only the complimentary card is
- * encrypted, in the #vault JSON, and decrypts with the &seat= code from that guest's link.
+ * The card is encrypted with that code, in the #vault JSON, so it only exists for his link.
+ * It shows his complimentary card and crosses out the deposit / pay-in-full cards.
  * On this source copy (no vault) any &seat= value shows the card, for previewing.
+ *
+ * Layout: a photo cover, then one scrolling page. dayTabs() turns the four days into
+ * tabs, stickyBar() shows the slim bar after the cover, reveal() fades sections in.
+ * Earlier versions are backed up in the source folder (*-before-redesign-2026-11-11.*,
+ * *-book-2026-11-09.*, index-three-houses-2026-11-09.html).
  */
 
 (function () {
@@ -29,35 +24,15 @@
   var SEAT = (params.get('seat') || '').trim();
   var PAID = (params.get('paid') || '').toLowerCase();   // 'deposit' | 'full' (Stripe redirect)
 
-  // Remember who this browser belongs to, so the post-payment ticket can show their name
-  // even though Stripe's redirect URL is the same for everyone.
   function remember(key, value) { try { if (value) localStorage.setItem(key, value); } catch (e) {} }
   function recall(key) { try { return localStorage.getItem(key) || ''; } catch (e) { return ''; } }
 
-  var NAME = (params.get('to') || '').trim().slice(0, 60);
-  var NO = parseInt(params.get('no'), 10);
-  function forget(key) { try { localStorage.removeItem(key); } catch (e) {} }
-  if (NAME) {
-    remember('rrr-name', NAME);
-    if (NO) remember('rrr-no', String(NO)); else forget('rrr-no');
-    if (SEAT) remember('rrr-seat', SEAT); else forget('rrr-seat');
-  } else {
-    NAME = recall('rrr-name');
-    NO = parseInt(recall('rrr-no'), 10);
-    if (!SEAT) SEAT = recall('rrr-seat');
-  }
-  var FIRST = NAME ? NAME.split(/\s+/)[0] : '';
+  // The private seat code is remembered, so the comp card survives a return visit to the bare link.
+  if (SEAT) remember('rrr-seat', SEAT); else SEAT = recall('rrr-seat');
+  // Left over from the personalised links (retired 2026-11-11)
+  try { localStorage.removeItem('rrr-name'); localStorage.removeItem('rrr-no'); } catch (e) {}
 
-  function personalise() {
-    if (NAME) {
-      document.querySelectorAll('[data-name]').forEach(function (el) { el.textContent = NAME; });
-      document.querySelectorAll('[data-first]').forEach(function (el) { el.textContent = FIRST; });
-      document.querySelectorAll('[data-prepared], [data-greeting]').forEach(function (el) { el.hidden = false; });
-      document.title = 'For ' + NAME + ' · The Arizona Mastermind';
-    } else {
-      document.title = 'The Arizona Mastermind · Sedona, January 2027';
-    }
-  }
+  var PAGE_TITLE = document.title;
 
   function applyComp() {
     document.querySelectorAll('[data-comp]').forEach(function (el) { el.hidden = false; });
@@ -110,8 +85,6 @@
     var view = document.querySelector('[data-ticket]');
     if (!view || (PAID !== 'deposit' && PAID !== 'full')) return;
 
-    view.querySelectorAll('[data-ticket-first]').forEach(function (el) { el.textContent = FIRST ? ', ' + FIRST : ''; });
-    view.querySelectorAll('[data-ticket-name]').forEach(function (el) { el.textContent = NAME || 'Seat reserved'; });
     view.querySelectorAll('[data-ticket-status]').forEach(function (el) {
       el.textContent = PAID === 'full'
         ? 'Paid in full'
@@ -121,11 +94,10 @@
     // Print-only receipt
     var now = new Date();
     var pad = function (n) { return (n < 10 ? '0' : '') + n; };
-    var invNo = 'AZM-2027-' + (NO >= 1 ? pad(NO) : pad(now.getMonth() + 1) + pad(now.getDate())) + '-' + (PAID === 'full' ? 'F' : 'D');
+    var invNo = 'AZM-2027-' + pad(now.getMonth() + 1) + pad(now.getDate()) + '-' + (PAID === 'full' ? 'F' : 'D');
     var fill = function (sel, text) { view.querySelectorAll(sel).forEach(function (el) { el.textContent = text; }); };
     fill('[data-inv-no]', invNo);
     fill('[data-inv-date]', now.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }));
-    fill('[data-inv-name]', NAME || 'Guest');
     if (PAID === 'full') {
       fill('[data-inv-paid-label]', 'Amount paid · in full');
       fill('[data-inv-paid]', '$3,000.00');
@@ -153,7 +125,7 @@
       var q = new URLSearchParams(window.location.search); q.delete('paid');
       var qs = q.toString();
       history.replaceState(null, '', window.location.pathname + (qs ? '?' + qs : '') + window.location.hash);
-      personalise();
+      document.title = PAGE_TITLE;
     });
   }
 
@@ -274,8 +246,68 @@
     box.hidden = false;
   }
 
+  /* The four days: tabs (Thu · Fri · Sat · Sun). Without this script all four show stacked. */
+  function dayTabs() {
+    var box = document.querySelector('[data-days]');
+    if (!box) return;
+    var tabs = Array.prototype.slice.call(box.querySelectorAll('[role="tab"]'));
+    if (!tabs.length) return;
+    function select(tab, focus) {
+      tabs.forEach(function (t) {
+        var on = t === tab;
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        t.tabIndex = on ? 0 : -1;
+        var panel = document.getElementById(t.getAttribute('aria-controls'));
+        if (panel) panel.classList.toggle('is-active', on);
+      });
+      if (focus) tab.focus();
+    }
+    tabs.forEach(function (tab, i) {
+      tab.addEventListener('click', function () { select(tab, false); });
+      tab.addEventListener('keydown', function (e) {
+        var to = null;
+        if (e.key === 'ArrowRight') to = tabs[(i + 1) % tabs.length];
+        else if (e.key === 'ArrowLeft') to = tabs[(i - 1 + tabs.length) % tabs.length];
+        else if (e.key === 'Home') to = tabs[0];
+        else if (e.key === 'End') to = tabs[tabs.length - 1];
+        if (to) { e.preventDefault(); select(to, true); }
+      });
+    });
+    box.classList.add('is-tabs');
+    select(tabs[0], false);
+  }
+
+  /* Slim bar: slides in once the cover has scrolled out of view. */
+  function stickyBar() {
+    var bar = document.querySelector('[data-bar]');
+    var cover = document.querySelector('[data-cover]');
+    if (!bar || !cover || !('IntersectionObserver' in window)) return;
+    new IntersectionObserver(function (entries) {
+      bar.classList.toggle('is-on', !entries[0].isIntersecting);
+    }, { rootMargin: '-56px 0px 0px 0px' }).observe(cover);
+  }
+
+  /* Gentle fade-up as blocks scroll into view. The hiding style only applies once
+   * .reveal-on is set here, so content can never stay invisible without this script. */
+  function reveal() {
+    var els = document.querySelectorAll('[data-reveal]');
+    if (!els.length || !('IntersectionObserver' in window)) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    document.documentElement.classList.add('reveal-on');
+    els.forEach(function (el) { io.observe(el); });
+    // Safety net: never leave anything hidden (printing, odd browsers)
+    window.addEventListener('beforeprint', function () { els.forEach(function (el) { el.classList.add('is-in'); }); });
+  }
+
   function initPage() {
-    personalise();
+    dayTabs();
+    stickyBar();
+    reveal();
     videoInvite();
     roomsBlock();
     optionalPhotos();
@@ -316,7 +348,6 @@
       var cards = document.querySelector('.cards');
       if (!cards) return;
       cards.insertAdjacentHTML('afterbegin', compHtml);
-      cards.querySelectorAll('[data-name]').forEach(function (el) { el.textContent = NAME; });
       protectImages();
       applyComp();
     }, function () { /* not the comp code: show the normal page */ });

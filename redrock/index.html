@@ -34,31 +34,49 @@
   <!-- build.mjs puts the page body (index.html's <body>) here. Only Nick's complimentary card
        stays encrypted, in the "vault" below; his link's &seat= code unlocks it. -->
   <div id="page"><div class="rr">
-  <a class="skip" href="#house">Skip to the house</a>
+  <a class="skip" href="#letter">Skip to the invitation</a>
 
-  <header class="wrap topline">
-    <a class="brand" href="https://www.thelivinginternet.com/">
-      <img src="assets/graphics/logo-ink.png" alt="" width="28" height="28">
-      <span>The Living Internet Alliance</span>
-    </a>
-    <span class="label">By invitation</span>
-  </header>
+  <!-- Slim bar: appears once the cover has scrolled away (script.js stickyBar) -->
+  <div class="bar" data-bar>
+    <div class="wrap bar-in">
+      <a class="bar-brand" href="#top" aria-label="Back to the top">
+        <img src="assets/graphics/logo-brass.png" alt="" width="26" height="26">
+        <span>The Arizona Mastermind</span>
+      </a>
+      <nav class="bar-nav" aria-label="Sections">
+        <a href="#letter">Letter</a>
+        <a href="#house">House</a>
+        <a href="#adventure">Adventure</a>
+        <a href="#reserve">Seat</a>
+      </nav>
+      <a class="btn btn-brass btn-sm" href="#reserve">Reserve</a>
+    </div>
+  </div>
 
   <main id="main">
 
-    <!-- ===================== Hero ===================== -->
-    <section class="wrap hero" aria-labelledby="title">
-      <p class="prepared" data-prepared hidden>This invitation is for <span data-name></span><span data-comp-label hidden></span></p>
-      <h1 class="title" id="title">The Arizona <em>Mastermind</em></h1>
-      <p class="lede">A thinktank and adventure for serious creators to gain strategic vision and explore the desert with like minds.</p>
-      <p class="typeset">
-        <span>Ten seats</span><span>Three nights</span><span>January 21–24, 2027</span><span>Sedona, Arizona</span>
-      </p>
-      <div class="hero-actions">
-        <a class="btn" href="#reserve">Accept the invitation</a>
-        <a class="link-cta" href="#house">See the house</a>
+    <!-- ===================== Cover ===================== -->
+    <section class="cover" id="top" aria-labelledby="title" data-cover>
+      <img class="cover-img" src="assets/images/web/redrock-pano.jpg" alt="The red rock formations of Sedona rising above the valley" width="1872" height="840" fetchpriority="high">
+      <header class="wrap topline">
+        <a class="brand" href="https://www.thelivinginternet.com/">
+          <img src="assets/graphics/logo-brass.png" alt="" width="28" height="28">
+          <span>The Living Internet Alliance</span>
+        </a>
+      </header>
+      <div class="wrap cover-body">
+        <p class="label cover-eyebrow">By invitation<span data-comp-label hidden></span></p>
+        <h1 class="title" id="title">The Arizona <em>Mastermind</em></h1>
+        <p class="lede">A thinktank and adventure for serious creators to gain strategic vision and explore the desert with like minds.</p>
+        <p class="typeset">
+          <span>Ten seats</span><span>Three nights</span><span>January 21–24, 2027</span><span>Sedona, Arizona</span>
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-brass" href="#reserve">Accept the invitation</a>
+          <a class="link-cta" href="#house">See the house</a>
+        </div>
+        <p class="note-small cover-note">Registration is open until December&nbsp;1.</p>
       </div>
-      <p class="note-small" style="margin-top:1.25rem">Registration is open until December&nbsp;1.</p>
     </section>
 
     <!-- ===================== Video invitation =====================
@@ -82,103 +100,10 @@
       </div>
     </section>
 
-    <!-- ===================== The red rocks ===================== -->
-    <figure class="photo-wide">
-      <img src="assets/images/web/redrock-pano.jpg" alt="The red rock formations of Sedona rising above the valley" width="1872" height="840">
-      <figcaption class="label">The red rocks of Sedona</figcaption>
-    </figure>
-
-    <!-- ===================== The house ===================== -->
-    <section id="house" aria-label="The house">
-      <div class="wrap">
-        <article class="panel is-active" data-panel="vista" aria-labelledby="vista-name">
-          <div class="v-head">
-            <div>
-              <p class="label accent">The house · Space, light and the view</p>
-              <h2 class="v-name" id="vista-name">The Vista</h2>
-              <p class="label v-where">Chapel area · about 10 minutes to Uptown</p>
-            </div>
-            <p class="v-line">A brand new spacious house surrounded by the red rocks of Sedona.</p>
-          </div>
-
-          <div class="v-body">
-            <div>
-              <h3>Your three days here</h3>
-              <ol class="days">
-                <li><span class="d">Thursday<small>Jan 21</small></span>
-                  <p>Lunch together in Phoenix for anyone who’d like to join. The vans leave Phoenix at <strong>1:00&nbsp;pm</strong> for the road trip up through the desert, and the house opens to us at <strong>4:00&nbsp;pm</strong>, the rocks toward Mammoth Rock and the Cathedral side filling the glass, with the sun setting around 5:45&nbsp;pm. Welcome dinner, then a short intro circle by the fireplace: who you are and what you came for.</p></li>
-                <li><span class="d">Friday<small>Jan 22</small></span>
-                  <p>Coffee on the wraparound deck and a slow desert morning. Late morning, the first mastermind session. Lunch, then a long block of nothing: your own projects, a walk alone, the sauna or the hot tub. Late afternoon, the second session. The chef cooks dinner.</p></li>
-                <li><span class="d">Saturday<small>Jan 23</small></span>
-                  <p>A big breakfast, then the third session, in a room full of light. In the afternoon, the Jeeps take us into the red rocks. Dinner, then the evening around the fire pit.</p></li>
-                <li><span class="d">Sunday<small>Jan 24</small></span>
-                  <p>A final breakfast and a closing circle with the morning light on the rocks. Check-out is at <strong>10:00&nbsp;am</strong>, and the drive back down to Phoenix begins around <strong>1:00&nbsp;pm</strong>.</p></li>
-              </ol>
-              <p class="note-small days-note">Indicative. Only the travel and check-in times are fixed; the full schedule follows by email.</p>
-            </div>
-
-            <div>
-              <h3>In the house</h3>
-              <ul class="amen">
-                <li>Panoramic red-rock views toward Mammoth Rock and the Cathedral side</li>
-                <li>Floor-to-ceiling windows</li>
-                <li>Wraparound deck</li>
-                <li>Fire pit and a living-room fireplace</li>
-                <li>Sauna</li>
-                <li>Hot tub</li>
-                <li>Pool table and a lounge with a bar</li>
-              </ul>
-
-              <div class="sleep">
-                <h3>Where everyone sleeps</h3>
-                <dl>
-                  <dt>Eight bedrooms, ten beds, four and a half bathrooms</dt>
-                  <dd>Jesse will walk you through the rooms personally once your seat is reserved.</dd>
-                  <dt>First to register, first to choose</dt>
-                  <dd>The first four guests to register choose their rooms first, including a room to themselves.</dd>
-                  <dt>At twelve</dt>
-                  <dd>Some rooms are shared, and the sharing falls to those who register later.</dd>
-                </dl>
-              </div>
-            </div>
-          </div>
-
-          <!-- Rooms: flip "show" to true once the first four have chosen. Status is "available" or "taken".
-               Rename rooms freely; the list renders in this order. Rebuild after editing. -->
-          <script type="application/json" data-rooms-config>
-          {
-            "show": false,
-            "rooms": [
-              { "name": "Bedroom one",   "status": "available" },
-              { "name": "Bedroom two",   "status": "available" },
-              { "name": "Bedroom three", "status": "available" },
-              { "name": "Bedroom four",  "status": "available" },
-              { "name": "Bedroom five",  "status": "available" },
-              { "name": "Bedroom six",   "status": "available" },
-              { "name": "Bedroom seven", "status": "available" },
-              { "name": "Bedroom eight", "status": "available" }
-            ]
-          }
-          </script>
-          <div class="rooms" data-rooms hidden>
-            <h3>The rooms</h3>
-            <p class="note-small">Rooms are chosen in the order seats are reserved.</p>
-            <ul class="rooms-list" data-rooms-list></ul>
-          </div>
-
-          <div class="listing">
-            <a class="btn btn-ghost" href="https://www.airbnb.ca/rooms/1396637046260623124" target="_blank" rel="noopener">See The Vista on Airbnb <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
-            <p class="note-small">Photos, every room and the reviews are on the full listing.</p>
-          </div>
-        </article>
-      </div>
-    </section>
-
     <!-- ===================== Letter ===================== -->
     <section class="section" id="letter" aria-label="A letter from Jesse">
       <div class="wrap">
-        <div class="letter">
-          <p class="salute" data-greeting hidden><span data-first></span>,</p>
+        <div class="letter" data-reveal>
           <p><em>To the ones who are crazy enough.</em></p>
           <p>If I sent you this invitation, I see you as someone who is embracing the full power of your mind.</p>
           <p>In June this year, a hundred creators gathered in Abbotsford BC for the Future-Proof Creator Summit, and it was a profound experience for me. Something incredibly powerful happened in that room. I’ve seen the effects in people’s lives and in their businesses, and the collaborative energy has been magical to witness. I really believe that time together in person with great minds, fully immersed, amplifies all of our abilities, strengths and creative power.</p>
@@ -188,58 +113,139 @@
       </div>
     </section>
 
-    <!-- ===================== Premise ===================== -->
-    <section class="section" id="premise" aria-labelledby="premise-title">
+    <!-- ===================== What happens (the mastermind) ===================== -->
+    <section class="section night" id="premise" aria-labelledby="premise-title">
       <div class="wrap">
-        <div class="section-head">
+        <div class="section-head" data-reveal>
           <p class="no">I.</p>
           <h2 id="premise-title">Room to Think</h2>
           <p>On the first evening, we’ll all have the chance to introduce ourselves and voice our intentions for 2027, to whatever depth you like. Then Jesse leads three mastermind sessions. Each turn belongs to one person: you share what you’re building, and the rest of the circle sits with it and offers what they see. Across the three sessions, everyone gets nudged toward the clarity and ideas they came for. Between them is unhurried time: big dinners, the desert landscape, and rich conversations with like minds.</p>
         </div>
-        <div class="cols">
-          <div><h3><span class="n">i</span>What happens in Sedona</h3><p>Business brainstorming with a close circle.</p></div>
-          <div><h3><span class="n">ii</span>Your plan, your way</h3><p>Present as much or as little as you like.</p></div>
-          <div><h3><span class="n">iii</span>Blocks of nothing</h3><p>Open time on purpose: work on your own projects, walk alone in the desert, sit in the hot tub, or do nothing at all. Every meal is taken care of in the house, so the time goes to each other and to the conversations that happen between sessions.</p></div>
+        <div class="tiles" data-reveal>
+          <div class="tile"><h3><span class="n">i</span>What happens in Sedona</h3><p>Business brainstorming with a close circle.</p></div>
+          <div class="tile"><h3><span class="n">ii</span>Your plan, your way</h3><p>Present as much or as little as you like.</p></div>
+          <div class="tile tile-wide"><h3><span class="n">iii</span>Blocks of nothing</h3><p>Open time on purpose: work on your own projects, walk alone in the desert, sit in the hot tub, or do nothing at all. Every meal is taken care of in the house, so the time goes to each other and to the conversations that happen between sessions.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== The house + the four days ===================== -->
+    <section class="section" id="house" aria-labelledby="vista-name">
+      <div class="wrap">
+        <div class="v-head" data-reveal>
+          <div>
+            <p class="label accent">The house · Space, light and the view</p>
+            <h2 class="v-name" id="vista-name">The Vista</h2>
+            <p class="label v-where">Chapel area · about 10 minutes to Uptown</p>
+          </div>
+          <p class="v-line">A brand new spacious house surrounded by the red rocks of Sedona.</p>
+        </div>
+
+        <div class="v-body">
+          <!-- The days: tabs when script.js runs (dayTabs); all four stacked without it. -->
+          <div class="days-box" data-days data-reveal>
+            <h3>Your three days here</h3>
+            <div class="days-tabs" role="tablist" aria-label="The four days">
+              <button type="button" role="tab" id="tab-thu" aria-controls="day-thu" aria-selected="true">Thu<small>Jan 21</small></button>
+              <button type="button" role="tab" id="tab-fri" aria-controls="day-fri" aria-selected="false" tabindex="-1">Fri<small>Jan 22</small></button>
+              <button type="button" role="tab" id="tab-sat" aria-controls="day-sat" aria-selected="false" tabindex="-1">Sat<small>Jan 23</small></button>
+              <button type="button" role="tab" id="tab-sun" aria-controls="day-sun" aria-selected="false" tabindex="-1">Sun<small>Jan 24</small></button>
+            </div>
+            <div class="days">
+              <div class="day is-active" id="day-thu" role="tabpanel" aria-labelledby="tab-thu">
+                <p class="d">Thursday<small>Jan 21</small></p>
+                <p>Lunch together in Phoenix for anyone who’d like to join. The vans leave Phoenix at <strong>1:00&nbsp;pm</strong> for the road trip up through the desert, and the house opens to us at <strong>4:00&nbsp;pm</strong>, the rocks toward Mammoth Rock and the Cathedral side filling the glass, with the sun setting around 5:45&nbsp;pm. Welcome dinner, then a short intro circle by the fireplace: who you are and what you came for.</p>
+              </div>
+              <div class="day" id="day-fri" role="tabpanel" aria-labelledby="tab-fri">
+                <p class="d">Friday<small>Jan 22</small></p>
+                <p>Coffee on the wraparound deck and a slow desert morning. Late morning, the first mastermind session. Lunch, then a long block of nothing: your own projects, a walk alone, the sauna or the hot tub. Late afternoon, the second session. The chef cooks dinner.</p>
+              </div>
+              <div class="day" id="day-sat" role="tabpanel" aria-labelledby="tab-sat">
+                <p class="d">Saturday<small>Jan 23</small></p>
+                <p>A big breakfast, then the third session, in a room full of light. In the afternoon, the Jeeps take us into the red rocks. Dinner, then the evening around the fire pit.</p>
+              </div>
+              <div class="day" id="day-sun" role="tabpanel" aria-labelledby="tab-sun">
+                <p class="d">Sunday<small>Jan 24</small></p>
+                <p>A final breakfast and a closing circle with the morning light on the rocks. Check-out is at <strong>10:00&nbsp;am</strong>, and the drive back down to Phoenix begins around <strong>1:00&nbsp;pm</strong>.</p>
+              </div>
+            </div>
+            <p class="note-small days-note">Indicative. Only the travel and check-in times are fixed; the full schedule follows by email.</p>
+          </div>
+
+          <div data-reveal>
+            <h3>In the house</h3>
+            <ul class="amen">
+              <li>Panoramic red-rock views toward Mammoth Rock and the Cathedral side</li>
+              <li>Floor-to-ceiling windows</li>
+              <li>Wraparound deck</li>
+              <li>Fire pit and a living-room fireplace</li>
+              <li>Sauna</li>
+              <li>Hot tub</li>
+              <li>Pool table and a lounge with a bar</li>
+            </ul>
+
+            <div class="sleep">
+              <h3>Where everyone sleeps</h3>
+              <dl>
+                <div><dt>Eight bedrooms, ten beds, four and a half bathrooms</dt>
+                <dd>Jesse will walk you through the rooms personally once your seat is reserved.</dd></div>
+                <div><dt>First to register, first to choose</dt>
+                <dd>The first four guests to register choose their rooms first, including a room to themselves.</dd></div>
+                <div><dt>At twelve</dt>
+                <dd>Some rooms are shared, and the sharing falls to those who register later.</dd></div>
+              </dl>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rooms: flip "show" to true once the first four have chosen. Status is "available" or "taken".
+             Rename rooms freely; the list renders in this order. Rebuild after editing. -->
+        <script type="application/json" data-rooms-config>
+        {
+          "show": false,
+          "rooms": [
+            { "name": "Bedroom one",   "status": "available" },
+            { "name": "Bedroom two",   "status": "available" },
+            { "name": "Bedroom three", "status": "available" },
+            { "name": "Bedroom four",  "status": "available" },
+            { "name": "Bedroom five",  "status": "available" },
+            { "name": "Bedroom six",   "status": "available" },
+            { "name": "Bedroom seven", "status": "available" },
+            { "name": "Bedroom eight", "status": "available" }
+          ]
+        }
+        </script>
+        <div class="rooms" data-rooms hidden>
+          <h3>The rooms</h3>
+          <p class="note-small">Rooms are chosen in the order seats are reserved.</p>
+          <ul class="rooms-list" data-rooms-list></ul>
+        </div>
+
+        <div class="listing">
+          <a class="btn btn-ghost" href="https://www.airbnb.ca/rooms/1396637046260623124" target="_blank" rel="noopener">See The Vista on Airbnb <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
+          <p class="note-small">Photos, every room and the reviews are on the full listing.</p>
         </div>
       </div>
     </section>
 
     <!-- ===================== The Adventure ===================== -->
-    <section class="section" id="adventure" aria-labelledby="sedona-title">
+    <section class="section night" id="adventure" aria-labelledby="sedona-title">
       <div class="wrap">
-        <div class="section-head">
-          <p class="no">II.</p>
-          <h2 id="sedona-title">The Adventure</h2>
-          <p>One afternoon, the table moves to the backcountry: Sedona’s canyons and vortex sites in a private Jeep expedition, with a guide who knows the land.</p>
+        <div class="adv">
+          <div class="section-head" data-reveal>
+            <p class="no">II.</p>
+            <h2 id="sedona-title">The Adventure</h2>
+            <p>One afternoon, the table moves to the backcountry: Sedona’s canyons and vortex sites in a private Jeep expedition, with a guide who knows the land.</p>
+          </div>
+          <div class="photo-pair" data-reveal>
+            <figure><img src="assets/images/web/jeep1.jpg" alt="A Jeep climbing a red rock trail" width="1368" height="882" loading="lazy"></figure>
+            <figure><img src="assets/images/web/redrock2.jpg" alt="A red rock butte under a blue sky" width="1284" height="884" loading="lazy"></figure>
+          </div>
         </div>
-        <div class="photo-pair">
-          <figure><img src="assets/images/web/jeep1.jpg" alt="A Jeep climbing a red rock trail" width="1368" height="882" loading="lazy"></figure>
-          <figure><img src="assets/images/web/redrock2.jpg" alt="A red rock butte under a blue sky" width="1284" height="884" loading="lazy"></figure>
-        </div>
-        <div class="cols">
-          <div><h3>The desert at dawn</h3><p>A slow walk in the desert each morning, with a notebook if you like, before the day gets going.</p></div>
-          <div><h3>The dark sky</h3><p>Sedona doesn't hide its night sky. On a clear January night, the stars fill the void.</p></div>
-          <div><h3>The weather</h3><p>January days in Sedona are generally mild and bright; nights can drop close to freezing. The fire and sauna are available to use. Bring layers for the early morning walks.</p></div>
-        </div>
-        <div class="included">
-          <p class="label">Included</p>
-          <p>Three nights’ lodging · Chef-prepared dinners · All meals included on days 2 and 4 · Time with the group focused on solving your business puzzles · Private Jeep expedition · Van ride from Phoenix and back</p>
-          <p class="note-small">Flights not included.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== Practicalities ===================== -->
-    <section class="section" id="practical" aria-labelledby="practical-title">
-      <div class="wrap">
-        <div class="section-head">
-          <p class="label">Practicalities</p>
-          <h2 id="practical-title">Before you pack</h2>
-        </div>
-        <div class="cols">
-          <div><h3>Getting there</h3><p>Land at Phoenix Sky Harbor by about 11:30&nbsp;am on Thursday, January&nbsp;21, and book your flight home for after about 4:00&nbsp;pm on Sunday. Everyone is welcome at lunch in Phoenix on Thursday (we’ll send the spot by email). The vans leave Phoenix at 1:00&nbsp;pm for the two-hour drive through the desert; Jesse will likely be one of the drivers. Or make your own way, or fly into the small Sedona airport, and meet us at the house: check-in is at 4:00&nbsp;pm. On Sunday we check out at 10:00&nbsp;am and the drive back to Phoenix begins around 1:00&nbsp;pm. Jesse is around all day Sunday to visit and to drive people to the airport.</p></div>
-          <div><h3>The table</h3><p>A chef cooks dinner in the house, and every other meal is taken care of. Once your seat is reserved, we’ll ask about dietary needs by email.</p></div>
-          <div><h3>Waiver and ground rules</h3><p>Before the gathering, LIA will send each guest a liability waiver to sign, covering the Jeep, sauna, hot tub and the like. Nobody records or photographs another guest without their explicit consent, and LIA won’t publish content featuring any guest without their permission. Some conversations will ask you to join a circle of confidentiality. Basic respect for everyone at the table is expected.</p></div>
+        <div class="tiles tiles-3" data-reveal>
+          <div class="tile"><h3>The desert at dawn</h3><p>A slow walk in the desert each morning, with a notebook if you like, before the day gets going.</p></div>
+          <div class="tile"><h3>The dark sky</h3><p>Sedona doesn't hide its night sky. On a clear January night, the stars fill the void.</p></div>
+          <div class="tile"><h3>The weather</h3><p>January days in Sedona are generally mild and bright; nights can drop close to freezing. The fire and sauna are available to use. Bring layers for the early morning walks.</p></div>
         </div>
       </div>
     </section>
@@ -247,20 +253,32 @@
     <!-- ===================== Your seat ===================== -->
     <section class="section" id="reserve" aria-labelledby="reserve-title">
       <div class="wrap">
-        <div class="section-head">
+        <div class="section-head" data-reveal>
           <p class="no">III.</p>
           <h2 id="reserve-title">The table is set for twelve.</h2>
-          <p>Ten seats, with Jesse and Nick Serpico making twelve. The house is booked. The gathering runs once six guests have registered, and registration is open until December&nbsp;1, 2026.</p>
+          <p>Ten seats, with Jesse and Nick Serpico making twelve.</p>
         </div>
-        <p class="seat-terms">Registration is open until December&nbsp;1, 2026, and payments are fully refundable until then. If six guests have registered by December&nbsp;1, the gathering happens; if not, every payment is refunded in full. After December&nbsp;1, 2026, payments are non-refundable, though seats can be transferred to a guest you nominate, subject to our approval. Deposit balances are due by January&nbsp;1, 2027. If a balance has not been paid by then, the seat is forfeited and we refund half the deposit ($750) after the event. If we have to cancel the gathering ourselves, every guest is refunded in full within 30 days of the announcement.</p>
 
-        <div class="cards">
+        <div class="included" data-reveal>
+          <p class="label">Included</p>
+          <ul>
+            <li>Three nights’ lodging</li>
+            <li>Chef-prepared dinners</li>
+            <li>All meals included on days 2 and 4</li>
+            <li>Time with the group focused on solving your business puzzles</li>
+            <li>Private Jeep expedition</li>
+            <li>Van ride from Phoenix and back</li>
+          </ul>
+          <p class="note-small">Flights not included.</p>
+        </div>
+
+        <div class="cards" data-reveal>
           
           <div class="card pay-card">
             <div class="card-main">
               <p class="label">Deposit</p>
               <p class="price card-price">$1,500</p>
-              <p>Holds your seat. The balance of $1,500 is due by January&nbsp;1,&nbsp;2027. We’ll email you the payment link in mid-December, or any time you ask. If the balance isn’t paid by then, the seat is forfeited and half the deposit ($750) is refunded after the event.</p>
+              <p>Holds your seat. The balance of $1,500 is due by January&nbsp;1,&nbsp;2027. We’ll email you the payment link in mid-December, or any time you ask.</p>
               <a class="btn" href="https://buy.stripe.com/8x2aEQ5ROemb1oBbO76oo0l" target="_blank" rel="noopener">Place deposit</a>
             </div>
           </div>
@@ -273,12 +291,48 @@
             </div>
           </div>
         </div>
-        <p class="note-small" style="margin-top:1.5rem">Questions: <a href="mailto:jesse@thelivinginternet.com">jesse@thelivinginternet.com</a></p>
+
+        <!-- The short version, always visible beside the pay buttons. The full terms sit in the toggle below
+             (and, unchanged, on the printed receipt). Keep all three in step when terms change. -->
+        <ul class="terms-line">
+          <li>Fully refundable until December&nbsp;1, 2026</li>
+          <li>The gathering happens once six guests have registered</li>
+          <li>Deposit balances are due by January&nbsp;1, 2027, or the seat is forfeited and half the deposit ($750) is refunded</li>
+        </ul>
+        <details class="fold terms-fold">
+          <summary>Read the full terms</summary>
+          <p class="seat-terms">Registration is open until December&nbsp;1, 2026, and payments are fully refundable until then. If six guests have registered by December&nbsp;1, the gathering happens; if not, every payment is refunded in full. After December&nbsp;1, 2026, payments are non-refundable, though seats can be transferred to a guest you nominate, subject to our approval. Deposit balances are due by January&nbsp;1, 2027. If a balance has not been paid by then, the seat is forfeited and we refund half the deposit ($750) after the event. If we have to cancel the gathering ourselves, every guest is refunded in full within 30 days of the announcement.</p>
+        </details>
+        <p class="note-small questions">Questions: <a href="mailto:jesse@thelivinginternet.com">jesse@thelivinginternet.com</a></p>
+      </div>
+    </section>
+
+    <!-- ===================== Before you pack ===================== -->
+    <section class="section night" id="practical" aria-labelledby="practical-title">
+      <div class="wrap practical">
+        <div class="section-head">
+          <p class="label">Practicalities</p>
+          <h2 id="practical-title">Before you pack</h2>
+        </div>
+        <div class="folds">
+          <details class="fold">
+            <summary>Getting there</summary>
+            <p>Land at Phoenix Sky Harbor by about 11:30&nbsp;am on Thursday, January&nbsp;21, and book your flight home for after about 4:00&nbsp;pm on Sunday. Everyone is welcome at lunch in Phoenix on Thursday (we’ll send the spot by email). The vans leave Phoenix at 1:00&nbsp;pm for the two-hour drive through the desert; Jesse will likely be one of the drivers. Or make your own way, or fly into the small Sedona airport, and meet us at the house: check-in is at 4:00&nbsp;pm. On Sunday we check out at 10:00&nbsp;am and the drive back to Phoenix begins around 1:00&nbsp;pm. Jesse is around all day Sunday to visit and to drive people to the airport.</p>
+          </details>
+          <details class="fold">
+            <summary>The table</summary>
+            <p>A chef cooks dinner in the house, and every other meal is taken care of. Once your seat is reserved, we’ll ask about dietary needs by email.</p>
+          </details>
+          <details class="fold">
+            <summary>Waiver and ground rules</summary>
+            <p>Before the gathering, LIA will send each guest a liability waiver to sign, covering the Jeep, sauna, hot tub and the like. Nobody records or photographs another guest without their explicit consent, and LIA won’t publish content featuring any guest without their permission. Some conversations will ask you to join a circle of confidentiality. Basic respect for everyone at the table is expected.</p>
+          </details>
+        </div>
       </div>
     </section>
   </main>
 
-  <footer class="foot">
+  <footer class="foot night">
     <div class="wrap">
       <span>The Living Internet Alliance · The Arizona Mastermind · Vol. I</span>
       <span>34°48′46″ N, 111°49′50″ W</span>
@@ -290,7 +344,7 @@
   <section class="ticket-view pat-contour on-dark" data-ticket hidden aria-label="Your ticket">
     <div class="ticket-wrap">
       <p class="eyebrow">Your seat is held</p>
-      <h2 class="ticket-heading">Thank you<span data-ticket-first></span>.</h2>
+      <h2 class="ticket-heading">Thank you.</h2>
 
       <div class="ticket">
         <div class="ticket-main">
@@ -300,7 +354,7 @@
           </div>
           <p class="ticket-title">The Arizona <em>Mastermind</em></p>
           <dl class="ticket-rows">
-            <div><dt>Guest</dt><dd data-ticket-name>Reserved</dd></div>
+            <div><dt>Guest</dt><dd data-ticket-name>Seat reserved</dd></div>
             <div><dt>Dates</dt><dd>Thursday to Sunday, January 21–24, 2027</dd></div>
             <div><dt>Place</dt><dd>A private residence, Sedona, Arizona</dd></div>
             <div><dt>Status</dt><dd data-ticket-status>Seat reserved</dd></div>
@@ -377,6 +431,6 @@
     </div>
   </section></div>
 
-  <script type="application/json" id="vault">{"v":3,"comp":{"iter":250000,"salt":"iqPLVkBxpz1v+7BXgQlQEA==","iv":"h7hKIM/9lWh7D62d","data":"Dp2i2MfV6lw9xFAaiksKS8HCChNUFT5zuHUnCuY+BTiVsjVsVAesZrOyTUTTatSLmpAtSRestaaDQwBmEsB73XoqdBpo6uZNk8jiSLKl99qW9oTRttZSU48S8Coj/6INonGuKgLhw64W7UHwIPFIV2XkQMBcu2pkTLK95uu6WcLnpIIhCceK39jsypiwnDO3s3T2LMsbQVWEu7C54gFKCF/qpcV0nms00Q/XVNst6+J9hD/eFyPrb/XSFBqUc2fpHCpASAHD+GjsEfd+QBlqhTA4OlKbvKX24+VBAkQgDzwa+Bi4t/amqG+mw52Qwm9hwYMg8wGvNUJfkKH3ISXSbQMTGo7cB6Pn7IB7SCKj6C01GKNswsA+n2Y8HKSdjQP9f4bNABFOe/egv+qtRtV6D7F99Bau+Ycv9N7CV/YmgBFl5ZIAA7VDzQJBNcjALouT/uTdHXMmz2dWPfcV9taDofMYnbiHZ3Vx8+ou50ABXsVtoZDh1XjlyDcWu/DnEaW8h4juc+nTk/ZxMIGRur9M0NiB8LpJ+GesZmFSFugsIbmvaUIGs2jmIAecx/Lu46mzWohrBe6ALoQHZlCZj0X9763ICR7oJKM2WYFC3+a8UAazow8cudXUzfe0KwWVmBpIvc0M6J4x9TdvMOzClIKGIFonXevCgudyAFJ49An19Rx5UA5eZQt49lnMhBCx6sI="}}</script>
+  <script type="application/json" id="vault">{"v":3,"comp":{"iter":250000,"salt":"l63TMA/CJyuD2WkbT7Komg==","iv":"ieOGmlyoSQKEjWx0","data":"bMy+92gjrDqRocPKpzj9tX1vqh7thPHNax62gRLe6nKAw+DR46WzYeJv49G1PjYq8HqeIkuyn9OVg+b4vNfmnLVaqGW/DNxfHRCdQ+knDtPduBxN4KyfQT5RqKt6TsMH2fGpbRuvGF1+ibd2OCJpsJdsJkByowTJstXm8BGeDTyg/Fy6e6eiwpTz1Zl5hiRVsOIFeYX7J5tLhvj/NQ/eSPcB/C2JxdV18lfGNooyQdLZ1OksE5Dn6pAIiJavMvrk1FnMRcY15iO1wqA/ekUlncYHYudsmTguNUIs4gNv/2KvoXv8nlPmfL5sz0j5PuSDigo7JdHKonRYtx4rUVT2kMwJ0QMwQUAlhISudyuT9Qye68AKBWKhZ7RcasayZjetmwkoKcbzu9wZLexGb6WOmND38ZpXcFsc07Auie9mZhW5bN3pceXJemDEibRoTI0WBNP+IzXvLnDNCT5H3C4+GpWglzuJzlsUhs+/r1Msugo8ZpwIFZClM/Fqj3/rDQpY94u3PIoU+Z0EZlqG0oJ0zTXry0GV8HOOqKToNUyhNgRTptNs0NVh+ul/jc3oQySALEQ6Hn0AqMbpIv6vur81N108fSBgLcIVJqDU7Hffk63GNjrzoPiKjx2a0TYNO5YuuxaMMBUW10Lt9JgXouvpnGjl28pckJniI1ADH7XMDDErGirQ"}}</script>
 </body>
 </html>
