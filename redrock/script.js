@@ -7,10 +7,8 @@
  * which opens a ticket view with a print-only receipt. Stripe's emailed receipt is
  * the real record; the ticket simply reads "Seat reserved".
  *
- * Complimentary seat: that guest's link carries a private code (see COMP_CODE in build.mjs).
- * The card is encrypted with that code, in the #vault JSON, so it only exists for his link.
- * It shows his complimentary card and crosses out the deposit / pay-in-full cards.
- * On this source copy (no vault) any &seat= value shows the card, for previewing.
+ * The complimentary seat (&seat= link, encrypted card) was removed on 2026-11-11; any
+ * &seat= value is now ignored and the old saved code is cleared.
  *
  * Layout: a photo cover, then one scrolling page. dayTabs() turns the four days into
  * tabs, stickyBar() shows the slim bar after the cover, reveal() fades sections in.
@@ -21,36 +19,15 @@
 (function () {
 
   var params = new URLSearchParams(window.location.search);
-  var SEAT = (params.get('seat') || '').trim();
   var PAID = (params.get('paid') || '').toLowerCase();   // 'deposit' | 'full' (Stripe redirect)
 
   function remember(key, value) { try { if (value) localStorage.setItem(key, value); } catch (e) {} }
   function recall(key) { try { return localStorage.getItem(key) || ''; } catch (e) { return ''; } }
 
-  // The private seat code is remembered, so the comp card survives a return visit to the bare link.
-  if (SEAT) remember('rrr-seat', SEAT); else SEAT = recall('rrr-seat');
-  // Left over from the personalised links (retired 2026-11-11)
-  try { localStorage.removeItem('rrr-name'); localStorage.removeItem('rrr-no'); } catch (e) {}
+  // Left over from the personalised links and the comp seat (both retired 2026-11-11)
+  try { localStorage.removeItem('rrr-name'); localStorage.removeItem('rrr-no'); localStorage.removeItem('rrr-seat'); } catch (e) {}
 
   var PAGE_TITLE = document.title;
-
-  function applyComp() {
-    document.querySelectorAll('[data-comp]').forEach(function (el) { el.hidden = false; });
-    document.querySelectorAll('[data-comp-label]').forEach(function (el) {
-      el.textContent = ' · The Strategist’s Seat';
-      el.hidden = false;
-    });
-    document.querySelectorAll('[data-team]').forEach(function (el) { el.textContent = 'you and me'; });
-    document.querySelectorAll('.pay-card').forEach(function (card) {
-      card.classList.add('is-disabled');
-      card.setAttribute('aria-disabled', 'true');
-      card.querySelectorAll('a').forEach(function (a) {
-        a.removeAttribute('href');
-        a.setAttribute('tabindex', '-1');
-        a.setAttribute('aria-disabled', 'true');
-      });
-    });
-  }
 
   /* Optional photos: an <img data-optional> that fails to load removes its <figure>,
    * and a [data-gallery] with nothing left hides itself. */
@@ -316,49 +293,8 @@
     showTicket();
   }
 
-  /* ---------- Complimentary card (encrypted) ---------- */
-
-  function b64(s) {
-    var bin = atob(s), out = new Uint8Array(bin.length);
-    for (var i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
-    return out;
-  }
-
-  function decrypt(vault, password) {
-    var subtle = window.crypto && window.crypto.subtle;
-    if (!subtle) return Promise.reject(new Error('no-crypto'));
-    return subtle.importKey('raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveKey'])
-      .then(function (base) {
-        return subtle.deriveKey(
-          { name: 'PBKDF2', salt: b64(vault.salt), iterations: vault.iter, hash: 'SHA-256' },
-          base, { name: 'AES-GCM', length: 256 }, false, ['decrypt']
-        );
-      })
-      .then(function (key) {
-        return subtle.decrypt({ name: 'AES-GCM', iv: b64(vault.iv) }, key, b64(vault.data));
-      })
-      .then(function (buf) { return new TextDecoder().decode(buf); });
-  }
-
-  function showComp(vault) {
-    if (!SEAT) return;
-    if (!vault) { applyComp(); return; }          // source preview: no vault
-    if (!vault.comp) return;
-    decrypt(vault.comp, SEAT).then(function (compHtml) {
-      var cards = document.querySelector('.cards');
-      if (!cards) return;
-      cards.insertAdjacentHTML('afterbegin', compHtml);
-      protectImages();
-      applyComp();
-    }, function () { /* not the comp code: show the normal page */ });
-  }
-
   document.addEventListener('DOMContentLoaded', function () {
     try { localStorage.removeItem('rrr-pass'); } catch (e) {}   // left over from the old lock
     initPage();
-    var vaultEl = document.getElementById('vault');
-    var vault = null;
-    if (vaultEl) { try { vault = JSON.parse(vaultEl.textContent); } catch (e) {} }
-    showComp(vault);
   });
 })();
