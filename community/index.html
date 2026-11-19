@@ -17,9 +17,10 @@
 
   <link rel="icon" type="image/png" href="/assets/images/graphics/logo-white.png" />
 
-  <!-- Early-bird ends at midnight Pacific, Jan 1, 2027. From then on, every
-       .when-early element hides and every .when-full element shows (styles.css). -->
-  <script>if (Date.now() >= Date.parse('2027-01-01T00:00:00-08:00')) document.documentElement.classList.add('is-full-price');</script>
+  <!-- Super-early-bird ends Dec 31, 2026, 11:59pm Pacific (the switch runs at midnight Pacific, Jan 1, 2027). From then on, every
+       .when-early element hides and every .when-eb (early-bird) element shows. From midnight
+       Pacific, Feb 16, 2027, every .when-full element shows instead (styles.css). -->
+  <script>(function(){var t=Date.now(),h=document.documentElement;if(t>=Date.parse('2027-02-16T00:00:00-08:00'))h.classList.add('is-full-price');else if(t>=Date.parse('2027-01-01T00:00:00-08:00'))h.classList.add('is-early-bird');})();</script>
 
   <!-- Fonts: EB Garamond (display) + Inter (body) + Montserrat (wordmark) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -111,7 +112,7 @@
         <h2 class="section-title" id="perks-title">A risk-free taste test.</h2>
         <p class="section-intro">
           On a General Admission ticket, the member discount alone is worth
-          <span class="when-early">$39.70</span><span class="when-full">$49.70</span>. A year of membership is $15.
+          <span class="when-early">$39.70</span><span class="when-eb">$44.73</span><span class="when-full">$49.70</span>. A year of membership is $15.
         </p>
       </header>
       <ul class="cards">
@@ -119,7 +120,7 @@
           <p class="card__kicker">Every ticket</p>
           <p class="card__title">10% off, on top of the current price</p>
           <p class="card__desc">Any Future-Proof Creator Summit ticket, 3-Packs included. GA is
-            <strong><span class="when-early">$357.30</span><span class="when-full">$447.30</span></strong> for members.
+            <strong><span class="when-early">$357.30</span><span class="when-eb">$402.57</span><span class="when-full">$447.30</span></strong> for members.
             The code lives inside the community.</p>
         </li>
         <li class="card">
@@ -295,7 +296,7 @@
         <p class="option__label">The summit</p>
         <p class="option__title">Future-Proof Creator Summit 2027</p>
         <p class="option__body">June 4&ndash;6, 2027 in Abbotsford, BC, or live from anywhere.
-          <span class="when-early">Early-bird until January 1: in person from $397, virtual $147.</span><span class="when-full">In person from $497, virtual $197.</span></p>
+          <span class="when-early">Super-early-bird until December 31: in person from $397, virtual $147.</span><span class="when-eb">Early-bird until February 15: in person from $447.30, virtual $177.30.</span><span class="when-full">In person from $497, virtual $197.</span></p>
         <a href="/#tickets" class="btn btn--solid">Get tickets</a>
       </div>
       <div class="option">

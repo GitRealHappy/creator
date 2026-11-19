@@ -4,12 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Future-Proof Creator Summit 2027 · Becoming Irreplaceably Human</title>
-  <meta name="description" content="Becoming Irreplaceably Human. Three days of talks, working sessions and time with a hundred creators. Abbotsford, BC, June 4-6, 2027. Early-bird tickets from $397, virtual $147, until January 1." />
+  <meta name="description" content="Becoming Irreplaceably Human. Three days of talks, working sessions and time with a hundred creators. Abbotsford, BC, June 4-6, 2027. Super-early-bird tickets from $397, virtual $147, until December 31." />
   <link rel="canonical" href="https://www.thelivinginternet.com/" />
 
   <!-- Open Graph -->
   <meta property="og:title" content="Future-Proof Creator Summit 2027 · Becoming Irreplaceably Human" />
-  <meta property="og:description" content="Becoming Irreplaceably Human. Three days of talks, working sessions and time with a hundred creators. Abbotsford, BC, June 4-6, 2027. Early-bird tickets from $397, virtual $147, until January 1." />
+  <meta property="og:description" content="Becoming Irreplaceably Human. Three days of talks, working sessions and time with a hundred creators. Abbotsford, BC, June 4-6, 2027. Super-early-bird tickets from $397, virtual $147, until December 31." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.thelivinginternet.com/" />
   <meta property="og:image" content="https://www.thelivinginternet.com/assets/images/summit-photos/img1-new.jpg" />
@@ -17,9 +17,10 @@
 
   <link rel="icon" type="image/png" href="/assets/images/graphics/logo-white.png" />
 
-  <!-- Early-bird ends at midnight Pacific, Jan 1, 2027. From then on, every
-       .when-early element hides and every .when-full element shows (styles.css). -->
-  <script>if (Date.now() >= Date.parse('2027-01-01T00:00:00-08:00')) document.documentElement.classList.add('is-full-price');</script>
+  <!-- Super-early-bird ends Dec 31, 2026, 11:59pm Pacific (the switch runs at midnight Pacific, Jan 1, 2027). From then on, every
+       .when-early element hides and every .when-eb (early-bird) element shows. From midnight
+       Pacific, Feb 16, 2027, every .when-full element shows instead (styles.css). -->
+  <script>(function(){var t=Date.now(),h=document.documentElement;if(t>=Date.parse('2027-02-16T00:00:00-08:00'))h.classList.add('is-full-price');else if(t>=Date.parse('2027-01-01T00:00:00-08:00'))h.classList.add('is-early-bird');})();</script>
 
   <!-- Fonts: EB Garamond (display) + Inter (body) + Montserrat (wordmark) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -93,7 +94,8 @@
         every year. This is three days in-person with 100+ creators pursuing purposeful work.
       </p>
 
-      <p class="hero__price when-early">Early-bird until January 1: <strong>in person from $397</strong> &middot; <strong>virtual $147</strong></p>
+      <p class="hero__price when-early">Super-early-bird until December 31: <strong>in person from $397</strong> &middot; <strong>virtual $147</strong></p>
+      <p class="hero__price when-eb">Early-bird until February 15: <strong>in person from $447.30</strong> &middot; <strong>virtual $177.30</strong></p>
       <p class="hero__price when-full">Tickets: <strong>in person from $497</strong> &middot; <strong>virtual $197</strong></p>
 
       <div class="hero__actions">
@@ -236,7 +238,7 @@
             </p>
           </header>
           <ul class="milestones" aria-label="Announcement timeline">
-            <li class="milestone"><span class="milestone__when">Now</span><span class="milestone__what"><strong>Tickets on sale</strong> <span class="when-early">at early-bird prices, until January 1.</span><span class="when-full">at full price.</span></span></li>
+            <li class="milestone"><span class="milestone__when">Now</span><span class="milestone__what"><strong>Tickets on sale</strong> <span class="when-early">at super-early-bird prices, until December 31.</span><span class="when-eb">at early-bird prices, until February 15.</span><span class="when-full">at full price.</span></span></li>
             <li class="milestone"><span class="milestone__when">December</span><span class="milestone__what"><strong>First speakers announced.</strong> Subscribers hear first.</span></li>
             <li class="milestone"><span class="milestone__when">January</span><span class="milestone__what"><strong>Venue announced</strong>, in Abbotsford.</span></li>
             <li class="milestone"><span class="milestone__when">Early 2027</span><span class="milestone__what"><strong>Full lineup</strong> and the session-by-session agenda.</span></li>
@@ -246,7 +248,7 @@
         <div class="signup ">
           <p class="signup__eyebrow">The Living Internet Substack</p>
           <p class="signup__title">Get the lineup first.</p>
-          <p class="signup__body">Speaker announcements reach subscribers first. The Substack publishes only 12 to 18 articles a year, so it won't crowd your inbox.<span class="when-early"> You'll also get a reminder as early-bird pricing ends.</span></p>
+          <p class="signup__body">Speaker announcements reach subscribers first. The Substack publishes only 12 to 18 articles a year, so it won't crowd your inbox.<span class="when-early"> You'll also get a reminder as super-early-bird pricing ends.</span><span class="when-eb"> You'll also get a reminder as early-bird pricing ends.</span></p>
           <div class="signup__frame">
             <iframe src="https://livinginternet.substack.com/embed" title="Subscribe to The Living Internet Substack" loading="lazy" width="480" height="320" style="border: 1px solid #EEE; background: white" frameborder="0" scrolling="no"></iframe>
           </div>
@@ -261,7 +263,7 @@
     <canvas class="embers-canvas" aria-hidden="true"></canvas>
     <div class="member-band__inner">
       <div class="member-band__text">
-        <p class="eyebrow member-band__eyebrow"><span class="when-early">Tickets &middot; Early-bird until January 1</span><span class="when-full">Tickets</span></p>
+        <p class="eyebrow member-band__eyebrow"><span class="when-early">Tickets &middot; Super-early-bird until December 31</span><span class="when-eb">Tickets &middot; Early-bird until February 15</span><span class="when-full">Tickets</span></p>
         <h2 class="member-band__title" id="tickets-title">Three tickets.</h2>
         <p class="member-band__body">
           <strong>June 4&ndash;6, 2027 &middot; Abbotsford, BC, Canada.</strong> No code needed: the
@@ -272,9 +274,9 @@
       <div class="tiers">
         <article class="tier">
           <p class="tier__name">General Admission</p>
-          <p class="tier__price"><span class="when-early">$397</span><span class="when-full">$497</span><small>USD</small></p>
-          <p class="tier__later"><span class="when-early">$497 after January 1 &middot; 120 seats</span><span class="when-full">120 seats</span></p>
-          <p class="tier__member">Alliance members: <span class="when-early">$357.30</span><span class="when-full">$447.30</span></p>
+          <p class="tier__price"><span class="when-early">$397</span><span class="when-eb">$447.30</span><span class="when-full">$497</span><small>USD</small></p>
+          <p class="tier__later"><span class="when-early">$447.30 from January 1 &middot; 120 seats</span><span class="when-eb">$497 from February 16 &middot; 120 seats</span><span class="when-full">120 seats</span></p>
+          <p class="tier__member">Alliance members: <span class="when-early">$357.30</span><span class="when-eb">$402.57</span><span class="when-full">$447.30</span></p>
           <ul class="tier__list">
             <li class="yes">All talks, in person</li>
             <li class="yes">In-person working sessions</li>
@@ -288,9 +290,9 @@
         <article class="tier tier--featured">
           <p class="tier__flag">30 seats</p>
           <p class="tier__name">VIP</p>
-          <p class="tier__price"><span class="when-early">$1,297</span><span class="when-full">$1,497</span><small>USD</small></p>
-          <p class="tier__later"><span class="when-early">$1,497 after January 1</span><span class="when-full">Only 30 seats</span></p>
-          <p class="tier__member">Alliance members: <span class="when-early">$1,167.30</span><span class="when-full">$1,347.30</span></p>
+          <p class="tier__price"><span class="when-early">$1,297</span><span class="when-eb">$1,347.30</span><span class="when-full">$1,497</span><small>USD</small></p>
+          <p class="tier__later"><span class="when-early">$1,347.30 from January 1</span><span class="when-eb">$1,497 from February 16</span><span class="when-full">Only 30 seats</span></p>
+          <p class="tier__member">Alliance members: <span class="when-early">$1,167.30</span><span class="when-eb">$1,212.57</span><span class="when-full">$1,347.30</span></p>
           <ul class="tier__list">
             <li class="yes">Everything in General Admission</li>
             <li class="yes">Saturday VIP dinner with the speakers</li>
@@ -304,9 +306,9 @@
 
         <article class="tier">
           <p class="tier__name">Virtual</p>
-          <p class="tier__price"><span class="when-early">$147</span><span class="when-full">$197</span><small>USD</small></p>
-          <p class="tier__later"><span class="when-early">$197 after January 1 &middot; 300 seats</span><span class="when-full">300 seats</span></p>
-          <p class="tier__member">Alliance members: <span class="when-early">$132.30</span><span class="when-full">$177.30</span></p>
+          <p class="tier__price"><span class="when-early">$147</span><span class="when-eb">$177.30</span><span class="when-full">$197</span><small>USD</small></p>
+          <p class="tier__later"><span class="when-early">$177.30 from January 1 &middot; 300 seats</span><span class="when-eb">$197 from February 16 &middot; 300 seats</span><span class="when-full">300 seats</span></p>
+          <p class="tier__member">Alliance members: <span class="when-early">$132.30</span><span class="when-eb">$159.57</span><span class="when-full">$177.30</span></p>
           <ul class="tier__list">
             <li class="yes">Every talk, streamed live</li>
             <li class="yes">Live chat with attendees worldwide</li>
@@ -323,19 +325,22 @@
       <div class="tickets__notes">
         <details class="tickets__note">
           <summary class="tickets__note-title">Coming as a group</summary>
-          <p><strong>GA 3-Pack <span class="when-early">$997</span><span class="when-full">$1,297</span></strong><span class="when-early"> (then $1,297)</span> &middot;
-             <strong>VIP 3-Pack <span class="when-early">$3,397</span><span class="when-full">$4,000</span></strong><span class="when-early"> (then $4,000)</span>, After-Party included.
+          <p><strong>GA 3-Pack <span class="when-early">$997</span><span class="when-eb">$1,167.30</span><span class="when-full">$1,297</span></strong><span class="when-early"> (then $1,167.30)</span><span class="when-eb"> (then $1,297)</span> &middot;
+             <strong>VIP 3-Pack <span class="when-early">$3,397</span><span class="when-eb">$3,600</span><span class="when-full">$4,000</span></strong><span class="when-early"> (then $3,600)</span><span class="when-eb"> (then $4,000)</span>, After-Party included.
              Ten GA packs and three VIP packs. Send all three names and emails to
              <a href="mailto:jesse@thelivinginternet.com">jesse@thelivinginternet.com</a> by May 1, 2027.
              Each person gets their own year of Alliance membership, and the member 10% applies to packs too.</p>
         </details>
         <details class="tickets__note">
           <summary class="tickets__note-title">About sales</summary>
-          <p class="when-early">There won't be Black Friday or holiday sales. Tickets stay at the early-bird
-             price until 2027 begins, and this is the lowest they'll be. On January 1, prices go to
-             $497, $1,497 and $197. Alliance members get 10% off any ticket, and will likely get
+          <p class="when-early">There won't be Black Friday or holiday sales. Tickets stay at the super-early-bird
+             price until December 31, and this is the lowest they'll be. From January 1 to February 15,
+             early-bird prices are $447.30, $1,347.30 and $177.30, and from February 16, $497, $1,497 and $197. Alliance members get 10% off any ticket, and will likely get
              windows in 2027 when early-bird prices return.</p>
-          <p class="when-full">Early-bird ended on January 1. Alliance members still get 10% off any
+          <p class="when-eb">There won't be Black Friday or holiday sales. Early-bird prices of $447.30, $1,347.30 and $177.30
+             run until February 15. From February 16, prices go to $497, $1,497 and $197. Alliance members
+             get 10% off any ticket.</p>
+          <p class="when-full">Early-bird ended on February 15. Alliance members still get 10% off any
              ticket, and will likely get windows during 2027 when early-bird prices return.</p>
         </details>
       </div>
@@ -349,7 +354,7 @@
           <p><strong>A year of membership is included</strong> with every ticket, running until June 2028.
              Already a member? Use your member code at checkout for 10% off. Not yet?
              <a href="/community/">Join for $15/year</a> first: on a GA ticket it saves you
-             <span class="when-early">$39.70</span><span class="when-full">$49.70</span>.</p>
+             <span class="when-early">$39.70</span><span class="when-eb">$44.73</span><span class="when-full">$49.70</span>.</p>
           <p><strong>No refunds</strong>, but tickets are transferable until May 1, 2027.
              <a href="/faq/#getting-here">Planning your trip?</a></p>
           <p class="ticket-embed__fallback">Box office not loading? <a href="https://tickets.thelivinginternet.com/checkout/view-event/id/8531085/chk/ede5cd54da2d77b5125283f28206d958/?modal_widget=true&amp;widget=true" target="_blank" rel="noopener">Open checkout in a new tab</a>.</p>
@@ -445,7 +450,7 @@
         </details>
         <details class="faq__item">
           <summary class="faq__q">What if I can't travel?</summary>
-          <div class="faq__a"><p>Get a Virtual ticket (<span class="when-early">$147 until January 1</span><span class="when-full">$197</span>).
+          <div class="faq__a"><p>Get a Virtual ticket (<span class="when-early">$147 until December 31</span><span class="when-eb">$177.30 until February 15</span><span class="when-full">$197</span>).
             Every talk streams live, there's a chatroom for virtual attendees, and the recordings are yours afterward, along with the 2026 summit recordings and a year of Alliance membership.</p></div>
         </details>
         <details class="faq__item">
@@ -462,8 +467,8 @@
         </details>
         <details class="faq__item">
           <summary class="faq__q">Can I bring my team?</summary>
-          <div class="faq__a"><p>Yes. The GA 3-Pack is <span class="when-early">$997</span><span class="when-full">$1,297</span>
-            and the VIP 3-Pack is <span class="when-early">$3,397</span><span class="when-full">$4,000</span>. Send all three names and
+          <div class="faq__a"><p>Yes. The GA 3-Pack is <span class="when-early">$997</span><span class="when-eb">$1,167.30</span><span class="when-full">$1,297</span>
+            and the VIP 3-Pack is <span class="when-early">$3,397</span><span class="when-eb">$3,600</span><span class="when-full">$4,000</span>. Send all three names and
             emails to Jesse by May 1, 2027.</p></div>
         </details>
         <details class="faq__item">
@@ -487,7 +492,7 @@
         <p class="option__label">The summit</p>
         <p class="option__title">Future-Proof Creator Summit 2027</p>
         <p class="option__body">June 4&ndash;6, 2027 in Abbotsford, BC, or live from anywhere.
-          <span class="when-early">Early-bird until January 1: in person from $397, virtual $147.</span><span class="when-full">In person from $497, virtual $197.</span></p>
+          <span class="when-early">Super-early-bird until December 31: in person from $397, virtual $147.</span><span class="when-eb">Early-bird until February 15: in person from $447.30, virtual $177.30.</span><span class="when-full">In person from $497, virtual $197.</span></p>
         <a href="/#tickets" class="btn btn--solid">Get tickets</a>
       </div>
       <div class="option">

@@ -1,3 +1,6 @@
 # Private working docs: never commit (GitHub Pages publishes the whole repo)
 siteplan.md
 .DS_Store
+
+# Later-work plan for the 2027 brief: holds unsigned speaker names, never publish
+plan-2027-later.md

@@ -1732,9 +1732,12 @@ a { color: inherit; text-decoration: none; }
 
 /* ---------- Early-bird / full-price switch ----------
    An inline script in each page's <head> adds .is-full-price to <html>
-   from midnight Pacific, Jan 1, 2027, so the page flips to full prices
-   on its own, the same minute Ticket Tailor's scheduled change lands. */
-.when-full { display: none; }
+   from midnight Pacific, Feb 16, 2027 (full prices), and .is-early-bird from
+   Jan 1 to Feb 15, so the page matches Ticket Tailor's price changes. */
+.when-full, .when-eb { display: none; }
+.is-early-bird .when-early { display: none; }
+.is-early-bird .when-eb { display: revert; }
+.is-early-bird span.when-eb { display: inline; }
 .is-full-price .when-early { display: none; }
 .is-full-price .when-full { display: revert; }
 .is-full-price span.when-full { display: inline; }

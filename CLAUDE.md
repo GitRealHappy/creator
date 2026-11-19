@@ -16,10 +16,15 @@ Project context for any Claude session working in this repository. Read this fir
 > redirects to `/community/`. Shared nav (with mobile menu), footer (Substack embed) and
 > two-option close are duplicated in each page; shared JS moved to `site.js`; new CSS is the
 > "SITE REBUILD" block at the end of `styles.css`. Root-absolute paths (`/styles.css`), so
-> preview with a local server from the repo root, not file://. **Prices:** early-bird
-> (GA $397 / VIP $1,297 / Virtual $147) is shown until midnight Pacific, Jan 1, 2027, then an
-> inline `<head>` script adds `.is-full-price` and every `.when-early` / `.when-full` pair
-> flips to $497 / $1,497 / $197 on its own. Edit both halves of a pair when prices change.
+> preview with a local server from the repo root, not file://. **Prices (three stages since 2026-11-18):**
+> super-early-bird (GA $397 / VIP $1,297 / Virtual $147) until Dec 31, 2026; early-bird
+> ($447.30 / $1,347.30 / $177.30) Jan 1 to Feb 15, 2027; full ($497 / $1,497 / $197) from
+> Feb 16. An inline `<head>` script on each page adds `.is-early-bird` (from midnight Pacific
+> Jan 1) or `.is-full-price` (from midnight Pacific Feb 16) to `<html>`, and every
+> `.when-early` / `.when-eb` / `.when-full` trio flips on its own. Edit all three variants when
+> prices change. Cents are never rounded. Not automatic: the home page JSON-LD prices and
+> meta/og descriptions (dated edits tracked in the gitignored `plan-2027-later.md`, which also
+> holds the 2027 speaker kit and claims awaiting Jesse; never commit it).
 > SUPEREARLY/EARLYVIRTUAL copy is gone (codes expired). Testimonial screenshots are no longer
 > used by any page. **2026-10-26:** the `/2026` `#wall` testimonials are styled as a single-column
 > Substack Notes-style feed (`.quote-wall` in `styles.css`); `site.js` shows the first 5 and adds a

@@ -17,9 +17,10 @@
 
   <link rel="icon" type="image/png" href="/assets/images/graphics/logo-white.png" />
 
-  <!-- Early-bird ends at midnight Pacific, Jan 1, 2027. From then on, every
-       .when-early element hides and every .when-full element shows (styles.css). -->
-  <script>if (Date.now() >= Date.parse('2027-01-01T00:00:00-08:00')) document.documentElement.classList.add('is-full-price');</script>
+  <!-- Super-early-bird ends Dec 31, 2026, 11:59pm Pacific (the switch runs at midnight Pacific, Jan 1, 2027). From then on, every
+       .when-early element hides and every .when-eb (early-bird) element shows. From midnight
+       Pacific, Feb 16, 2027, every .when-full element shows instead (styles.css). -->
+  <script>(function(){var t=Date.now(),h=document.documentElement;if(t>=Date.parse('2027-02-16T00:00:00-08:00'))h.classList.add('is-full-price');else if(t>=Date.parse('2027-01-01T00:00:00-08:00'))h.classList.add('is-early-bird');})();</script>
 
   <!-- Fonts: EB Garamond (display) + Inter (body) + Montserrat (wordmark) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -141,11 +142,11 @@
         </details>
         <details class="faq__item" open>
           <summary class="faq__q">When do prices go up?</summary>
-          <div class="faq__a"><p class="when-early">Early-bird prices (GA $397, VIP $1,297, Virtual $147) end when 2027 begins. On January 1, they go to $497, $1,497 and $197.</p><p class="when-full">Early-bird ended on January 1. Prices are now GA $497, VIP $1,497 and Virtual $197.</p></div>
+          <div class="faq__a"><p class="when-early">Super-early-bird prices (GA $397, VIP $1,297, Virtual $147) end on December 31. From January 1 to February 15, early-bird prices are GA $447.30, VIP $1,347.30 and Virtual $177.30. From February 16, they go to $497, $1,497 and $197.</p><p class="when-eb">Early-bird prices (GA $447.30, VIP $1,347.30, Virtual $177.30) end on February 15. From February 16, they go to $497, $1,497 and $197.</p><p class="when-full">Early-bird ended on February 15. Prices are now GA $497, VIP $1,497 and Virtual $197.</p></div>
         </details>
         <details class="faq__item" open>
           <summary class="faq__q">Will there be a Black Friday or holiday sale?</summary>
-          <div class="faq__a"><p>No. The early-bird price is the lowest public price. Alliance members will likely get windows in 2027 when early-bird prices return.</p></div>
+          <div class="faq__a"><p>No. The super-early-bird price is the lowest public price. Alliance members will likely get windows in 2027 when early-bird prices return.</p></div>
         </details>
         <details class="faq__item" open>
           <summary class="faq__q">Is there a discount for members?</summary>
@@ -158,7 +159,7 @@
         <div class="faq__list faq__list--left">
         <details class="faq__item" open>
           <summary class="faq__q">Can I buy tickets for my team?</summary>
-          <div class="faq__a"><p>Yes. The <strong>GA 3-Pack</strong> is <span class="when-early">$997 (then $1,297)</span><span class="when-full">$1,297</span>, and the <strong>VIP 3-Pack</strong> is <span class="when-early">$3,397 (then $4,000)</span><span class="when-full">$4,000</span>, After-Party included. There are ten GA packs and three VIP packs.</p><p>Send all three names and emails to <a href="mailto:jesse@thelivinginternet.com">jesse@thelivinginternet.com</a> by May 1, 2027. Each person gets their own year of Alliance membership, and the member 10% applies to packs too.</p></div>
+          <div class="faq__a"><p>Yes. The <strong>GA 3-Pack</strong> is <span class="when-early">$997 (then $1,167.30)</span><span class="when-eb">$1,167.30 (then $1,297)</span><span class="when-full">$1,297</span>, and the <strong>VIP 3-Pack</strong> is <span class="when-early">$3,397 (then $3,600)</span><span class="when-eb">$3,600 (then $4,000)</span><span class="when-full">$4,000</span>, After-Party included. There are ten GA packs and three VIP packs.</p><p>Send all three names and emails to <a href="mailto:jesse@thelivinginternet.com">jesse@thelivinginternet.com</a> by May 1, 2027. Each person gets their own year of Alliance membership, and the member 10% applies to packs too.</p></div>
         </details>
         </div>
       </div>
@@ -195,7 +196,7 @@
         <p class="option__label">The summit</p>
         <p class="option__title">Future-Proof Creator Summit 2027</p>
         <p class="option__body">June 4&ndash;6, 2027 in Abbotsford, BC, or live from anywhere.
-          <span class="when-early">Early-bird until January 1: in person from $397, virtual $147.</span><span class="when-full">In person from $497, virtual $197.</span></p>
+          <span class="when-early">Super-early-bird until December 31: in person from $397, virtual $147.</span><span class="when-eb">Early-bird until February 15: in person from $447.30, virtual $177.30.</span><span class="when-full">In person from $497, virtual $197.</span></p>
         <a href="/#tickets" class="btn btn--solid">Get tickets</a>
       </div>
       <div class="option">
